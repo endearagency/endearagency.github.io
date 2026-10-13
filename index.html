@@ -109,6 +109,7 @@ html[lang="th"] .h2{padding-top:.08em}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 26px;border-radius:999px;text-decoration:none;font-size:16px;font-weight:600;border:1px solid transparent;cursor:pointer}
 .btn.primary{background:var(--accent);color:var(--on-accent)}
 .btn.primary:hover{filter:brightness(.95)}
+.btn:disabled{opacity:.6;cursor:wait}
 .btn.ghost{border-color:var(--fg);font-weight:500}
 .btn.ghost:hover{background:var(--soft)}
 .btn.white{background:#FFFFFF;color:var(--fg)}
@@ -519,8 +520,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
         </div>
         <label class="field" for="fSvc"><span data-t="f.svc"></span><select id="fSvc"></select></label>
         <label class="field" for="fMsg"><span data-t="f.msg"></span><textarea id="fMsg" rows="4" data-tp="f.msg.ph"></textarea></label>
+        <input id="fHoney" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
         <button class="btn primary" type="submit" data-t="f.send"></button>
-        <p class="f-msg" id="fNote" hidden></p>
+        <p class="f-msg" id="fNote" hidden aria-live="polite"></p>
       </form>
     </div>
   </section>
@@ -657,7 +659,10 @@ var T = {
   'f.msg':['รายละเอียดโปรเจกต์','Project details'],
   'f.msg.ph':['เล่าโปรเจกต์คร่าวๆ งบประมาณ และกำหนดเวลา','A quick outline of the project, budget and timeline'],
   'f.send':['ส่งข้อความ','Send message'],
-  'f.note':['นี่คือเว็บเวอร์ชันทดสอบ ฟอร์มยังไม่ได้เชื่อมกับอีเมลจริง ข้อความนี้จึงยังไม่ถูกส่ง ระหว่างนี้ทักช่องทางด้านซ้ายได้เลย','This is a test version. The form isn’t connected to email yet, so this message wasn’t sent. Please use one of the channels on the left for now.'],
+  'f.need':['กรุณากรอกชื่อ อีเมล และรายละเอียดโปรเจกต์ให้ครบ','Please fill in your name, email and project details.'],
+  'f.sending':['กำลังส่ง...','Sending...'],
+  'f.ok':['ส่งข้อความแล้ว ขอบคุณค่ะ เราจะติดต่อกลับโดยเร็วที่สุด','Message sent. Thank you, we’ll get back to you soon.'],
+  'f.err':['ส่งไม่สำเร็จ ลองใหม่อีกครั้ง หรือทักช่องทางด้านซ้ายได้เลย','Couldn’t send your message. Please try again, or reach us on one of the channels on the left.'],
   'foot':['เอเจนซี่ดูแลโปรเจกต์สายอนิเมะ การ์ตูน และเกม','The project agency for anime, comics & games.'],
   's.ph':['ลองพิมพ์ เช่น สติกเกอร์, Live2D, พากย์เสียง','Try: sticker, Live2D, voice dubbing'],
   's.popular':['ยอดนิยม','POPULAR'],
@@ -936,7 +941,23 @@ function selectText(btn){ var s = btn.parentNode.querySelector('.cv, span, a'); 
 document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeMenus(); hideOverlays(); } });
 $('q').addEventListener('input', renderSearch);
 $('q').addEventListener('keydown', function(e){ if(e.key==='Enter'){ var f = $('sResults').querySelector('a'); if(f){ e.preventDefault(); f.click(); location.hash = f.getAttribute('href'); } } });
-$('form').addEventListener('submit', function(e){ e.preventDefault(); var n = $('fNote'); n.hidden = false; n.textContent = t('f.note'); });
+$('form').addEventListener('submit', function(e){
+  e.preventDefault();
+  var n = $('fNote'), btn = $('form').querySelector('button[type="submit"]');
+  var name = $('fName').value.trim(), email = $('fEmail').value.trim(), msg = $('fMsg').value.trim();
+  n.hidden = false;
+  if(!name || !email || !msg || email.indexOf('@') < 1){ n.textContent = t('f.need'); return; }
+  if($('fHoney').value){ return; }
+  btn.disabled = true; n.textContent = t('f.sending');
+  var svc = $('fSvc').options[$('fSvc').selectedIndex].text;
+  fetch('https://formsubmit.co/ajax/endear.atm@gmail.com', {
+    method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body: JSON.stringify({ name:name, email:email, service:svc, message:msg, _subject:'[endear] ข้อความใหม่จากเว็บ: '+svc, _replyto:email, _template:'table' })
+  }).then(function(r){ return r.json().catch(function(){ return {}; }).then(function(d){ if(!r.ok || d.success===false || d.success==='false') throw new Error('send'); }); })
+    .then(function(){ n.textContent = t('f.ok'); $('form').reset(); })
+    .catch(function(){ n.textContent = t('f.err'); })
+    .then(function(){ btn.disabled = false; });
+});
 
 document.querySelectorAll('[data-icon]').forEach(function(el){ el.innerHTML = icon(el.dataset.icon, +el.dataset.size||20); el.style.display='inline-flex'; });
 renderStatic(); renderAll(); renderSearch();
