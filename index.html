@@ -224,6 +224,8 @@ html[lang="th"] .h2{padding-top:.08em}
 .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:8px}
 .s-card{border-radius:20px;border:1px solid var(--line);overflow:hidden;background:var(--bg)}
 .s-card .ph{border-radius:0;height:170px}
+.card-img{display:block;width:100%;height:170px;object-fit:cover}
+.tile-img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px}
 .s-card .bd{padding:18px 20px 22px}
 .s-card h3{margin:0 0 6px;font-size:18px;font-weight:600}
 .s-card p{margin:0;font-size:14px;line-height:1.65;color:#4A4547}
@@ -718,7 +720,7 @@ var PUB = [
   { label:['พิมพ์','Printing'], title:['พิมพ์','Printing'], desc:['ประสานงานกับโรงพิมพ์จนได้เล่มจริงในมือ','We work with the printer until the finished book is in your hands.'], kw:'โรงพิมพ์ พิมพ์หนังสือ print' }
 ];
 var EVENTS = [
-  { title:['ประสานงานอีเวนต์','Event Coordination'], desc:['ช่วยประสานงานและดูแลงานอีเวนต์ร่วมกับคุณ','We help coordinate and look after your event alongside you.'], kw:'อีเวนต์ งานอีเวนต์ ประสานงาน event' },
+  { img:'event-cafe.jpg', alt:'Event cafe', title:['ประสานงานอีเวนต์','Event Coordination'], desc:['ช่วยประสานงานและดูแลงานอีเวนต์ร่วมกับคุณ','We help coordinate and look after your event alongside you.'], kw:'อีเวนต์ งานอีเวนต์ ประสานงาน event' },
   { title:['สตาฟประจำบูธ','Booth Staffing'], desc:['จัดหาสตาฟประจำบูธสำหรับงานแสดงสินค้าและงานอีเวนต์','Booth staff for trade shows and events.'], kw:'สตาฟ บูธ พนักงาน booth staff' },
   { title:['ผลิตสินค้าที่ระลึก','Merch Production'], desc:['ผลิตสินค้าที่ระลึกและ merchandise ตามแบบของคุณ','Souvenirs and merchandise made to your design.'], kw:'ของที่ระลึก สินค้า เมิร์ช merch' }
 ];
@@ -731,7 +733,7 @@ var CATS = [
     items:FAB.slice(0,5).map(function(f){ return [f.title,{}]; }) },
   { id:'publishing', title:SVC_OPTS[3][1], tint:'#F6EEE9', blurb:['ครบตั้งแต่ออกแบบ แปล จัดหน้า จนถึงโรงพิมพ์','Everything from design and translation to layout and printing.'],
     items:PUB.map(function(p,i){ return [p.title,{pub:i}]; }) },
-  { id:'events', title:SVC_OPTS[4][1], tint:'#F1EAF8', blurb:['ช่วยดูแลงานอีเวนต์ร่วมกับคุณ สตาฟบูธ และผลิตสินค้าที่ระลึก','Event support alongside your team, booth staff and merchandise production.'],
+  { id:'events', img:'event-cafe.jpg', title:SVC_OPTS[4][1], tint:'#F1EAF8', blurb:['ช่วยดูแลงานอีเวนต์ร่วมกับคุณ สตาฟบูธ และผลิตสินค้าที่ระลึก','Event support alongside your team, booth staff and merchandise production.'],
     items:EVENTS.map(function(e){ return [e.title,{}]; }) }
 ];
 var SVC_IDS = CATS.map(function(c){ return c.id; });
@@ -785,10 +787,10 @@ function renderStatic(){
       c.items.map(function(it){ return '<a href="#'+c.id+'" data-close data-set="'+setAttr(it[1])+'">'+esc(L(it[0]))+'</a>'; }).join('')+'</div></div>';
   }).join('');
   $('tiles').innerHTML = CATS.map(function(c,i){
-    return '<a class="tile" href="#'+c.id+'" style="background:'+c.tint+'"><span class="ph">'+phImg()+'</span><span class="tx"><span class="num">0'+(i+1)+'</span><b>'+esc(L(c.title))+'</b><span class="d">'+esc(L(c.blurb))+'</span><span class="more-link">'+t('tile.more')+'</span></span></a>';
+    return '<a class="tile" href="#'+c.id+'" style="background:'+c.tint+'">'+(c.img ? '<img class="tile-img" src="'+c.img+'" alt="" loading="lazy">' : '<span class="ph">'+phImg()+'</span>')+'<span class="tx"><span class="num">0'+(i+1)+'</span><b>'+esc(L(c.title))+'</b><span class="d">'+esc(L(c.blurb))+'</span><span class="more-link">'+t('tile.more')+'</span></span></a>';
   }).join('') + '<a class="tile other" href="#contact" data-set="'+setAttr({svc:'other'})+'"><span class="plus">+</span><span class="tx" style="padding:0"><b>'+t('tile.other.t')+'</b><span class="d">'+t('tile.other.d')+'</span><span class="more-link">'+t('tile.other.go')+'</span></span></a>';
   $('fabGrid').innerHTML = FAB.map(function(f){ return '<div class="s-card"><div class="ph">'+phImg()+'</div><div class="bd"><h3>'+esc(L(f.title))+'</h3><p>'+esc(L(f.desc))+'</p></div></div>'; }).join('');
-  $('evGrid').innerHTML = EVENTS.map(function(f){ return '<div class="s-card"><div class="ph">'+phImg()+'</div><div class="bd"><h3>'+esc(L(f.title))+'</h3><p>'+esc(L(f.desc))+'</p></div></div>'; }).join('');
+  $('evGrid').innerHTML = EVENTS.map(function(f){ return '<div class="s-card">'+(f.img ? '<img class="card-img" src="'+f.img+'" alt="'+esc(L(f.title))+'" loading="lazy">' : '<div class="ph">'+phImg()+'</div>')+'<div class="bd"><h3>'+esc(L(f.title))+'</h3><p>'+esc(L(f.desc))+'</p></div></div>'; }).join('');
   setMobile(!$('mobilePanel').hidden);
 }
 function talentList(){ var l = TALENTS.filter(function(x){ return st.filter==='All' || x.type===st.filter; }); return l.length ? l : TALENTS; }
