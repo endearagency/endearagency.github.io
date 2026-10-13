@@ -104,8 +104,9 @@ html[lang="th"] .h2{padding-top:.08em}
 .hero-row > div{flex:1 1 420px;max-width:660px;min-width:0}
 .hero-sub{margin:0 0 8px;font-size:20px;line-height:1.55;color:#3A3637}
 .hero-strip{display:grid;grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr));gap:12px;margin-top:40px}
-.hero-strip .ph{height:280px;border-radius:20px}
-@media (max-width:760px){.hero-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-strip .ph{height:150px}.hero-strip .ph:first-child{grid-column:1 / -1;height:210px}.hero-strip .ph:last-child{display:none}}
+.hero-strip .ph,.hero-strip .strip-img{height:280px;border-radius:20px}
+.strip-img{display:block;width:100%;object-fit:cover}
+@media (max-width:760px){.hero-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-strip > *{height:150px !important}.hero-strip > :first-child{grid-column:1 / -1;height:210px !important}.hero-strip > :last-child{display:none}}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 26px;border-radius:999px;text-decoration:none;font-size:16px;font-weight:600;border:1px solid transparent;cursor:pointer}
 .btn.primary{background:var(--accent);color:var(--on-accent)}
 .btn.primary:hover{filter:brightness(.95)}
@@ -361,7 +362,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
       </div>
       <a class="btn ghost" href="#services" data-t="hero.btn"></a>
     </div>
-    <div class="hero-strip" aria-hidden="true"><div class="ph"></div><div class="ph"></div><div class="ph"></div><div class="ph"></div></div>
+    <div class="hero-strip"><img class="strip-img" src="event-cafe.jpg" alt="Event cafe"><img class="strip-img" src="merch-2.jpg" alt="Merchandise"><div class="ph"></div><div class="ph"></div></div>
   </section>
 
   <div class="wrap"><div class="tiles" id="tiles"></div></div>
@@ -722,7 +723,7 @@ var PUB = [
 var EVENTS = [
   { img:'event-cafe.jpg', alt:'Event cafe', title:['ประสานงานอีเวนต์','Event Coordination'], desc:['ช่วยประสานงานและดูแลงานอีเวนต์ร่วมกับคุณ','We help coordinate and look after your event alongside you.'], kw:'อีเวนต์ งานอีเวนต์ ประสานงาน event' },
   { title:['สตาฟประจำบูธ','Booth Staffing'], desc:['จัดหาสตาฟประจำบูธสำหรับงานแสดงสินค้าและงานอีเวนต์','Booth staff for trade shows and events.'], kw:'สตาฟ บูธ พนักงาน booth staff' },
-  { title:['ผลิตสินค้าที่ระลึก','Merch Production'], desc:['ผลิตสินค้าที่ระลึกและ merchandise ตามแบบของคุณ','Souvenirs and merchandise made to your design.'], kw:'ของที่ระลึก สินค้า เมิร์ช merch' }
+  { img:'merch-1.jpg', title:['ผลิตสินค้าที่ระลึก','Merch Production'], desc:['ผลิตสินค้าที่ระลึกและ merchandise ตามแบบของคุณ','Souvenirs and merchandise made to your design.'], kw:'ของที่ระลึก สินค้า เมิร์ช merch' }
 ];
 var CATS = [
   { id:'talent', title:SVC_OPTS[0][1], tint:'#FBE7EE', blurb:['KOL, VTuber, MC และคอสเพลเยอร์ รับงานโปรโมต พากย์เสียง หรือคอลแลป ตามความถนัดของแต่ละคน','KOLs, VTubers, MCs and cosplayers for promotion, voice dubbing or collabs, depending on each person’s strengths.'],
