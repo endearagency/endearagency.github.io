@@ -207,6 +207,9 @@ html[lang="th"] .h2{padding-top:.08em}
 .t-card .ty{font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--muted)}
 .t-card .nm{font-family:'Outfit','Anuphan',sans-serif;font-size:20px;font-weight:600}
 .t-card .tg{font-size:13px;color:#4A4547}
+.t-card .fl{font-size:13px;font-weight:600;color:var(--accent)}
+.social b{font-weight:700;font-variant-numeric:tabular-nums}
+.mini .tot{color:var(--accent)}
 
 /* art */
 .art-desc{margin:18px 0;font-size:16px;line-height:1.7;color:#4A4547}
@@ -630,9 +633,11 @@ var T = {
   'tal.cards':['แบบการ์ด','Card gallery'],
   'tal.content':['แนวคอนเทนต์','CONTENT'],
   'tal.works':['งานที่รับ','AVAILABLE FOR'],
+  'tal.followers':['ผู้ติดตาม','FOLLOWERS'],
+  'tal.total':['รวม','total'],
   'tal.img':['ภาพทาเลนต์','Talent image'],
   'tal.swipe':['กดที่การ์ดเพื่อดูรายละเอียด · ปัดซ้าย-ขวาเพื่อดูคนอื่น','Tap a card for details · swipe to see more'],
-  'tal.note':['* รายชื่อและข้อมูลทาเลนต์ในหน้านี้เป็นตัวอย่างสมมติสำหรับทดสอบ','* Talent names and details on this page are fictional examples for testing.'],
+  'tal.note':['* รายชื่อและข้อมูลทาเลนต์ในหน้านี้เป็นตัวอย่างสมมติสำหรับทดสอบ · ยอดผู้ติดตาม ณ ต.ค. 2026','* Talent names and details on this page are fictional examples for testing · Follower counts as of Oct 2026'],
   'art.note':['งานที่เปิดเผยภาพไม่ได้ (NDA) แสดงเป็นการ์ดกราฟิกแทน','Work under NDA is shown as a graphic card instead.'],
   'art.sample':['ตัวอย่างผลงาน','Sample work'],
   'art.conf':['งานลับ (NDA)','Confidential project'],
@@ -689,12 +694,12 @@ var SVC_OPTS = [
 var WORKS = { promo:['โปรโมต','Promotion'], dub:['พากย์เสียง','Voice Dubbing'], collab:['คอลแลป','Collab'], mc:['พิธีกรงานอีเวนต์','Event MC'], guest:['แขกรับเชิญงานอีเวนต์','Event Guest'] };
 var TYPES = { All:['ทั้งหมด','All'], VTuber:['VTuber','VTuber'], KOL:['KOL','KOL'], MC:['MC','MC'], Cosplayer:['คอสเพลเยอร์','Cosplayer'] };
 var TALENTS = [
-  { id:'mika', name:'Mika Hoshino', short:'Mika', ini:'MH', type:'VTuber', color:'#E6DEFB', tags:['#Gaming','#Horror','#Karaoke'], works:['promo','dub','collab'], links:['YouTube','X','Twitch'], quote:['เล่นเกมสยองขวัญกับคนดูทุกคืนวันศุกร์ เกมใหม่ส่งมาได้เลย!','Horror games with my chat every Friday night. Send your new games my way!'] },
-  { id:'ploy', name:'Ploy Review', short:'Ploy', ini:'PR', type:'KOL', color:'#FFE3D6', tags:['#Review','#Gadget','#Unboxing'], works:['promo','collab'], links:['TikTok','YouTube','Instagram'], quote:['รีวิวตรงๆ แบบที่อยากให้เพื่อนฟัง','Honest reviews, the way I’d tell a friend.'] },
-  { id:'rin', name:'Rin Kurogane', short:'Rin', ini:'RK', type:'VTuber', color:'#DCEBFA', tags:['#ASMR','#Story','#VoiceActing'], works:['dub','collab'], links:['YouTube','X'], quote:['งานพากย์เสียงตัวละครคือสิ่งที่ถนัดที่สุด','Character voice acting is what I do best.'] },
-  { id:'tonkla', name:'Tonkla', short:'Tonkla', ini:'TK', type:'MC', color:'#E3F1DF', tags:['#Event','#Stage','#Bilingual'], works:['mc','promo'], links:['Facebook','Instagram'], quote:['พิธีกรได้ทั้งไทยและอังกฤษ ขอแค่มีเวที','I host in Thai and English. Just give me a stage.'] },
-  { id:'aya', name:'Aya Cos', short:'Aya', ini:'AC', type:'Cosplayer', color:'#FBDDE8', tags:['#Cosplay','#Photoshoot','#Booth'], works:['promo','guest','collab'], links:['Instagram','X','TikTok'], quote:['แต่งเป็นตัวละครของคุณให้มีชีวิตบนเวที','I bring your characters to life on stage.'] },
-  { id:'nut', name:'Nut Plays', short:'Nut', ini:'NP', type:'KOL', color:'#FFF0C9', tags:['#Gaming','#FPS','#Live'], works:['promo','collab'], links:['Twitch','YouTube','TikTok'], quote:['สตรีมเกมยิงทุกวัน คนดูสายเกมแท้','Daily FPS streams for a real gaming crowd.'] }
+  { id:'mika', name:'Mika Hoshino', short:'Mika', ini:'MH', type:'VTuber', color:'#E6DEFB', tags:['#Gaming','#Horror','#Karaoke'], works:['promo','dub','collab'], links:[['YouTube',125000],['X',48000],['Twitch',32000]], quote:['เล่นเกมสยองขวัญกับคนดูทุกคืนวันศุกร์ เกมใหม่ส่งมาได้เลย!','Horror games with my chat every Friday night. Send your new games my way!'] },
+  { id:'ploy', name:'Ploy Review', short:'Ploy', ini:'PR', type:'KOL', color:'#FFE3D6', tags:['#Review','#Gadget','#Unboxing'], works:['promo','collab'], links:[['TikTok',310000],['YouTube',86000],['Instagram',54000]], quote:['รีวิวตรงๆ แบบที่อยากให้เพื่อนฟัง','Honest reviews, the way I’d tell a friend.'] },
+  { id:'rin', name:'Rin Kurogane', short:'Rin', ini:'RK', type:'VTuber', color:'#DCEBFA', tags:['#ASMR','#Story','#VoiceActing'], works:['dub','collab'], links:[['YouTube',72000],['X',39000]], quote:['งานพากย์เสียงตัวละครคือสิ่งที่ถนัดที่สุด','Character voice acting is what I do best.'] },
+  { id:'tonkla', name:'Tonkla', short:'Tonkla', ini:'TK', type:'MC', color:'#E3F1DF', tags:['#Event','#Stage','#Bilingual'], works:['mc','promo'], links:[['Facebook',21000],['Instagram',15000]], quote:['พิธีกรได้ทั้งไทยและอังกฤษ ขอแค่มีเวที','I host in Thai and English. Just give me a stage.'] },
+  { id:'aya', name:'Aya Cos', short:'Aya', ini:'AC', type:'Cosplayer', color:'#FBDDE8', tags:['#Cosplay','#Photoshoot','#Booth'], works:['promo','guest','collab'], links:[['Instagram',98000],['X',61000],['TikTok',140000]], quote:['แต่งเป็นตัวละครของคุณให้มีชีวิตบนเวที','I bring your characters to life on stage.'] },
+  { id:'nut', name:'Nut Plays', short:'Nut', ini:'NP', type:'KOL', color:'#FFF0C9', tags:['#Gaming','#FPS','#Live'], works:['promo','collab'], links:[['Twitch',45000],['YouTube',112000],['TikTok',205000]], quote:['สตรีมเกมยิงทุกวัน คนดูสายเกมแท้','Daily FPS streams for a real gaming crowd.'] }
 ];
 var ART = [
   { label:['สติกเกอร์ LINE','LINE Sticker'], icon:'sticker', bg:'#FFF0C9', desc:['สติกเกอร์ไลน์ทั้งแบบนิ่งและแบบเคลื่อนไหว','Static and animated LINE stickers.'], kw:'สติกเกอร์ สติ๊กเกอร์ ไลน์ sticker' },
@@ -794,13 +799,15 @@ function renderStatic(){
   $('evGrid').innerHTML = EVENTS.map(function(f){ return '<div class="s-card">'+(f.img ? '<img class="card-img" src="'+f.img+'" alt="'+esc(L(f.title))+'" loading="lazy">' : '<div class="ph">'+phImg()+'</div>')+'<div class="bd"><h3>'+esc(L(f.title))+'</h3><p>'+esc(L(f.desc))+'</p></div></div>'; }).join('');
   setMobile(!$('mobilePanel').hidden);
 }
+function fmtN(n){ if(n>=1e6) return (Math.round(n/1e5)/10)+'M'; if(n>=1e4) return Math.round(n/1e3)+'K'; if(n>=1e3) return (Math.round(n/100)/10)+'K'; return String(n); }
+function totalF(x){ return x.links.reduce(function(a,l){ return a+l[1]; },0); }
 function talentList(){ var l = TALENTS.filter(function(x){ return st.filter==='All' || x.type===st.filter; }); return l.length ? l : TALENTS; }
 function infoHTML(x, idAttr){
   return '<span class="type-badge">'+esc(L(TYPES[x.type]))+'</span><h3'+(idAttr?' id="'+idAttr+'"':'')+'>'+esc(x.name)+'</h3>'+
     '<div><p class="mini">'+t('tal.content')+'</p><div class="row">'+x.tags.map(function(g){ return '<span class="tag">'+esc(g)+'</span>'; }).join('')+'</div></div>'+
     '<div><p class="mini">'+t('tal.works')+'</p><div class="row">'+x.works.map(function(w){ return '<span class="work">'+esc(L(WORKS[w]))+'</span>'; }).join('')+'</div></div>'+
     '<blockquote class="quote">“'+esc(L(x.quote))+'”</blockquote>'+
-    '<div class="row">'+x.links.map(function(s){ return '<a class="social" href="#talent">'+esc(s)+' ↗</a>'; }).join('')+'</div>';
+    '<div><p class="mini">'+t('tal.followers')+' · <span class="tot">'+t('tal.total')+' '+fmtN(totalF(x))+'</span></p><div class="row">'+x.links.map(function(l){ return '<a class="social" href="#talent">'+esc(l[0])+' <b>'+fmtN(l[1])+'</b> ↗</a>'; }).join('')+'</div></div>';
 }
 function renderTalent(){
   $('filters').innerHTML = Object.keys(TYPES).map(function(k){ return '<button class="chip" data-filter="'+k+'" aria-pressed="'+(st.filter===k)+'">'+esc(L(TYPES[k]))+'</button>'; }).join('');
@@ -809,7 +816,7 @@ function renderTalent(){
   $('talentSelect').innerHTML = '<div class="stage"><div class="stage-art" style="background:'+cur.color+'"><span class="ini" aria-hidden="true">'+cur.ini+'</span><span class="lbl">'+t('tal.img')+'</span></div><div class="stage-info">'+infoHTML(cur)+'</div>'+
     '<div class="roster" role="group">'+list.map(function(x){ return '<button class="r-btn" data-pick="'+x.id+'" aria-pressed="'+(x.id===cur.id)+'"><span class="r-face" style="background:'+x.color+'">'+x.ini+'</span><span class="nm">'+esc(x.short)+'</span></button>'; }).join('')+'</div></div>';
   $('talentCards').innerHTML = '<div class="cards">'+list.map(function(x){
-    return '<button class="t-card" data-open="'+x.id+'"><span class="face" style="background:'+x.color+'" aria-hidden="true">'+x.ini+'</span><span class="body"><span class="ty">'+esc(L(TYPES[x.type]))+'</span><span class="nm">'+esc(x.name)+'</span><span class="tg">'+x.tags.join('  ')+'</span></span></button>';
+    return '<button class="t-card" data-open="'+x.id+'"><span class="face" style="background:'+x.color+'" aria-hidden="true">'+x.ini+'</span><span class="body"><span class="ty">'+esc(L(TYPES[x.type]))+'</span><span class="nm">'+esc(x.name)+'</span><span class="tg">'+x.tags.join('  ')+'</span><span class="fl">'+t('tal.followers')+' '+fmtN(totalF(x))+' · '+x.links.map(function(l){ return esc(l[0]); }).join(' · ')+'</span></span></button>';
   }).join('')+'</div><p class="note">'+t('tal.swipe')+'</p>';
   $('talentSelect').hidden = st.mode!=='select';
   $('talentCards').hidden = st.mode!=='cards';
@@ -895,7 +902,7 @@ addIdx(['ร่วมเป็นพาร์ทเนอร์','Partner with u
 addIdx(['วิธีการทำงาน','How we work'], ['endear','endear'], '#how', 'ขั้นตอน ประสานงาน เอกสาร project manager process', {});
 addIdx(['เกี่ยวกับเรา','About endear'], ['endear','endear'], '#about', 'ผู้ก่อตั้ง ประวัติ ทีม เรา about founder story who', {});
 addIdx(['ติดต่อเรา','Get in touch'], ['ติดต่อ','Contact'], '#contact', 'line ไลน์ facebook เฟซบุ๊ก discord email อีเมล โทร เบอร์ phone tel contact', {});
-TALENTS.forEach(function(x){ addIdx([x.name,x.name], ['ทาเลนต์ · '+TYPES[x.type][0], 'Talent · '+x.type], '#talent', x.tags.join(' '), {filter:'All', sel:x.id, mode:'select'}); });
+TALENTS.forEach(function(x){ addIdx([x.name,x.name], ['ทาเลนต์ · '+TYPES[x.type][0], 'Talent · '+x.type], '#talent', x.tags.join(' ')+' '+x.links.map(function(k){ return k[0]; }).join(' '), {filter:'All', sel:x.id, mode:'select'}); });
 var POPULAR = ['LINE Sticker','Live2D & Rigging','VTuber','Voice Dubbing','Printing','UV Printing'];
 function renderSearch(){
   var q = $('q').value.trim().toLowerCase();
