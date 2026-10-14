@@ -44,6 +44,8 @@ button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .wrap{max-width:var(--wrap);margin:0 auto;padding-inline:20px}
 section,[id]{scroll-margin-top:84px}
+p,li,blockquote,.lead,.d,.tg{text-wrap:pretty}
+.nw{white-space:nowrap}
 h1,h2,h3{text-wrap:balance}
 .eyebrow{margin:0 0 12px;font-size:13px;font-weight:600;letter-spacing:.12em;color:var(--accent);text-transform:uppercase}
 .h2{margin:0 0 12px;font-size:clamp(30px,4vw,48px);line-height:1.12;font-weight:600;letter-spacing:-.02em}
@@ -954,6 +956,7 @@ function renderTalent(){
   $('talentSelect').hidden = st.mode!=='select';
   $('talentCards').hidden = st.mode!=='cards';
   updCardNav();
+  fixWrap($('talent'));
   document.querySelectorAll('[data-mode]').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.mode===st.mode); });
 }
 function openModal(id){
@@ -1013,9 +1016,28 @@ function applySet(o){
   if(o.svc) $('fSvc').value = o.svc;
   renderAll();
 }
+/* keep loanwords whole (TH) and avoid stranded words (EN) */
+var NOWRAP_TH = ['อินฟลูเอนเซอร์','ซัพพลายเออร์','คอสเพลเยอร์','ฟรีแลนซ์','โปรเจกต์','แอนิเมชัน','พาร์ทเนอร์','คอนเทนต์','สติกเกอร์','เอเจนซี่','ทาเลนต์','อีเวนต์','ออนไลน์','โปรโมต','คอลแลบ','สิ่งพิมพ์','ที่ระลึก','งานผลิต','เครือข่าย','พื้นผิว','ประสบการณ์','ผู้ติดตาม'];
+var NOWRAP_RE = new RegExp('('+NOWRAP_TH.join('|')+')');
+function fixWrap(root){
+  var w = document.createTreeWalker(root||document.body, NodeFilter.SHOW_TEXT, { acceptNode: function(n){ var p=n.parentNode; if(!p || p.closest('script,style,textarea,select,option,.nw,svg')) return NodeFilter.FILTER_REJECT; return n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; } });
+  var nodes=[]; while(w.nextNode()) nodes.push(w.currentNode);
+  nodes.forEach(function(n){
+    var v = n.nodeValue;
+    if(st.lang==='en'){
+      var nv = v.replace(/([.?!]) ([A-Za-z’']{1,8}) /g, '$1 $2\u00a0');
+      if(n === n.parentNode.lastChild) nv = nv.replace(/ (\S{1,14}\s*)$/, '\u00a0$1');
+      if(nv !== v) n.nodeValue = nv;
+    } else if(NOWRAP_RE.test(v) && !/flex|grid/.test(getComputedStyle(n.parentNode).display)){
+      var parts = v.split(NOWRAP_RE), frag = document.createDocumentFragment();
+      parts.forEach(function(s, i){ if(!s) return; if(i%2){ var sp=document.createElement('span'); sp.className='nw'; sp.textContent=s; frag.appendChild(sp); } else frag.appendChild(document.createTextNode(s)); });
+      n.parentNode.replaceChild(frag, n);
+    }
+  });
+}
 function setLang(l){
   st.lang = l; try{ localStorage.setItem('endear-lang', l); }catch(e){}
-  renderStatic(); renderAll(); renderSearch();
+  renderStatic(); renderAll(); renderSearch(); fixWrap();
 }
 
 /* ---------- search ---------- */
@@ -1120,7 +1142,7 @@ function updCardNav(){ var c=document.querySelector('#talentCards .cards'); if(!
   tc.addEventListener('scroll', function(){ updCardNav(); }, true);
   window.addEventListener('resize', updCardNav);
 })();
-renderStatic(); renderAll(); renderSearch();
+renderStatic(); renderAll(); renderSearch(); fixWrap();
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce || !('IntersectionObserver' in window)) return;
