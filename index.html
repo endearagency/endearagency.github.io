@@ -274,7 +274,7 @@ html[lang="th"] .h2{padding-top:.08em}
 .avatar .alt{opacity:0;transform:scale(.92)}
 .avatar:hover .main,.avatar.on .main{opacity:0;transform:scale(.92)}
 .avatar:hover .alt,.avatar.on .alt{opacity:1;transform:scale(1)}
-.av-in{position:absolute;inset:0;border-radius:24px;overflow:hidden;background:#FFFFFF;box-shadow:inset 0 0 0 1px var(--line);animation:boing 3.2s ease-in-out infinite;transform-origin:50% 85%}
+.av-in{position:absolute;inset:0;border-radius:24px;overflow:hidden;background-color:#FFFFFF;box-shadow:inset 0 0 0 1px var(--line);animation:boing 3.2s ease-in-out infinite;transform-origin:50% 85%}
 @keyframes boing{0%,62%,100%{transform:translateY(0) scale(1,1)}68%{transform:translateY(0) scale(1.06,.94)}76%{transform:translateY(-14px) scale(.96,1.05)}84%{transform:translateY(0) scale(1.04,.96)}90%{transform:translateY(-4px) scale(.99,1.01)}96%{transform:translateY(0) scale(1,1)}}
 
 .avatar.pop .av-in{animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
@@ -284,19 +284,18 @@ html[lang="th"] .h2{padding-top:.08em}
 .spk.s2{top:20%;right:12%;width:12px;height:12px;animation-delay:.8s;background:#B9A6D9}
 .spk.s3{bottom:16%;right:18%;width:14px;height:14px;animation-delay:1.6s}
 .av-burst{position:absolute;inset:-14%;pointer-events:none;opacity:0;z-index:0;clip-path:inset(0 0 11% 0);
-  background:repeating-conic-gradient(from 3deg, var(--accent) 0 1.2deg, transparent 1.2deg 10deg);
-  -webkit-mask:radial-gradient(closest-side, #000 70%, transparent 100%);mask:radial-gradient(closest-side, #000 70%, transparent 100%)}
+  background:repeating-conic-gradient(from 3deg, #EDB33C 0 1.3deg, transparent 1.3deg 10deg);
+  -webkit-mask:radial-gradient(closest-side, transparent 6%, #000 22%, #000 72%, transparent 100%);mask:radial-gradient(closest-side, transparent 6%, #000 22%, #000 72%, transparent 100%)}
+.av-in{transition:background-color .3s ease, box-shadow .3s ease}
+.avatar.burst .av-in{background-color:transparent;box-shadow:none}
 .avatar .av-in{z-index:1}
 .avatar:hover .av-in{animation:none}
 .avatar.hov .av-in{animation:boing 3.2s ease-in-out -1.95s 1}
 .avatar .spk{z-index:2}
-.avatar.burst .av-burst{animation:aura 1.4s cubic-bezier(.25,.6,.35,1) forwards}
-.av-burst.in{inset:-20%;z-index:0;clip-path:none;-webkit-mask:radial-gradient(closest-side, transparent 8%, #000 28%, #000 75%, transparent 100%);mask:radial-gradient(closest-side, transparent 8%, #000 28%, #000 75%, transparent 100%)}
-.avatar.burst .av-burst.in{animation:auraIn 1.4s cubic-bezier(.25,.6,.35,1) forwards}
-@keyframes auraIn{0%{opacity:0;transform:scale(.25)}15%{opacity:.85}70%{opacity:.7}100%{opacity:0;transform:scale(1.15)}}
+.avatar.burst .av-burst{animation:aura 1.4s cubic-bezier(.25,.6,.35,1) .35s both}
 .av-in img{z-index:1}
-@keyframes aura{0%{opacity:0;transform:scale(.6)}15%{opacity:.9}70%{opacity:.8}100%{opacity:0;transform:scale(1.06)}}
-@media (prefers-reduced-motion: reduce){.avatar.burst .av-burst,.avatar.burst .av-burst.in{animation:none}}
+@keyframes aura{0%{opacity:0;transform:scale(.25)}12%{opacity:.95}70%{opacity:.85}100%{opacity:0;transform:scale(1.06)}}
+@media (prefers-reduced-motion: reduce){.avatar.burst .av-burst{animation:none}}
 @keyframes twinkle{0%,100%{opacity:0;transform:scale(.3) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
 .avatar.pop .spk{animation:burst .6s ease-out}
 @keyframes burst{0%{opacity:1;transform:scale(.4)}50%{opacity:1;transform:scale(1.6) rotate(90deg)}100%{opacity:0;transform:scale(.6) rotate(180deg)}}
@@ -544,7 +543,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
   <section id="about" class="wrap about">
     <div class="about-grid">
       <div class="about-photo">
-        <button class="avatar" id="avatarBtn" type="button" data-ta="ab.flip"><span class="av-burst" aria-hidden="true"></span><span class="av-in"><span class="av-burst in" aria-hidden="true"></span><img class="main" src="avatar-plai.png" alt=""><img class="alt" src="avatar-plai-alt.png" alt=""></span><i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></button>
+        <button class="avatar" id="avatarBtn" type="button" data-ta="ab.flip"><span class="av-burst" aria-hidden="true"></span><span class="av-in"><img class="main" src="avatar-plai.png" alt=""><img class="alt" src="avatar-plai-alt.png" alt=""></span><i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></button>
         <div class="who"><b data-t="ab.name"></b><span data-t="ab.role"></span></div>
       </div>
       <div class="about-text">
@@ -1066,8 +1065,8 @@ $('form').addEventListener('submit', function(e){
 });
 
 document.querySelectorAll('[data-icon]').forEach(function(el){ el.innerHTML = icon(el.dataset.icon, +el.dataset.size||20); el.style.display='inline-flex'; });
-function avatarFx(el){ el.classList.remove('pop','burst'); void el.offsetWidth; el.classList.add('pop','burst'); clearTimeout(el._fx); el._fx=setTimeout(function(){ el.classList.remove('pop','burst'); }, 1500); }
-(function(){ var a=document.getElementById('avatarBtn'); if(a && window.matchMedia && window.matchMedia('(hover:hover)').matches){ a.addEventListener('mouseenter', function(){ a.classList.remove('hov','burst'); void a.offsetWidth; a.classList.add('hov','burst'); clearTimeout(a._fx); a._fx=setTimeout(function(){ a.classList.remove('burst'); }, 1500); }); a.addEventListener('mouseleave', function(){ a.classList.remove('hov'); }); } })();
+function avatarFx(el){ el.classList.remove('pop','burst'); void el.offsetWidth; el.classList.add('pop','burst'); clearTimeout(el._fx); el._fx=setTimeout(function(){ el.classList.remove('pop','burst'); }, 1900); }
+(function(){ var a=document.getElementById('avatarBtn'); if(a && window.matchMedia && window.matchMedia('(hover:hover)').matches){ a.addEventListener('mouseenter', function(){ a.classList.remove('hov','burst'); void a.offsetWidth; a.classList.add('hov','burst'); clearTimeout(a._fx); a._fx=setTimeout(function(){ a.classList.remove('burst'); }, 1900); }); a.addEventListener('mouseleave', function(){ a.classList.remove('hov'); }); } })();
 (function(){ var sky=document.getElementById('sky'); if(!sky) return; var cols=['#D6336C','#B9A6D9','#F2A7C1','#F6C453'];
   for(var i=0;i<26;i++){ var e=document.createElement('i'); var sz=8+Math.random()*12;
     e.style.cssText='left:'+(Math.random()*100)+'%;top:'+(8+Math.random()*90)+'%;width:'+sz+'px;height:'+sz+'px;background:'+cols[i%cols.length]+';--d:'+(10+Math.random()*10).toFixed(1)+'s;--dl:-'+(Math.random()*16).toFixed(1)+'s;--o:'+(0.35+Math.random()*0.4).toFixed(2);
