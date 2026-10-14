@@ -264,10 +264,12 @@ html[lang="th"] .h2{padding-top:.08em}
 
 /* about */
 .about{padding-bottom:88px}
-.about-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:start}
+.about-grid{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:56px;align-items:start}
 @media (max-width:860px){.about-grid{grid-template-columns:minmax(0,1fr);gap:28px}}
-.about-photo{display:flex;flex-direction:column;gap:14px}
-.about-img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center 22%;border-radius:24px;background:var(--ph)}
+.about-photo{display:flex;flex-direction:column;gap:14px;padding-top:44px}
+@media (max-width:860px){.about-photo{padding-top:0}}
+.about-img{display:block;width:100%;max-width:280px;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:center 20%;border-radius:24px;background:var(--ph)}
+@media (max-width:860px){.about-img{max-width:200px}}
 .about-photo .who b{display:block;font-size:20px;font-weight:600}
 .about-photo .who span{display:block;font-size:14px;color:var(--muted)}
 .about-text p{margin:0 0 16px;font-size:17px;line-height:1.8;color:#3A3637;max-width:640px}
