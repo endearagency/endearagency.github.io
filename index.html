@@ -269,6 +269,13 @@ html[lang="th"] .h2{padding-top:.08em}
 .about-photo{display:flex;flex-direction:column;gap:14px;padding-top:44px}
 @media (max-width:860px){.about-photo{padding-top:0}}
 .about-img{display:block;width:100%;max-width:280px;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:center 20%;border-radius:24px;background:var(--ph)}
+.avatar{position:relative;display:block;width:100%;max-width:280px;aspect-ratio:1/1;padding:0;border:none;border-radius:24px;background:#FFFFFF;box-shadow:inset 0 0 0 1px var(--line);cursor:pointer;overflow:hidden}
+.avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .35s ease, transform .35s ease}
+.avatar .alt{opacity:0;transform:scale(.92)}
+.avatar:hover .main,.avatar.on .main{opacity:0;transform:scale(.92)}
+.avatar:hover .alt,.avatar.on .alt{opacity:1;transform:scale(1)}
+.avatar-hint{font-size:12px;color:var(--faint)}
+@media (max-width:860px){.avatar{max-width:200px}}
 @media (max-width:860px){.about-img{max-width:200px}}
 .about-photo .who b{display:block;font-size:20px;font-weight:600}
 .about-photo .who span{display:block;font-size:14px;color:var(--muted)}
@@ -493,8 +500,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
   <section id="about" class="wrap about">
     <div class="about-grid">
       <div class="about-photo">
-        <img class="about-img" src="about.jpg" alt="ปลาย · endear" width="900" height="1200">
-        <div class="who"><b data-t="ab.name"></b><span data-t="ab.role"></span></div>
+        <button class="avatar" id="avatarBtn" type="button" data-ta="ab.flip"><img class="main" src="avatar-plai.jpg" alt=""><img class="alt" src="avatar-plai-alt.jpg" alt=""></button>
+        <div class="who"><b data-t="ab.name"></b><span data-t="ab.role"></span><span class="avatar-hint" data-t="ab.flip"></span></div>
       </div>
       <div class="about-text">
         <p class="eyebrow" data-t="ab.eyebrow"></p>
@@ -591,6 +598,7 @@ var T = {
   'ab.eyebrow':['เกี่ยวกับเรา','About endear'],
   'ab.h2':['ดูแลด้วยใจ<br>ทั้งลูกค้าและพาร์ทเนอร์','Caring for every client<br>and every partner.'],
   'ab.name':['ปลาย','Plai'],
+  'ab.flip':['แตะที่รูปเพื่อแปลงร่าง','Tap the picture to transform'],
   'ab.role':['ผู้ก่อตั้งและผู้จัดการโปรเจกต์','Founder & Project Manager'],
   'ab.p1':['endear ก่อตั้งโดย ปลาย ผู้อยู่ในวงการอนิเมะ เกม และการ์ตูนมา 10 ปี จากความชื่นชอบ สู่การเปิดเพจข่าวสารด้านอนิเมะ เกม และการ์ตูนตั้งแต่อายุ 20 ก่อนจะก้าวมาทำงานในสายนี้ และดูแลโปรเจกต์ให้ลูกค้าอย่างต่อเนื่องมา 6 ปี','endear was founded by Plai, who has spent 10 years in the anime, games and comics scene. What began as a passion became a news page covering all three, started at 20, and led to a career in the industry, with 6 years of managing client projects since.'],
   'ab.p2':['มีประสบการณ์ดูแลโปรเจกต์ด้วยตัวเอง ตั้งแต่งานเล็กมูลค่าหลักพัน ไปจนถึงโปรเจกต์ใหญ่มูลค่าหลักล้าน เฉพาะในนาม endear ดูแลไปแล้วกว่า 30 โปรเจกต์ และลูกค้าของเราไว้วางใจให้เราดูแลอย่างต่อเนื่อง','Plai has personally managed everything from small projects worth a few thousand baht to large ones worth millions. Under the endear name alone, that’s more than 30 projects, and our clients keep trusting us with their work.'],
@@ -977,6 +985,7 @@ document.addEventListener('click', function(e){
   if(el.dataset.open){ openModal(el.dataset.open); return; }
   if(el.dataset.art!==undefined){ st.art = +el.dataset.art; renderArt(); return; }
   if(el.dataset.pub!==undefined){ st.pub = +el.dataset.pub; renderPub(); return; }
+  if(el.id==='avatarBtn'){ el.classList.toggle('on'); return; }
   if(el.id==='pubPrev'){ st.pub = (st.pub+PUB.length-1)%PUB.length; renderPub(); return; }
   if(el.id==='pubNext'){ st.pub = (st.pub+1)%PUB.length; renderPub(); return; }
   if(el.dataset.copy!==undefined){
