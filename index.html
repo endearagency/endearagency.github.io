@@ -331,6 +331,16 @@ html[lang="th"] .h2{padding-top:.08em}
 .c-nav.prev{left:-14px}.c-nav.next{right:-14px}
 .c-nav[disabled]{opacity:0;pointer-events:none}
 @media (max-width:640px){.c-nav.prev{left:-6px}.c-nav.next{right:-6px}}
+.stage{background:linear-gradient(140deg,#FDEEF3 0%,#F8F1F7 100%)}
+.type-badge{background:var(--accent);color:#fff}
+.work{border-color:var(--accent);color:var(--accent)}
+.stage .quote{background:#fff;border-left:4px solid var(--accent)}
+.stage .tag{background:#fff}
+.social{transition:background-color .2s ease, transform .2s ease}
+.social:hover{background:var(--accent);transform:translateY(-2px)}
+.ftot{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;margin-bottom:12px}
+.ftot b{font-family:'Outfit','Anuphan',sans-serif;font-size:clamp(40px,5vw,56px);line-height:1;font-weight:700;color:var(--accent);letter-spacing:-.02em}
+.ftot span{font-size:15px;font-weight:600;color:var(--fg)}
 .fact span{font-size:14px;line-height:1.5;color:#4A4547}
 
 /* creators */
@@ -734,6 +744,7 @@ var T = {
   'tal.agency':['สังกัด','Agency:'],
   'tal.followers':['ผู้ติดตาม','FOLLOWERS'],
   'tal.total':['รวม','total'],
+  'tal.totalall':['รวมทุกช่องทาง','across all platforms'],
   'tal.img':['ภาพทาเลนต์','Talent image'],
   'tal.swipe':['กดที่การ์ดเพื่อดูรายละเอียด · กดลูกศรซ้าย-ขวาเพื่อดูคนอื่น','Tap a card for details · use the arrows to see more'],
   'tal.prev':['ก่อนหน้า','Previous'],
@@ -919,7 +930,7 @@ function infoHTML(x, idAttr){
     '<div><p class="mini">'+t('tal.content')+'</p><div class="row">'+x.tags.map(function(g){ return '<span class="tag">'+esc(g)+'</span>'; }).join('')+'</div></div>'+
     '<div><p class="mini">'+t('tal.works')+'</p><div class="row">'+x.works.map(function(w){ return '<span class="work">'+esc(L(WORKS[w]))+'</span>'; }).join('')+'</div></div>'+
     '<blockquote class="quote">“'+esc(L(x.quote))+'”</blockquote>'+
-    '<div><p class="mini">'+t('tal.followers')+(totalF(x) ? ' · <span class="tot">'+t('tal.total')+' '+fmtN(totalF(x))+'</span>' : '')+'</p><div class="row">'+x.links.map(function(l){ return '<a class="social" href="'+(l[2]||'#talent')+'"'+(l[2]?' target="_blank" rel="noopener"':'')+'>'+esc(l[0])+(l[1]?' <b>'+fmtN(l[1])+'</b>':'')+' ↗</a>'; }).join('')+'</div></div>';
+    '<div><p class="mini">'+t('tal.followers')+'</p>'+(totalF(x) ? '<div class="ftot"><b>'+fmtN(totalF(x))+'</b><span>'+t('tal.totalall')+'</span></div>' : '')+'<div class="row">'+x.links.map(function(l){ return '<a class="social" href="'+(l[2]||'#talent')+'"'+(l[2]?' target="_blank" rel="noopener"':'')+'>'+esc(l[0])+(l[1]?' <b>'+fmtN(l[1])+'</b>':'')+' ↗</a>'; }).join('')+'</div></div>';
 }
 function renderTalent(){
   var used = []; TALENTS.forEach(function(x){ langsOf(x).forEach(function(c){ if(used.indexOf(c)===-1) used.push(c); }); });
