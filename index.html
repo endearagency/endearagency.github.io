@@ -274,7 +274,19 @@ html[lang="th"] .h2{padding-top:.08em}
 .avatar .alt{opacity:0;transform:scale(.92)}
 .avatar:hover .main,.avatar.on .main{opacity:0;transform:scale(.92)}
 .avatar:hover .alt,.avatar.on .alt{opacity:1;transform:scale(1)}
-.avatar-hint{font-size:12px;color:var(--faint)}
+.av-in{position:absolute;inset:0;animation:boing 3.2s ease-in-out infinite;transform-origin:50% 85%}
+@keyframes boing{0%,62%,100%{transform:translateY(0) scale(1,1)}68%{transform:translateY(0) scale(1.06,.94)}76%{transform:translateY(-14px) scale(.96,1.05)}84%{transform:translateY(0) scale(1.04,.96)}90%{transform:translateY(-4px) scale(.99,1.01)}96%{transform:translateY(0) scale(1,1)}}
+.avatar:hover .av-in{animation-duration:1.1s}
+.avatar.pop .av-in{animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{0%{transform:scale(.8) rotate(-6deg)}60%{transform:scale(1.08) rotate(3deg)}100%{transform:scale(1) rotate(0)}}
+.spk{position:absolute;width:18px;height:18px;background:var(--accent);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);animation:twinkle 2.4s ease-in-out infinite;pointer-events:none}
+.spk.s1{top:14%;left:12%}
+.spk.s2{top:20%;right:12%;width:12px;height:12px;animation-delay:.8s;background:#B9A6D9}
+.spk.s3{bottom:16%;right:18%;width:14px;height:14px;animation-delay:1.6s}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.3) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.avatar.pop .spk{animation:burst .6s ease-out}
+@keyframes burst{0%{opacity:1;transform:scale(.4)}50%{opacity:1;transform:scale(1.6) rotate(90deg)}100%{opacity:0;transform:scale(.6) rotate(180deg)}}
+@media (prefers-reduced-motion: reduce){.av-in,.spk{animation:none !important}.spk{opacity:.8}}
 @media (max-width:860px){.avatar{max-width:200px}}
 @media (max-width:860px){.about-img{max-width:200px}}
 .about-photo .who b{display:block;font-size:20px;font-weight:600}
@@ -500,8 +512,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
   <section id="about" class="wrap about">
     <div class="about-grid">
       <div class="about-photo">
-        <button class="avatar" id="avatarBtn" type="button" data-ta="ab.flip"><img class="main" src="avatar-plai.jpg" alt=""><img class="alt" src="avatar-plai-alt.jpg" alt=""></button>
-        <div class="who"><b data-t="ab.name"></b><span data-t="ab.role"></span><span class="avatar-hint" data-t="ab.flip"></span></div>
+        <button class="avatar" id="avatarBtn" type="button" data-ta="ab.flip"><span class="av-in"><img class="main" src="avatar-plai.jpg" alt=""><img class="alt" src="avatar-plai-alt.jpg" alt=""></span><i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></button>
+        <div class="who"><b data-t="ab.name"></b><span data-t="ab.role"></span></div>
       </div>
       <div class="about-text">
         <p class="eyebrow" data-t="ab.eyebrow"></p>
@@ -598,7 +610,7 @@ var T = {
   'ab.eyebrow':['เกี่ยวกับเรา','About endear'],
   'ab.h2':['ดูแลด้วยใจ<br>ทั้งลูกค้าและพาร์ทเนอร์','Caring for every client<br>and every partner.'],
   'ab.name':['ปลาย','Plai'],
-  'ab.flip':['แตะที่รูปเพื่อแปลงร่าง','Tap the picture to transform'],
+  'ab.flip':['อวาตาร์ของปลาย','Plai’s avatar'],
   'ab.role':['ผู้ก่อตั้งและผู้จัดการโปรเจกต์','Founder & Project Manager'],
   'ab.p1':['endear ก่อตั้งโดย ปลาย ผู้อยู่ในวงการอนิเมะ เกม และการ์ตูนมา 10 ปี จากความชื่นชอบ สู่การเปิดเพจข่าวสารด้านอนิเมะ เกม และการ์ตูนตั้งแต่อายุ 20 ก่อนจะก้าวมาทำงานในสายนี้ และดูแลโปรเจกต์ให้ลูกค้าอย่างต่อเนื่องมา 6 ปี','endear was founded by Plai, who has spent 10 years in the anime, games and comics scene. What began as a passion became a news page covering all three, started at 20, and led to a career in the industry, with 6 years of managing client projects since.'],
   'ab.p2':['มีประสบการณ์ดูแลโปรเจกต์ด้วยตัวเอง ตั้งแต่งานเล็กมูลค่าหลักพัน ไปจนถึงโปรเจกต์ใหญ่มูลค่าหลักล้าน เฉพาะในนาม endear ดูแลไปแล้วกว่า 30 โปรเจกต์ และลูกค้าของเราไว้วางใจให้เราดูแลอย่างต่อเนื่อง','Plai has personally managed everything from small projects worth a few thousand baht to large ones worth millions. Under the endear name alone, that’s more than 30 projects, and our clients keep trusting us with their work.'],
@@ -985,7 +997,7 @@ document.addEventListener('click', function(e){
   if(el.dataset.open){ openModal(el.dataset.open); return; }
   if(el.dataset.art!==undefined){ st.art = +el.dataset.art; renderArt(); return; }
   if(el.dataset.pub!==undefined){ st.pub = +el.dataset.pub; renderPub(); return; }
-  if(el.id==='avatarBtn'){ el.classList.toggle('on'); return; }
+  if(el.id==='avatarBtn'){ el.classList.toggle('on'); el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); setTimeout(function(){ el.classList.remove('pop'); }, 650); return; }
   if(el.id==='pubPrev'){ st.pub = (st.pub+PUB.length-1)%PUB.length; renderPub(); return; }
   if(el.id==='pubNext'){ st.pub = (st.pub+1)%PUB.length; renderPub(); return; }
   if(el.dataset.copy!==undefined){
