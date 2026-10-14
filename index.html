@@ -107,10 +107,14 @@ html[lang="th"] .h2{padding-top:.08em}
 .hero-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between;margin-top:30px}
 .hero-row > div{flex:1 1 420px;max-width:660px;min-width:0}
 .hero-sub{margin:0 0 8px;font-size:20px;line-height:1.55;color:#3A3637}
-.hero-strip{display:grid;grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr));gap:12px;margin-top:40px}
-.hero-strip .ph,.hero-strip .strip-img{height:280px;border-radius:20px}
+.hero-strip{--sk:44px;--gap:8px;display:flex;height:300px;margin-top:40px;border-radius:24px;overflow:hidden}
+.hero-strip > *{flex:1 1 0;min-width:0;height:100% !important;border-radius:0 !important;margin-left:calc(var(--gap) - var(--sk));clip-path:polygon(var(--sk) 0,100% 0,calc(100% - var(--sk)) 100%,0 100%);transition:flex-grow .5s cubic-bezier(.3,.7,.3,1)}
+.hero-strip > :first-child{flex-grow:1.7;margin-left:0;clip-path:polygon(0 0,100% 0,calc(100% - var(--sk)) 100%,0 100%)}
+.hero-strip > :last-child{clip-path:polygon(var(--sk) 0,100% 0,100% 100%,0 100%)}
+.hero-strip > :hover{flex-grow:1.6}
+.hero-strip > :first-child:hover{flex-grow:2.2}
+@media (max-width:760px){.hero-strip{--sk:26px;--gap:6px;height:200px;border-radius:18px}.hero-strip > .ph:last-child{display:none}.hero-strip > :nth-last-child(2){clip-path:polygon(var(--sk) 0,100% 0,100% 100%,0 100%)}}
 .strip-img{display:block;width:100%;object-fit:cover}
-@media (max-width:760px){.hero-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-strip > *{height:150px !important}.hero-strip > :first-child{grid-column:1 / -1;height:210px !important}.hero-strip > :last-child{display:none}}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 26px;border-radius:999px;text-decoration:none;font-size:16px;font-weight:600;border:1px solid transparent;cursor:pointer}
 .btn.primary{background:var(--accent);color:var(--on-accent)}
 .btn.primary:hover{filter:brightness(.95)}
