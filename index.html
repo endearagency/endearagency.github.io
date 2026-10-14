@@ -269,20 +269,30 @@ html[lang="th"] .h2{padding-top:.08em}
 .about-photo{display:flex;flex-direction:column;gap:14px;padding-top:44px}
 @media (max-width:860px){.about-photo{padding-top:0}}
 .about-img{display:block;width:100%;max-width:280px;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:center 20%;border-radius:24px;background:var(--ph)}
-.avatar{position:relative;display:block;width:100%;max-width:280px;aspect-ratio:1/1;padding:0;border:none;border-radius:24px;background:#FFFFFF;box-shadow:inset 0 0 0 1px var(--line);cursor:pointer;overflow:hidden}
+.avatar{position:relative;display:block;width:100%;max-width:280px;aspect-ratio:1/1;padding:0;border:none;border-radius:24px;background:transparent;cursor:pointer;overflow:visible}
 .avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .35s ease, transform .35s ease}
 .avatar .alt{opacity:0;transform:scale(.92)}
 .avatar:hover .main,.avatar.on .main{opacity:0;transform:scale(.92)}
 .avatar:hover .alt,.avatar.on .alt{opacity:1;transform:scale(1)}
-.av-in{position:absolute;inset:0;animation:boing 3.2s ease-in-out infinite;transform-origin:50% 85%}
+.av-in{position:absolute;inset:0;border-radius:24px;overflow:hidden;background:#FFFFFF;box-shadow:inset 0 0 0 1px var(--line);animation:boing 3.2s ease-in-out infinite;transform-origin:50% 85%}
 @keyframes boing{0%,62%,100%{transform:translateY(0) scale(1,1)}68%{transform:translateY(0) scale(1.06,.94)}76%{transform:translateY(-14px) scale(.96,1.05)}84%{transform:translateY(0) scale(1.04,.96)}90%{transform:translateY(-4px) scale(.99,1.01)}96%{transform:translateY(0) scale(1,1)}}
-.avatar:hover .av-in{animation:none}
+
 .avatar.pop .av-in{animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
 @keyframes pop{0%{transform:scale(.8) rotate(-6deg)}60%{transform:scale(1.08) rotate(3deg)}100%{transform:scale(1) rotate(0)}}
 .spk{position:absolute;width:18px;height:18px;background:var(--accent);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);animation:twinkle 2.4s ease-in-out infinite;pointer-events:none}
 .spk.s1{top:14%;left:12%}
 .spk.s2{top:20%;right:12%;width:12px;height:12px;animation-delay:.8s;background:#B9A6D9}
 .spk.s3{bottom:16%;right:18%;width:14px;height:14px;animation-delay:1.6s}
+.av-burst{position:absolute;inset:-25%;pointer-events:none;opacity:0;z-index:0;
+  background:repeating-conic-gradient(from 3deg, var(--accent) 0 1.6deg, transparent 1.6deg 9deg),repeating-conic-gradient(from 7deg, #F6C453 0 1deg, transparent 1deg 13deg);
+  -webkit-mask:radial-gradient(closest-side, transparent 52%, #000 64%, #000 78%, transparent 100%);mask:radial-gradient(closest-side, transparent 52%, #000 64%, #000 78%, transparent 100%)}
+.avatar .av-in{z-index:1}
+.avatar:hover .av-in{animation:none}
+.avatar.hov .av-in{animation:boing 3.2s ease-in-out -1.95s 1}
+.avatar .spk{z-index:2}
+.avatar.burst .av-burst{animation:aura .75s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes aura{0%{opacity:0;transform:scale(.45) rotate(0)}25%{opacity:1}100%{opacity:0;transform:scale(1.35) rotate(6deg)}}
+@media (prefers-reduced-motion: reduce){.avatar.burst .av-burst{animation:none}}
 @keyframes twinkle{0%,100%{opacity:0;transform:scale(.3) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
 .avatar.pop .spk{animation:burst .6s ease-out}
 @keyframes burst{0%{opacity:1;transform:scale(.4)}50%{opacity:1;transform:scale(1.6) rotate(90deg)}100%{opacity:0;transform:scale(.6) rotate(180deg)}}
@@ -530,7 +540,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
   <section id="about" class="wrap about">
     <div class="about-grid">
       <div class="about-photo">
-        <button class="avatar" id="avatarBtn" type="button" data-ta="ab.flip"><span class="av-in"><img class="main" src="avatar-plai.jpg" alt=""><img class="alt" src="avatar-plai-alt.jpg" alt=""></span><i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></button>
+        <button class="avatar" id="avatarBtn" type="button" data-ta="ab.flip"><span class="av-burst" aria-hidden="true"></span><span class="av-in"><img class="main" src="avatar-plai.jpg" alt=""><img class="alt" src="avatar-plai-alt.jpg" alt=""></span><i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></button>
         <div class="who"><b data-t="ab.name"></b><span data-t="ab.role"></span></div>
       </div>
       <div class="about-text">
@@ -1015,7 +1025,7 @@ document.addEventListener('click', function(e){
   if(el.dataset.open){ openModal(el.dataset.open); return; }
   if(el.dataset.art!==undefined){ st.art = +el.dataset.art; renderArt(); return; }
   if(el.dataset.pub!==undefined){ st.pub = +el.dataset.pub; renderPub(); return; }
-  if(el.id==='avatarBtn'){ el.classList.toggle('on'); el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); setTimeout(function(){ el.classList.remove('pop'); }, 650); return; }
+  if(el.id==='avatarBtn'){ el.classList.toggle('on'); avatarFx(el); return; }
   if(el.id==='pubPrev'){ st.pub = (st.pub+PUB.length-1)%PUB.length; renderPub(); return; }
   if(el.id==='pubNext'){ st.pub = (st.pub+1)%PUB.length; renderPub(); return; }
   if(el.dataset.copy!==undefined){
@@ -1052,6 +1062,8 @@ $('form').addEventListener('submit', function(e){
 });
 
 document.querySelectorAll('[data-icon]').forEach(function(el){ el.innerHTML = icon(el.dataset.icon, +el.dataset.size||20); el.style.display='inline-flex'; });
+function avatarFx(el){ el.classList.remove('pop','burst'); void el.offsetWidth; el.classList.add('pop','burst'); clearTimeout(el._fx); el._fx=setTimeout(function(){ el.classList.remove('pop','burst'); }, 800); }
+(function(){ var a=document.getElementById('avatarBtn'); if(a && window.matchMedia && window.matchMedia('(hover:hover)').matches){ a.addEventListener('mouseenter', function(){ a.classList.remove('hov','burst'); void a.offsetWidth; a.classList.add('hov','burst'); clearTimeout(a._fx); a._fx=setTimeout(function(){ a.classList.remove('burst'); }, 800); }); a.addEventListener('mouseleave', function(){ a.classList.remove('hov'); }); } })();
 (function(){ var sky=document.getElementById('sky'); if(!sky) return; var cols=['#D6336C','#B9A6D9','#F2A7C1','#F6C453'];
   for(var i=0;i<26;i++){ var e=document.createElement('i'); var sz=8+Math.random()*12;
     e.style.cssText='left:'+(Math.random()*100)+'%;top:'+(8+Math.random()*90)+'%;width:'+sz+'px;height:'+sz+'px;background:'+cols[i%cols.length]+';--d:'+(10+Math.random()*10).toFixed(1)+'s;--dl:-'+(Math.random()*16).toFixed(1)+'s;--o:'+(0.35+Math.random()*0.4).toFixed(2);
