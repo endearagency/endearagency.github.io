@@ -221,7 +221,7 @@ html[lang="th"] .h2{padding-top:.08em}
 .r-btn .nm{font-size:12px;font-weight:500;max-width:74px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cards{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;margin-top:20px}
 .t-card{flex:0 0 236px;scroll-snap-align:start;text-align:left;border:1px solid var(--line);border-radius:20px;background:var(--bg);padding:0;cursor:pointer;overflow:hidden}
-.t-card:hover{border-color:var(--fg)}
+
 .t-card .face{display:flex;align-items:center;justify-content:center;height:280px;font-family:'Outfit',sans-serif;font-size:70px;font-weight:700;color:rgba(21,19,20,.14)}
 .t-card .body{display:flex;flex-direction:column;gap:6px;padding:16px 18px 20px}
 .t-card .ty{font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--muted)}
@@ -318,6 +318,15 @@ html[lang="th"] .h2{padding-top:.08em}
 .tile{transition:transform .25s ease, box-shadow .25s ease;}
 .tile:hover{transform:translateY(-6px);box-shadow:0 14px 30px -14px rgba(214,51,108,.35)}
 @media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none}.tile:hover{transform:translateY(-2px)}}
+.cards-wrap{position:relative;margin-top:8px}
+.cards{padding:12px 2px 30px;margin-top:0;scrollbar-width:none;align-items:stretch}
+.cards::-webkit-scrollbar{display:none}
+.t-card{display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch}
+.c-nav{position:absolute;top:calc(50% - 30px);z-index:3;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px -8px rgba(21,19,20,.35);transition:opacity .2s ease, transform .2s ease}
+.c-nav:hover{transform:scale(1.08);border-color:var(--accent);color:var(--accent)}
+.c-nav.prev{left:-14px}.c-nav.next{right:-14px}
+.c-nav[disabled]{opacity:0;pointer-events:none}
+@media (max-width:640px){.c-nav.prev{left:-6px}.c-nav.next{right:-6px}}
 .fact span{font-size:14px;line-height:1.5;color:#4A4547}
 
 /* creators */
@@ -363,12 +372,10 @@ main,footer{position:relative;z-index:1}
 .stage-img{animation:enter .55s cubic-bezier(.3,1.5,.5,1)}
 @keyframes enter{0%{opacity:0;transform:scale(.85) translateY(10px)}100%{opacity:1;transform:none}}
 .r-btn:hover .r-face{animation:hop .5s ease}
-.r-btn[aria-pressed="true"] .r-face{box-shadow:0 0 0 3px var(--accent)}
+
 @keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-8px) scale(1.04,.96)}70%{transform:translateY(0) scale(.97,1.03)}}
 .t-card{transition:transform .2s ease, box-shadow .2s ease}
-.t-card:hover{transform:translateY(-6px) rotate(-.6deg);box-shadow:0 14px 30px rgba(214,51,108,.14)}
-.t-card .face img{transition:transform .3s ease}
-.t-card:hover .face img{transform:scale(1.05)}
+.t-card:hover{transform:translateY(-6px);box-shadow:0 14px 30px -14px rgba(214,51,108,.35)}
 @media (prefers-reduced-motion: reduce){#sky{display:none}.stage-img,.r-btn:hover .r-face{animation:none}.t-card:hover{transform:none}}
 
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding-block:28px;font-size:14px;color:var(--faint)}
@@ -724,7 +731,9 @@ var T = {
   'tal.followers':['ผู้ติดตาม','FOLLOWERS'],
   'tal.total':['รวม','total'],
   'tal.img':['ภาพทาเลนต์','Talent image'],
-  'tal.swipe':['กดที่การ์ดเพื่อดูรายละเอียด · ปัดซ้าย-ขวาเพื่อดูคนอื่น','Tap a card for details · swipe to see more'],
+  'tal.swipe':['กดที่การ์ดเพื่อดูรายละเอียด · กดลูกศรซ้าย-ขวาเพื่อดูคนอื่น','Tap a card for details · use the arrows to see more'],
+  'tal.prev':['ก่อนหน้า','Previous'],
+  'tal.next':['ถัดไป','Next'],
   'tal.note':['* รายชื่อและข้อมูลทาเลนต์ในหน้านี้เป็นตัวอย่างสมมติสำหรับทดสอบ · ยอดผู้ติดตาม ณ ต.ค. 2026','* Talent names and details on this page are fictional examples for testing · Follower counts as of Oct 2026'],
   'art.note':['งานที่เปิดเผยภาพไม่ได้ (NDA) แสดงเป็นการ์ดกราฟิกแทน','Work under NDA is shown as a graphic card instead.'],
   'art.sample':['ตัวอย่างผลงาน','Sample work'],
@@ -917,11 +926,12 @@ function renderTalent(){
   var cur = list.filter(function(x){ return x.id===st.sel; })[0] || list[0];
   $('talentSelect').innerHTML = '<div class="stage"><div class="stage-art" style="background:'+cur.color+'">'+(cur.img ? '<img class="stage-img" src="'+cur.img+'" alt="'+esc(cur.name)+'">' : '<span class="ini" aria-hidden="true">'+cur.ini+'</span><span class="lbl">'+t('tal.img')+'</span>')+'<i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></div><div class="stage-info">'+infoHTML(cur)+'</div>'+
     '<div class="roster" role="group">'+list.map(function(x){ return '<button class="r-btn" data-pick="'+x.id+'" aria-pressed="'+(x.id===cur.id)+'"><span class="r-face" style="background:'+x.color+'">'+(x.face ? '<img src="'+x.face+'" alt="">' : x.ini)+'</span><span class="nm">'+esc(x.short)+'</span></button>'; }).join('')+'</div></div>';
-  $('talentCards').innerHTML = '<div class="cards">'+list.map(function(x){
+  $('talentCards').innerHTML = '<div class="cards-wrap"><button class="c-nav prev" type="button" data-cnav="-1" aria-label="'+t('tal.prev')+'">←</button><div class="cards">'+list.map(function(x){
     return '<button class="t-card" data-open="'+x.id+'"><span class="face" style="background:'+x.color+'" aria-hidden="true">'+(x.card ? '<img class="cover" src="'+x.card+'" alt="" loading="lazy">' : x.img ? '<img src="'+x.img+'" alt="" loading="lazy">' : x.ini)+'</span><span class="body"><span class="ty">'+esc(L(TYPES[x.type]))+affText(x)+' · '+langsOf(x).map(function(c){ return c.toUpperCase(); }).join('/')+'</span><span class="nm">'+esc(x.name)+'</span><span class="tg">'+x.tags.join('  ')+'</span><span class="fl">'+(totalF(x) ? t('tal.followers')+' '+fmtN(totalF(x))+' · ' : '')+x.links.map(function(l){ return esc(l[0]); }).join(' · ')+'</span></span></button>';
-  }).join('')+'</div><p class="note">'+t('tal.swipe')+'</p>';
+  }).join('')+'</div><button class="c-nav next" type="button" data-cnav="1" aria-label="'+t('tal.next')+'">→</button></div><p class="note">'+t('tal.swipe')+'</p>';
   $('talentSelect').hidden = st.mode!=='select';
   $('talentCards').hidden = st.mode!=='cards';
+  updCardNav();
   document.querySelectorAll('[data-mode]').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.mode===st.mode); });
 }
 function openModal(id){
@@ -1080,6 +1090,14 @@ function avatarFx(el){ el.classList.remove('pop','burst'); void el.offsetWidth; 
   for(var i=0;i<26;i++){ var e=document.createElement('i'); var sz=8+Math.random()*12;
     e.style.cssText='left:'+(Math.random()*100)+'%;top:'+(8+Math.random()*90)+'%;width:'+sz+'px;height:'+sz+'px;background:'+cols[i%cols.length]+';--d:'+(10+Math.random()*10).toFixed(1)+'s;--dl:-'+(Math.random()*16).toFixed(1)+'s;--o:'+(0.35+Math.random()*0.4).toFixed(2);
     sky.appendChild(e); } })();
+function updCardNav(){ var c=document.querySelector('#talentCards .cards'); if(!c) return; var pv=document.querySelector('#talentCards .c-nav.prev'), nx=document.querySelector('#talentCards .c-nav.next');
+  pv.disabled = c.scrollLeft < 4; nx.disabled = c.scrollLeft + c.clientWidth >= c.scrollWidth - 4; }
+(function(){ var tc=document.getElementById('talentCards'); if(!tc) return;
+  tc.addEventListener('click', function(e){ var b=e.target.closest('[data-cnav]'); if(!b) return; var c=tc.querySelector('.cards'); var card=c.querySelector('.t-card'); var step=card ? card.offsetWidth+16 : 250;
+    var n=Math.max(1, Math.floor(c.clientWidth/step)); c.scrollBy({left:+b.dataset.cnav*step*n, behavior:'smooth'}); });
+  tc.addEventListener('scroll', function(){ updCardNav(); }, true);
+  window.addEventListener('resize', updCardNav);
+})();
 renderStatic(); renderAll(); renderSearch();
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
