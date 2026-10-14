@@ -350,6 +350,20 @@ html[lang="th"] .h2{padding-top:.08em}
 .how-card:nth-child(4) .ic{background:#DFF2E7;color:#2E8A57}
 .step .n{background:var(--accent)}
 .step:not(:last-child)::before{background:repeating-linear-gradient(to bottom,#F0B9CB 0 5px,transparent 5px 10px)}
+.t-more{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px}
+.tf{display:inline-flex;align-items:center;min-height:36px;padding-left:14px;border:1px solid #D9D3D5;border-radius:999px;background:var(--bg);font-size:13px;cursor:pointer;transition:border-color .2s ease}
+.tf:hover{border-color:var(--fg)}
+.tf > span{color:var(--faint);font-weight:600;white-space:nowrap}
+.tf select{appearance:none;-webkit-appearance:none;border:0;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23151314' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center;font:inherit;font-weight:500;color:var(--fg);min-height:34px;padding:0 32px 0 6px;cursor:pointer;max-width:190px;text-overflow:ellipsis}
+.tf select:focus{outline:none}
+.tf:focus-within{box-shadow:0 0 0 2px var(--accent)}
+.tf.on{background:var(--dark);border-color:var(--dark)}
+.tf.on > span{color:rgba(255,255,255,.7)}
+.tf.on select{color:#fff;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")}
+.tf select option{color:var(--fg);background:#fff}
+@media (max-width:640px){.t-more{display:grid;grid-template-columns:1fr 1fr}.tf{flex-direction:column;align-items:flex-start;padding:6px 0 0 14px;border-radius:16px}.tf select{width:100%;max-width:none;padding-left:0;min-height:30px}.t-clear{grid-column:1 / -1;justify-self:start}}
+.t-clear{border:0;background:none;padding:6px 8px;font:inherit;font-size:13px;font-weight:600;color:var(--accent);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.t-empty{display:flex;flex-direction:column;align-items:flex-start;gap:12px;margin-top:20px;padding:40px 28px;border-radius:24px;background:var(--soft);font-size:16px;color:#4A4547}
 .fact span{font-size:14px;line-height:1.5;color:#4A4547}
 
 /* creators */
@@ -532,6 +546,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
           </div>
           <div class="chips" id="filters" role="group" aria-label="Filter"></div>
           <div class="chips lang-row" id="langFilters" role="group" aria-label="Language"></div>
+          <div class="t-more" id="moreFilters" role="group" aria-label="More filters"></div>
           <div id="talentSelect"></div>
           <div id="talentCards" hidden></div>
           <p class="note" data-t="tal.note"></p>
@@ -749,6 +764,13 @@ var T = {
   'tal.indie':['อิสระ (ไม่มีสังกัด)','Independent'],
   'tal.lang':['ภาษา','Language'],
   'tal.alllang':['ทุกภาษา','All'],
+  'tal.f.tag':['แท็ก','Tag'],
+  'tal.f.work':['งานที่รับ','Service'],
+  'tal.f.aff':['สังกัด','Agency'],
+  'tal.f.fol':['ผู้ติดตาม','Followers'],
+  'tal.f.any':['ทั้งหมด','Any'],
+  'tal.clear':['ล้างตัวกรอง','Clear filters'],
+  'tal.none':['ยังไม่มีทาเลนต์ที่ตรงกับตัวกรองนี้ ลองเปลี่ยนตัวเลือกดูนะ','No talent matches these filters yet. Try changing them.'],
   'tal.speaks':['พูด','Speaks'],
   'tal.agency':['สังกัด','Agency:'],
   'tal.followers':['ผู้ติดตาม','FOLLOWERS'],
@@ -882,7 +904,7 @@ var ICONS = {
 function icon(k, size, sw){ return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+(sw||(size>40?1.4:2))+'" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block">'+(ICONS[k]||'')+'</svg>'; }
 
 /* ---------- state ---------- */
-var st = { lang:'th', tlang:'all', filter:'All', sel:'hanami', mode:'select', art:0, pub:0, open:{} };
+var st = { lang:'th', tlang:'all', filter:'All', tag:'all', work:'all', aff:'all', fol:'all', sel:'hanami', mode:'select', art:0, pub:0, open:{} };
 try{ var saved = localStorage.getItem('endear-lang'); if(saved==='th'||saved==='en') st.lang = saved; }catch(e){}
 function li(){ return st.lang==='en' ? 1 : 0; }
 function L(pair){ return Array.isArray(pair) ? pair[li()] : pair; }
@@ -927,7 +949,26 @@ function totalF(x){ return x.links.reduce(function(a,l){ return a+(l[1]||0); },0
 var TLANGS = { th:['ไทย','Thai'], en:['อังกฤษ','English'], jp:['ญี่ปุ่น','Japanese'], cn:['จีน','Chinese'], kr:['เกาหลี','Korean'] };
 function langsOf(x){ return x.langs || ['th']; }
 function langText(x){ return langsOf(x).map(function(c){ return L(TLANGS[c]||[c,c]); }).join(', '); }
-function talentList(){ var l = TALENTS.filter(function(x){ return (st.filter==='All' || x.type===st.filter) && (st.tlang==='all' || langsOf(x).indexOf(st.tlang)!==-1); }); return l.length ? l : TALENTS; }
+var FRANGES = [['s',0,1e4,['ต่ำกว่า 10K','Under 10K']],['m',1e4,1e5,['10K–100K','10K–100K']],['l',1e5,5e5,['100K–500K','100K–500K']],['xl',5e5,1e6,['500K–1M','500K–1M']],['xxl',1e6,Infinity,['1M ขึ้นไป','1M+']]];
+function affKey(x){ return !x.aff ? '' : x.aff==='indie' ? 'indie' : x.aff.name; }
+function talentList(){ var R = FRANGES.filter(function(r){ return r[0]===st.fol; })[0];
+  return TALENTS.filter(function(x){ return (st.filter==='All' || x.type===st.filter) && (st.tlang==='all' || langsOf(x).indexOf(st.tlang)!==-1)
+    && (st.tag==='all' || x.tags.indexOf(st.tag)!==-1) && (st.work==='all' || x.works.indexOf(st.work)!==-1)
+    && (st.aff==='all' || affKey(x)===st.aff) && (!R || (totalF(x)>=R[1] && totalF(x)<R[2])); }); }
+function renderMoreFilters(){
+  var tags=[], works=[], affs=[];
+  TALENTS.forEach(function(x){ x.tags.forEach(function(g){ if(tags.indexOf(g)===-1) tags.push(g); }); x.works.forEach(function(w){ if(works.indexOf(w)===-1) works.push(w); }); var a=affKey(x); if(a && affs.indexOf(a)===-1) affs.push(a); });
+  tags.sort(function(a,b){ return a.localeCompare(b); });
+  affs.sort(function(a,b){ return a==='indie' ? -1 : b==='indie' ? 1 : a.localeCompare(b); });
+  function sel(key, label, opts){ var v=st[key]; return '<label class="tf'+(v!=='all'?' on':'')+'"><span>'+label+'</span><select data-tf="'+key+'"><option value="all">'+t('tal.f.any')+'</option>'+opts.map(function(o){ return '<option value="'+esc(o[0])+'"'+(o[0]===v?' selected':'')+'>'+esc(o[1])+'</option>'; }).join('')+'</select></label>'; }
+  var any = st.filter!=='All' || st.tlang!=='all' || st.tag!=='all' || st.work!=='all' || st.aff!=='all' || st.fol!=='all';
+  $('moreFilters').innerHTML =
+    sel('tag', t('tal.f.tag'), tags.map(function(g){ return [g,g]; })) +
+    sel('work', t('tal.f.work'), Object.keys(WORKS).filter(function(k){ return works.indexOf(k)!==-1; }).map(function(k){ return [k, L(WORKS[k])]; })) +
+    sel('aff', t('tal.f.aff'), affs.map(function(a){ return [a, a==='indie' ? t('tal.indie') : a]; })) +
+    sel('fol', t('tal.f.fol'), FRANGES.map(function(r){ return [r[0], L(r[3])]; })) +
+    (any ? '<button class="t-clear" type="button" data-tclear>'+t('tal.clear')+'</button>' : '');
+}
 function affHTML(x){
   if(!x.aff) return '';
   if(x.aff==='indie') return '<span class="aff">'+t('tal.indie')+'</span>';
@@ -946,7 +987,15 @@ function renderTalent(){
   $('langFilters').hidden = used.length < 2;
   $('langFilters').innerHTML = '<span class="lang-lbl">'+t('tal.lang')+'</span>'+['all'].concat(used).map(function(c){ return '<button class="chip sm" data-tlang="'+c+'" aria-pressed="'+(st.tlang===c)+'">'+esc(c==='all' ? t('tal.alllang') : L(TLANGS[c]||[c,c]))+'</button>'; }).join('');
   $('filters').innerHTML = Object.keys(TYPES).map(function(k){ return '<button class="chip" data-filter="'+k+'" aria-pressed="'+(st.filter===k)+'">'+esc(L(TYPES[k]))+'</button>'; }).join('');
+  renderMoreFilters();
   var list = talentList();
+  if(!list.length){
+    var em = '<div class="t-empty"><span>'+t('tal.none')+'</span><button class="chip sm" type="button" data-tclear>'+t('tal.clear')+'</button></div>';
+    $('talentSelect').innerHTML = em; $('talentCards').innerHTML = em;
+    $('talentSelect').hidden = st.mode!=='select'; $('talentCards').hidden = st.mode!=='cards';
+    document.querySelectorAll('[data-mode]').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.mode===st.mode); });
+    return;
+  }
   var cur = list.filter(function(x){ return x.id===st.sel; })[0] || list[0];
   $('talentSelect').innerHTML = '<div class="stage"><div class="stage-art" style="background:'+cur.color+'">'+(cur.img ? '<img class="stage-img" src="'+cur.img+'" alt="'+esc(cur.name)+'">' : '<span class="ini" aria-hidden="true">'+cur.ini+'</span><span class="lbl">'+t('tal.img')+'</span>')+'<i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></div><div class="stage-info">'+infoHTML(cur)+'</div>'+
     '<div class="roster" role="group">'+list.map(function(x){ return '<button class="r-btn" data-pick="'+x.id+'" aria-pressed="'+(x.id===cur.id)+'"><span class="r-face" style="background:'+x.color+'">'+(x.face ? '<img src="'+x.face+'" alt="">' : x.ini)+'</span><span class="nm">'+esc(x.short)+'</span></button>'; }).join('')+'</div></div>';
@@ -1141,6 +1190,10 @@ function updCardNav(){ var c=document.querySelector('#talentCards .cards'); if(!
     var n=Math.max(1, Math.floor(c.clientWidth/step)); c.scrollBy({left:+b.dataset.cnav*step*n, behavior:'smooth'}); });
   tc.addEventListener('scroll', function(){ updCardNav(); }, true);
   window.addEventListener('resize', updCardNav);
+})();
+(function(){ var sec=document.getElementById('talent'); if(!sec) return;
+  sec.addEventListener('change', function(e){ var s=e.target.closest('[data-tf]'); if(!s) return; st[s.dataset.tf]=s.value; renderTalent(); var n=document.querySelector('[data-tf="'+s.dataset.tf+'"]'); if(n) n.focus(); });
+  sec.addEventListener('click', function(e){ if(!e.target.closest('[data-tclear]')) return; st.filter='All'; st.tlang='all'; st.tag='all'; st.work='all'; st.aff='all'; st.fol='all'; renderTalent(); });
 })();
 renderStatic(); renderAll(); renderSearch(); fixWrap();
 (function(){
