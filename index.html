@@ -291,8 +291,12 @@ html[lang="th"] .h2{padding-top:.08em}
 .avatar.hov .av-in{animation:boing 3.2s ease-in-out -1.95s 1}
 .avatar .spk{z-index:2}
 .avatar.burst .av-burst{animation:aura 1.4s cubic-bezier(.25,.6,.35,1) forwards}
+.av-burst.in{inset:-20%;z-index:0;clip-path:none;-webkit-mask:radial-gradient(closest-side, transparent 8%, #000 28%, #000 75%, transparent 100%);mask:radial-gradient(closest-side, transparent 8%, #000 28%, #000 75%, transparent 100%)}
+.avatar.burst .av-burst.in{animation:auraIn 1.4s cubic-bezier(.25,.6,.35,1) forwards}
+@keyframes auraIn{0%{opacity:0;transform:scale(.25)}15%{opacity:.85}70%{opacity:.7}100%{opacity:0;transform:scale(1.15)}}
+.av-in img{z-index:1}
 @keyframes aura{0%{opacity:0;transform:scale(.6)}15%{opacity:.9}70%{opacity:.8}100%{opacity:0;transform:scale(1.06)}}
-@media (prefers-reduced-motion: reduce){.avatar.burst .av-burst{animation:none}}
+@media (prefers-reduced-motion: reduce){.avatar.burst .av-burst,.avatar.burst .av-burst.in{animation:none}}
 @keyframes twinkle{0%,100%{opacity:0;transform:scale(.3) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
 .avatar.pop .spk{animation:burst .6s ease-out}
 @keyframes burst{0%{opacity:1;transform:scale(.4)}50%{opacity:1;transform:scale(1.6) rotate(90deg)}100%{opacity:0;transform:scale(.6) rotate(180deg)}}
@@ -540,7 +544,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
   <section id="about" class="wrap about">
     <div class="about-grid">
       <div class="about-photo">
-        <button class="avatar" id="avatarBtn" type="button" data-ta="ab.flip"><span class="av-burst" aria-hidden="true"></span><span class="av-in"><img class="main" src="avatar-plai.jpg" alt=""><img class="alt" src="avatar-plai-alt.jpg" alt=""></span><i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></button>
+        <button class="avatar" id="avatarBtn" type="button" data-ta="ab.flip"><span class="av-burst" aria-hidden="true"></span><span class="av-in"><span class="av-burst in" aria-hidden="true"></span><img class="main" src="avatar-plai.png" alt=""><img class="alt" src="avatar-plai-alt.png" alt=""></span><i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></button>
         <div class="who"><b data-t="ab.name"></b><span data-t="ab.role"></span></div>
       </div>
       <div class="about-text">
