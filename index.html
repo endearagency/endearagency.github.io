@@ -189,6 +189,7 @@ html[lang="th"] .h2{padding-top:.08em}
 .r-face img{width:100%;height:100%;object-fit:cover}
 .t-card .face img,.modal .face img{width:100%;height:100%;object-fit:contain;padding:8px}
 .modal .face img{max-height:520px}
+.t-card .face img.cover{object-fit:cover;object-position:center top;padding:0}
 .stage-art .lbl{position:absolute;left:14px;bottom:14px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.88);font-size:12px;color:var(--muted)}
 .stage-info{flex:1 1 360px;min-width:0;display:flex;flex-direction:column;gap:16px;padding-block:6px}
 .type-badge{align-self:flex-start;padding:6px 14px;border-radius:999px;background:var(--dark);color:var(--bg);font-size:13px;font-weight:600}
@@ -698,7 +699,7 @@ var SVC_OPTS = [
 var WORKS = { promo:['โปรโมต','Promotion'], dub:['พากย์เสียง','Voice Dubbing'], collab:['คอลแลป','Collab'], mc:['พิธีกรงานอีเวนต์','Event MC'], guest:['แขกรับเชิญงานอีเวนต์','Event Guest'] };
 var TYPES = { All:['ทั้งหมด','All'], VTuber:['VTuber','VTuber'], KOL:['KOL','KOL'], MC:['MC','MC'], Cosplayer:['คอสเพลเยอร์','Cosplayer'] };
 var TALENTS = [
-  { id:'hanami', name:'Hanami Lay', short:'Hanami', ini:'HL', type:'VTuber', color:'#FFFFFF', img:'talent-hanami.jpg', face:'talent-hanami-face.jpg', tags:['#Gaming','#Karaoke','#Drawing','#Chitchat','#Cooking'], works:['promo','dub','collab'], links:[['YouTube',null,'https://www.youtube.com/@HanamiLayCH'],['TikTok',null,'https://www.tiktok.com/@hanamilay'],['Facebook',null,'https://www.facebook.com/profile.php?id=61552160366840']], quote:['วีทูปเบอร์ที่สามารถไลฟ์เล่นเกมได้ 24 ชั่วโมงแบบไม่ยอมแพ้ พร้อมอยู่กับคุณตั้งแต่ตอนบอกฝันดีจนตื่นมาอรุณสวัสดิ์','A VTuber who can stream games for 24 hours straight without giving up, here with you from good night all the way to good morning.'] },
+  { id:'hanami', name:'Hanami Lay', short:'Hanami', ini:'HL', type:'VTuber', color:'#FFFFFF', img:'talent-hanami.jpg', face:'talent-hanami-face.jpg', card:'talent-hanami-half.jpg', tags:['#Gaming','#Karaoke','#Drawing','#Chitchat','#Cooking'], works:['promo','dub','collab'], links:[['YouTube',70200,'https://www.youtube.com/@HanamiLayCH'],['TikTok',89800,'https://www.tiktok.com/@hanamilay'],['Facebook',29000,'https://www.facebook.com/profile.php?id=61552160366840'],['X',5931,'https://x.com/HanamiLay']], quote:['วีทูปเบอร์ที่สามารถไลฟ์เล่นเกมได้ 24 ชั่วโมงแบบไม่ยอมแพ้ พร้อมอยู่กับคุณตั้งแต่ตอนบอกฝันดีจนตื่นมาอรุณสวัสดิ์','A VTuber who can stream games for 24 hours straight without giving up, here with you from good night all the way to good morning.'] },
   { id:'mika', name:'Mika Hoshino', short:'Mika', ini:'MH', type:'VTuber', color:'#E6DEFB', tags:['#Gaming','#Horror','#Karaoke'], works:['promo','dub','collab'], links:[['YouTube',125000],['X',48000],['Twitch',32000]], quote:['เล่นเกมสยองขวัญกับคนดูทุกคืนวันศุกร์ เกมใหม่ส่งมาได้เลย!','Horror games with my chat every Friday night. Send your new games my way!'] },
   { id:'ploy', name:'Ploy Review', short:'Ploy', ini:'PR', type:'KOL', color:'#FFE3D6', tags:['#Review','#Gadget','#Unboxing'], works:['promo','collab'], links:[['TikTok',310000],['YouTube',86000],['Instagram',54000]], quote:['รีวิวตรงๆ แบบที่อยากให้เพื่อนฟัง','Honest reviews, the way I’d tell a friend.'] },
   { id:'rin', name:'Rin Kurogane', short:'Rin', ini:'RK', type:'VTuber', color:'#DCEBFA', tags:['#ASMR','#Story','#VoiceActing'], works:['dub','collab'], links:[['YouTube',72000],['X',39000]], quote:['งานพากย์เสียงตัวละครคือสิ่งที่ถนัดที่สุด','Character voice acting is what I do best.'] },
@@ -804,7 +805,7 @@ function renderStatic(){
   $('evGrid').innerHTML = EVENTS.map(function(f){ return '<div class="s-card">'+(f.img ? '<img class="card-img" src="'+f.img+'" alt="'+esc(L(f.title))+'" loading="lazy">' : '<div class="ph">'+phImg()+'</div>')+'<div class="bd"><h3>'+esc(L(f.title))+'</h3><p>'+esc(L(f.desc))+'</p></div></div>'; }).join('');
   setMobile(!$('mobilePanel').hidden);
 }
-function fmtN(n){ if(n>=1e6) return (Math.round(n/1e5)/10)+'M'; if(n>=1e4) return Math.round(n/1e3)+'K'; if(n>=1e3) return (Math.round(n/100)/10)+'K'; return String(n); }
+function fmtN(n){ if(n>=1e6) return (Math.round(n/1e5)/10)+'M'; if(n>=1e5) return Math.round(n/1e3)+'K'; if(n>=1e3) return (Math.round(n/100)/10)+'K'; return String(n); }
 function totalF(x){ return x.links.reduce(function(a,l){ return a+(l[1]||0); },0); }
 function talentList(){ var l = TALENTS.filter(function(x){ return st.filter==='All' || x.type===st.filter; }); return l.length ? l : TALENTS; }
 function infoHTML(x, idAttr){
@@ -821,7 +822,7 @@ function renderTalent(){
   $('talentSelect').innerHTML = '<div class="stage"><div class="stage-art" style="background:'+cur.color+'">'+(cur.img ? '<img class="stage-img" src="'+cur.img+'" alt="'+esc(cur.name)+'">' : '<span class="ini" aria-hidden="true">'+cur.ini+'</span><span class="lbl">'+t('tal.img')+'</span>')+'</div><div class="stage-info">'+infoHTML(cur)+'</div>'+
     '<div class="roster" role="group">'+list.map(function(x){ return '<button class="r-btn" data-pick="'+x.id+'" aria-pressed="'+(x.id===cur.id)+'"><span class="r-face" style="background:'+x.color+'">'+(x.face ? '<img src="'+x.face+'" alt="">' : x.ini)+'</span><span class="nm">'+esc(x.short)+'</span></button>'; }).join('')+'</div></div>';
   $('talentCards').innerHTML = '<div class="cards">'+list.map(function(x){
-    return '<button class="t-card" data-open="'+x.id+'"><span class="face" style="background:'+x.color+'" aria-hidden="true">'+(x.img ? '<img src="'+x.img+'" alt="" loading="lazy">' : x.ini)+'</span><span class="body"><span class="ty">'+esc(L(TYPES[x.type]))+'</span><span class="nm">'+esc(x.name)+'</span><span class="tg">'+x.tags.join('  ')+'</span><span class="fl">'+(totalF(x) ? t('tal.followers')+' '+fmtN(totalF(x))+' · ' : '')+x.links.map(function(l){ return esc(l[0]); }).join(' · ')+'</span></span></button>';
+    return '<button class="t-card" data-open="'+x.id+'"><span class="face" style="background:'+x.color+'" aria-hidden="true">'+(x.card ? '<img class="cover" src="'+x.card+'" alt="" loading="lazy">' : x.img ? '<img src="'+x.img+'" alt="" loading="lazy">' : x.ini)+'</span><span class="body"><span class="ty">'+esc(L(TYPES[x.type]))+'</span><span class="nm">'+esc(x.name)+'</span><span class="tg">'+x.tags.join('  ')+'</span><span class="fl">'+(totalF(x) ? t('tal.followers')+' '+fmtN(totalF(x))+' · ' : '')+x.links.map(function(l){ return esc(l[0]); }).join(' · ')+'</span></span></button>';
   }).join('')+'</div><p class="note">'+t('tal.swipe')+'</p>';
   $('talentSelect').hidden = st.mode!=='select';
   $('talentCards').hidden = st.mode!=='cards';
