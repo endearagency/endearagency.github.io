@@ -427,6 +427,9 @@ html[lang="th"] .h2{padding-top:.08em}
 .t-soon b{font-family:'Outfit',sans-serif;font-size:22px;font-weight:600;color:var(--accent);letter-spacing:.02em}
 .t-soon span{font-size:14px;line-height:1.6;color:#4A4547}
 .t-soon i{font-style:normal;font-size:30px;color:var(--accent)}
+.ph-soon{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;padding:0 12px}
+.ph-soon b{font-family:'Outfit',sans-serif;font-size:18px;font-weight:600;color:var(--accent);letter-spacing:.02em}
+.ph-soon small{font-size:12px;color:var(--faint)}
 .fact span{font-size:14px;line-height:1.5;color:#4A4547}
 
 /* creators */
@@ -789,7 +792,7 @@ var T = {
   'tile.other.t':['งานอื่นๆ?','Something else?'],
   'tile.other.d':['ไม่เจองานที่ต้องการ? บอกเรามาได้ เรามีเครือข่ายที่ช่วยหาให้ได้','Don’t see it here? Tell us. Our network can often find it.'],
   'tile.other.go':['ถามเรา →','Ask us →'],
-  'ph.img':['ใส่ภาพ','Image'],
+  'ph.img':['ภาพตัวอย่างงานกำลังจะมา','Work samples on the way'],
   'lg.clients':['ลูกค้า','Clients'],
   'lg.games':['เกมและแบรนด์ที่เคยร่วมงาน','Games & brands we’ve worked on'],
   'lg.partners':['พาร์ทเนอร์','Partners'],
@@ -981,7 +984,7 @@ function t(k){ return T[k] ? T[k][li()] : k; }
 function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function setAttr(o){ return esc(JSON.stringify(o||{})); }
 var $ = function(id){ return document.getElementById(id); };
-var phImg = function(){ return icon('image',18)+'<span>'+t('ph.img')+'</span>'; };
+var phImg = function(){ return '<span class="ph-soon"><b>Coming soon</b><small>'+t('ph.img')+'</small></span>'; };
 
 /* ---------- renderers ---------- */
 function renderStatic(){
