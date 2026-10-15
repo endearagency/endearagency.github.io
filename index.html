@@ -376,6 +376,18 @@ html[lang="th"] .h2{padding-top:.08em}
 @media (max-width:640px){.t-more{display:grid;grid-template-columns:1fr 1fr}.tf-btn{width:100%;flex-wrap:wrap;justify-content:flex-start;row-gap:0;padding:6px 12px 6px 14px;border-radius:16px;position:relative}.tf-l{width:100%;text-align:left}.tf-btn svg{position:absolute;right:12px;top:50%;margin-top:-6px}.tf.open .tf-btn svg{transform:rotate(180deg)}.tf-pop{min-width:100%}.tf:nth-child(even) .tf-pop{left:auto;right:0}.t-clear{grid-column:1 / -1;justify-self:start}}
 .t-clear{border:0;background:none;padding:6px 8px;font:inherit;font-size:13px;font-weight:600;color:var(--accent);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .t-empty{display:flex;flex-direction:column;align-items:flex-start;gap:12px;margin-top:20px;padding:40px 28px;border-radius:24px;background:var(--soft);font-size:16px;color:#4A4547}
+.cslide{position:relative;height:170px;overflow:hidden;background:var(--soft)}
+.cs-track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth}
+.cs-track::-webkit-scrollbar{display:none}
+.cs-track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;scroll-snap-align:start}
+.cs-dots{position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:center;gap:6px;pointer-events:none}
+.cs-dots button{pointer-events:auto;width:8px;height:8px;padding:0;border:0;border-radius:999px;background:rgba(255,255,255,.9);box-shadow:0 0 0 1px rgba(21,19,20,.18), 0 1px 4px rgba(0,0,0,.25);cursor:pointer;transition:width .25s ease, background-color .25s ease}
+.cs-dots button[aria-current="true"]{width:22px;background:var(--accent)}
+.cs-nav{position:absolute;top:50%;margin-top:-16px;width:32px;height:32px;border:0;border-radius:50%;background:rgba(255,255,255,.9);color:var(--fg);font-size:14px;cursor:pointer;opacity:0;transition:opacity .2s ease;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px -4px rgba(0,0,0,.3)}
+.cs-nav.prev{left:8px}.cs-nav.next{right:8px}
+.cslide:hover .cs-nav{opacity:1}
+.cs-nav:hover{color:var(--accent)}
+@media (hover:none){.cs-nav{display:none}}
 .fact span{font-size:14px;line-height:1.5;color:#4A4547}
 
 /* creators */
@@ -871,7 +883,7 @@ var FAB = [
   { title:['โมเดล 3D สำหรับเกม','3D Model — Game'], desc:['โมเดล 3D สำหรับใช้ในเกม','3D models for games.'], kw:'สามมิติ เกม โมเดล 3d' },
   { title:['โมเดล 3D งานทั่วไป','3D Model — General'], desc:['โมเดล 3D สำหรับงานทั่วไป เช่น โปรโมต วิชวล หรืองานพิมพ์','3D models for general use, like promotion, visuals or printing.'], kw:'สามมิติ โมเดล 3d' },
   { title:['ของที่ระลึกพิมพ์ 3D','Custom 3D Merch'], desc:['ของที่ระลึกพิมพ์ 3D ตามแบบของคุณ','3D-printed merch made to your design.'], kw:'ของที่ระลึก ฟิกเกอร์ พิมพ์ 3d merch figure' },
-  { title:['เวิร์กช็อปพิมพ์ 3D','3D Print Workshop'], desc:['เวิร์กช็อปพิมพ์ 3D สำหรับทีมหรืออีเวนต์','3D printing workshops for teams or events.'], kw:'เวิร์กช็อป สอน พิมพ์ 3d workshop' },
+  { imgs:['fab-workshop-1.jpg','fab-workshop-2.jpg'], title:['เวิร์กช็อปพิมพ์ 3D','3D Print Workshop'], desc:['เวิร์กช็อปพิมพ์ 3D สำหรับทีมหรืออีเวนต์','3D printing workshops for teams or events.'], kw:'เวิร์กช็อป สอน พิมพ์ 3d workshop' },
   { title:['พิมพ์ UV','UV Printing'], desc:['พิมพ์ UV ลงพลาสติก ไม้ และพื้นผิวไม่เรียบ ทั้งแบบเรียบและแบบนูน','UV printing on plastic, wood and irregular surfaces, flat or embossed.'], kw:'พิมพ์ยูวี พิมพ์ลงไม้ พลาสติก นูน uv' },
   { title:['เครื่องพิมพ์ 3D และวัสดุ','3D Printer & Materials'], desc:['จำหน่ายเครื่องพิมพ์ 3D และวัสดุ','3D printers and materials for sale.'], kw:'เครื่องพิมพ์ 3d เส้นพลาสติก วัสดุ ขาย printer filament' }
 ];
@@ -952,9 +964,16 @@ function renderStatic(){
   $('tiles').innerHTML = CATS.map(function(c,i){
     return '<a class="tile" href="#'+c.id+'" style="background:'+c.tint+'">'+(c.img ? '<img class="tile-img" src="'+c.img+'" alt="" loading="lazy">' : '<span class="ph">'+phImg()+'</span>')+'<span class="tx"><span class="num">0'+(i+1)+'</span><b>'+esc(L(c.title))+'</b><span class="d">'+esc(L(c.blurb))+'</span><span class="more-link">'+t('tile.more')+'</span></span></a>';
   }).join('') + '<a class="tile other" href="#contact" data-set="'+setAttr({svc:'other'})+'"><span class="plus">+</span><span class="tx" style="padding:0"><b>'+t('tile.other.t')+'</b><span class="d">'+t('tile.other.d')+'</span><span class="more-link">'+t('tile.other.go')+'</span></span></a>';
-  $('fabGrid').innerHTML = FAB.map(function(f){ return '<div class="s-card"><div class="ph">'+phImg()+'</div><div class="bd"><h3>'+esc(L(f.title))+'</h3><p>'+esc(L(f.desc))+'</p></div></div>'; }).join('');
-  $('evGrid').innerHTML = EVENTS.map(function(f){ return '<div class="s-card">'+(f.img ? '<img class="card-img" src="'+f.img+'" alt="'+esc(L(f.title))+'" loading="lazy">' : '<div class="ph">'+phImg()+'</div>')+'<div class="bd"><h3>'+esc(L(f.title))+'</h3><p>'+esc(L(f.desc))+'</p></div></div>'; }).join('');
+  $('fabGrid').innerHTML = FAB.map(function(f){ return '<div class="s-card">'+mediaHTML(f)+'<div class="bd"><h3>'+esc(L(f.title))+'</h3><p>'+esc(L(f.desc))+'</p></div></div>'; }).join('');
+  $('evGrid').innerHTML = EVENTS.map(function(f){ return '<div class="s-card">'+mediaHTML(f)+'<div class="bd"><h3>'+esc(L(f.title))+'</h3><p>'+esc(L(f.desc))+'</p></div></div>'; }).join('');
   setMobile(!$('mobilePanel').hidden);
+}
+function mediaHTML(f){
+  if(f.imgs && f.imgs.length>1) return '<div class="cslide"><div class="cs-track">'+f.imgs.map(function(src,i){ return '<img src="'+src+'" alt="'+esc(L(f.title))+' '+(i+1)+'" loading="lazy">'; }).join('')+'</div>'+
+    '<button class="cs-nav prev" type="button" data-cs="-1" aria-label="'+t('tal.prev')+'">←</button><button class="cs-nav next" type="button" data-cs="1" aria-label="'+t('tal.next')+'">→</button>'+
+    '<div class="cs-dots">'+f.imgs.map(function(_,i){ return '<button type="button" data-csdot="'+i+'" aria-label="'+(i+1)+'"'+(i===0?' aria-current="true"':'')+'></button>'; }).join('')+'</div></div>';
+  var src = f.img || (f.imgs && f.imgs[0]);
+  return src ? '<img class="card-img" src="'+src+'" alt="'+esc(L(f.alt ? [f.alt,f.alt] : f.title))+'" loading="lazy">' : '<div class="ph">'+phImg()+'</div>';
 }
 function fmtN(n){ if(n>=1e6) return (Math.round(n/1e5)/10)+'M'; if(n>=1e5) return Math.round(n/1e3)+'K'; if(n>=1e3) return (Math.round(n/100)/10)+'K'; return String(n); }
 function totalF(x){ return x.links.reduce(function(a,l){ return a+(l[1]||0); },0); }
@@ -1214,6 +1233,15 @@ function updCardNav(){ var c=document.querySelector('#talentCards .cards'); if(!
   });
   document.addEventListener('click', function(e){ if(!e.target.closest('#moreFilters .tf')) closeTf(); });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeTf(); });
+})();
+(function(){
+  function sync(tr){ var i=Math.round(tr.scrollLeft/tr.clientWidth); tr.parentNode.querySelectorAll('[data-csdot]').forEach(function(d,k){ if(k===i) d.setAttribute('aria-current','true'); else d.removeAttribute('aria-current'); }); }
+  document.addEventListener('click', function(e){
+    var b=e.target.closest('[data-cs],[data-csdot]'); if(!b) return; var box=b.closest('.cslide'), tr=box.querySelector('.cs-track'), n=tr.children.length, i=Math.round(tr.scrollLeft/tr.clientWidth);
+    var to = b.dataset.csdot!==undefined ? +b.dataset.csdot : (i + +b.dataset.cs + n) % n;
+    tr.scrollTo({left:to*tr.clientWidth});
+  });
+  document.addEventListener('scroll', function(e){ if(e.target.classList && e.target.classList.contains('cs-track')) sync(e.target); }, true);
 })();
 renderStatic(); renderAll(); renderSearch(); fixWrap();
 (function(){
