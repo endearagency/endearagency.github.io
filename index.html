@@ -430,6 +430,8 @@ html[lang="th"] .h2{padding-top:.08em}
 .ph-soon{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;padding:0 12px}
 .ph-soon b{font-family:'Outfit',sans-serif;font-size:18px;font-weight:600;color:var(--accent);letter-spacing:.02em}
 .ph-soon small{font-size:12px;color:var(--faint)}
+.g-soon{flex:1 1 100%;height:220px;display:flex;align-items:center;justify-content:center}
+.g-photo{width:100%;height:100%;object-fit:cover;display:block}
 .fact span{font-size:14px;line-height:1.5;color:#4A4547}
 
 /* creators */
@@ -1128,10 +1130,11 @@ function renderArt(){
   $('artTabs').innerHTML = ART.map(function(a,i){ return '<button class="chip" role="tab" data-art="'+i+'" aria-selected="'+(i===st.art)+'">'+esc(L(a.label))+'</button>'; }).join('');
   var a = ART[st.art];
   $('artDesc').textContent = L(a.desc);
-  $('gallery').innerHTML = [1,2,3,4].map(function(n){
-    if(n%2===0) return '<div class="g-tile"><div class="g-conf"><span class="blob" style="background:'+a.bg+'" aria-hidden="true"></span><span class="lock">'+icon('lock',14,2)+t('art.conf')+'</span><span class="big">'+icon(a.icon,84)+'</span><span><b>'+esc(L(a.label))+'</b><small>'+t('art.confd')+'</small></span></div></div>';
-    return '<div class="g-tile"><div class="g-img" style="background:'+a.bg+'">'+t('art.sample')+' · '+esc(L(a.label))+' '+n+'</div></div>';
-  }).join('');
+  var tiles = (a.imgs||[]).map(function(src,n){ return '<div class="g-tile"><img class="g-photo" src="'+src+'" alt="'+esc(L(a.label))+' '+(n+1)+'" loading="lazy"></div>'; })
+    .concat((a.nda||[]).map(function(d){ return '<div class="g-tile"><div class="g-conf"><span class="blob" style="background:'+a.bg+'" aria-hidden="true"></span><span class="lock">'+icon('lock',14,2)+t('art.conf')+'</span><span class="big">'+icon(a.icon,84)+'</span><span><b>'+esc(L(a.label))+'</b><small>'+esc(L(d))+'</small></span></div></div>'; }));
+  if(!tiles.length) tiles = ['<div class="g-tile g-soon" style="background:'+a.bg+'"><span class="ph-soon"><b>Coming soon</b><small>'+t('ph.img')+'</small></span></div>'];
+  $('gallery').innerHTML = tiles.join('');
+  var nn = document.querySelector('[data-t="art.note"]'); if(nn) nn.hidden = !(a.nda && a.nda.length);
 }
 function renderPub(){
   $('pubTabs').innerHTML = PUB.map(function(p,i){ return '<button class="chip" role="tab" data-pub="'+i+'" aria-selected="'+(i===st.pub)+'">0'+(i+1)+' '+esc(L(p.label))+'</button>'; }).join('');
