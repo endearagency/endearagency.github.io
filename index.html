@@ -388,6 +388,25 @@ html[lang="th"] .h2{padding-top:.08em}
 .cslide:hover .cs-nav{opacity:1}
 .cs-nav:hover{color:var(--accent)}
 @media (hover:none){.cs-nav{display:none}}
+.s-card[data-work]{cursor:pointer;display:flex;flex-direction:column;transition:transform .25s ease, box-shadow .25s ease}
+.s-card[data-work]:hover{transform:translateY(-4px);box-shadow:0 14px 30px -14px rgba(214,51,108,.35)}
+.s-card[data-work]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.s-card .bd{flex:1;display:flex;flex-direction:column}
+.s-card .more{margin-top:auto;padding-top:12px;font-size:14px;font-weight:600;color:var(--accent)}
+.modal.wk{flex-direction:column;flex-wrap:nowrap;max-width:880px;position:relative}
+.modal.wk .cslide,.modal.wk .w-img{height:min(58vh,500px);flex:0 0 auto;border-radius:0}
+.modal.wk .cslide{background:#F4F1F2}
+.modal.wk .cs-track img,.modal.wk .w-img{object-fit:contain;background:#F4F1F2;width:100%}
+.modal.wk .cs-nav{opacity:1;width:42px;height:42px;margin-top:-21px;font-size:16px}
+.modal.wk .cs-nav.prev{left:14px}.modal.wk .cs-nav.next{right:14px}
+.modal.wk .cs-dots{bottom:14px}
+.modal.wk .w-close{position:absolute;top:14px;right:14px;z-index:5;background:var(--bg);box-shadow:0 4px 14px -6px rgba(0,0,0,.35)}
+.modal.wk .bd{flex:0 0 auto;padding:26px 28px 30px;gap:12px}
+.modal.wk h3{font-size:28px}
+.modal.wk .w-desc{margin:0;font-size:17px;line-height:1.7;color:#4A4547}
+.modal.wk .w-more{margin:0;font-size:15px;line-height:1.75;color:#4A4547;white-space:pre-line}
+.modal.wk .btn{align-self:flex-start;margin-top:8px}
+@media (max-width:640px){.modal.wk .cslide,.modal.wk .w-img{height:42vh}}
 .fact span{font-size:14px;line-height:1.5;color:#4A4547}
 
 /* creators */
@@ -780,6 +799,8 @@ var T = {
   'svc.h2':['บริการของเรา','What we do'],
   'svc.lead':['กดที่หัวข้อเพื่อดูรายละเอียดและตัวอย่างงาน','Tap a service to see details and examples.'],
   'svc.more':['ดูรายละเอียด','Details'],
+  'w.more':['ดูภาพและรายละเอียด','See photos & details'],
+  'w.ask':['สอบถามบริการนี้','Ask about this service'],
   'tal.lead':['แต่ละคนถนัดและรับงานไม่เหมือนกัน ดูได้จากแท็ก “งานที่รับ” ของแต่ละคน','Each person takes on different work. Check the “Available for” tags on each profile.'],
   'tal.select':['แบบเลือกตัวละคร','Character select'],
   'tal.cards':['แบบการ์ด','Card gallery'],
@@ -964,8 +985,8 @@ function renderStatic(){
   $('tiles').innerHTML = CATS.map(function(c,i){
     return '<a class="tile" href="#'+c.id+'" style="background:'+c.tint+'">'+(c.img ? '<img class="tile-img" src="'+c.img+'" alt="" loading="lazy">' : '<span class="ph">'+phImg()+'</span>')+'<span class="tx"><span class="num">0'+(i+1)+'</span><b>'+esc(L(c.title))+'</b><span class="d">'+esc(L(c.blurb))+'</span><span class="more-link">'+t('tile.more')+'</span></span></a>';
   }).join('') + '<a class="tile other" href="#contact" data-set="'+setAttr({svc:'other'})+'"><span class="plus">+</span><span class="tx" style="padding:0"><b>'+t('tile.other.t')+'</b><span class="d">'+t('tile.other.d')+'</span><span class="more-link">'+t('tile.other.go')+'</span></span></a>';
-  $('fabGrid').innerHTML = FAB.map(function(f){ return '<div class="s-card">'+mediaHTML(f)+'<div class="bd"><h3>'+esc(L(f.title))+'</h3><p>'+esc(L(f.desc))+'</p></div></div>'; }).join('');
-  $('evGrid').innerHTML = EVENTS.map(function(f){ return '<div class="s-card">'+mediaHTML(f)+'<div class="bd"><h3>'+esc(L(f.title))+'</h3><p>'+esc(L(f.desc))+'</p></div></div>'; }).join('');
+  $('fabGrid').innerHTML = FAB.map(function(f,i){ return workCard('fab', f, i); }).join('');
+  $('evGrid').innerHTML = EVENTS.map(function(f,i){ return workCard('ev', f, i); }).join('');
   setMobile(!$('mobilePanel').hidden);
 }
 function mediaHTML(f){
@@ -975,6 +996,26 @@ function mediaHTML(f){
   var src = f.img || (f.imgs && f.imgs[0]);
   return src ? '<img class="card-img" src="'+src+'" alt="'+esc(L(f.alt ? [f.alt,f.alt] : f.title))+'" loading="lazy">' : '<div class="ph">'+phImg()+'</div>';
 }
+var WORKGROUPS = { fab:function(){ return FAB; }, ev:function(){ return EVENTS; } };
+function workCard(g, f, i){
+  return '<div class="s-card" data-work="'+g+':'+i+'" role="button" tabindex="0" aria-label="'+esc(L(f.title))+'">'+mediaHTML(f)+'<div class="bd"><h3>'+esc(L(f.title))+'</h3><p>'+esc(L(f.desc))+'</p><span class="more">'+t('w.more')+' →</span></div></div>';
+}
+function openWork(key){
+  var p = key.split(':'), list = WORKGROUPS[p[0]] && WORKGROUPS[p[0]](), f = list && list[+p[1]]; if(!f) return;
+  var imgs = f.imgs || (f.img ? [f.img] : []), svc = p[0]==='ev' ? 'events' : 'fab';
+  var media = imgs.length>1 ? mediaHTML({imgs:imgs, title:f.title}).replace(/ loading="lazy"/g,'') : imgs.length ? '<img class="w-img" src="'+imgs[0]+'" alt="'+esc(L(f.title))+'">' : '';
+  $('modal').className = 'modal wk';
+  $('modal').innerHTML = '<button class="icon-btn w-close" data-close-modal aria-label="Close">'+icon('x',18)+'</button>'+media+
+    '<div class="bd"><h3 id="mName">'+esc(L(f.title))+'</h3><p class="w-desc">'+esc(L(f.desc))+'</p>'+(f.more ? '<p class="w-more">'+esc(L(f.more))+'</p>' : '')+
+    '<a class="btn primary" href="#contact" data-close data-set="'+setAttr({svc:svc})+'">'+t('w.ask')+'</a></div>';
+  showOverlay('modalWrap');
+  var b = $('modal').querySelector('[data-close-modal]'); if(b) b.focus();
+}
+(function(){
+  function go(e){ var c = e.target.closest('[data-work]'); if(!c || e.target.closest('[data-cs],[data-csdot]')) return; openWork(c.dataset.work); }
+  document.addEventListener('click', go);
+  document.addEventListener('keydown', function(e){ if((e.key==='Enter'||e.key===' ') && e.target.matches && e.target.matches('[data-work]')){ e.preventDefault(); openWork(e.target.dataset.work); } });
+})();
 function fmtN(n){ if(n>=1e6) return (Math.round(n/1e5)/10)+'M'; if(n>=1e5) return Math.round(n/1e3)+'K'; if(n>=1e3) return (Math.round(n/100)/10)+'K'; return String(n); }
 function totalF(x){ return x.links.reduce(function(a,l){ return a+(l[1]||0); },0); }
 var TLANGS = { th:['ไทย','Thai'], en:['อังกฤษ','English'], jp:['ญี่ปุ่น','Japanese'], cn:['จีน','Chinese'], kr:['เกาหลี','Korean'] };
@@ -1042,6 +1083,7 @@ function renderTalent(){
   document.querySelectorAll('[data-mode]').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.mode===st.mode); });
 }
 function openModal(id){
+  $('modal').className = 'modal';
   var x = TALENTS.filter(function(v){ return v.id===id; })[0]; if(!x) return;
   $('modal').innerHTML = '<div class="face" style="background:'+x.color+'" aria-hidden="true">'+(x.img ? '<img src="'+x.img+'" alt="">' : x.ini)+'</div><div class="bd"><div style="display:flex;justify-content:flex-end"><button class="icon-btn" data-close-modal aria-label="Close">'+icon('x',18)+'</button></div>'+infoHTML(x,'mName')+'</div>';
   showOverlay('modalWrap');
