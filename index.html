@@ -432,6 +432,16 @@ html[lang="th"] .h2{padding-top:.08em}
 .ph-soon small{font-size:12px;color:var(--faint)}
 .g-soon{flex:1 1 100%;height:220px;display:flex;align-items:center;justify-content:center}
 .g-photo{width:100%;height:100%;object-fit:cover;display:block}
+.plat-box{margin:0 0 14px;padding:14px 16px;border-radius:18px;background:var(--soft)}
+.plat-box > p{margin:0 0 10px;font-size:15px;font-weight:600}
+.plat-box > p small{display:block;font-size:13px;font-weight:400;color:var(--muted);margin-top:2px}
+.plat-row{display:flex;flex-wrap:wrap;gap:8px}
+.plat{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid #D9D3D5;background:#fff;font:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:border-color .2s ease, transform .2s ease}
+.plat:hover{border-color:var(--fg);transform:translateY(-1px)}
+.plat i{font-style:normal;font-size:12px;font-weight:600;min-width:22px;padding:2px 7px;border-radius:999px;background:var(--soft);color:var(--muted);text-align:center}
+.plat[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.plat[aria-pressed="true"] i{background:rgba(255,255,255,.25);color:#fff}
+.social.hl{background:var(--accent)}
 .fact span{font-size:14px;line-height:1.5;color:#4A4547}
 
 /* creators */
@@ -613,6 +623,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
               <button data-mode="cards" aria-pressed="false" data-t="tal.cards"></button>
             </div>
           </div>
+          <div class="plat-box" id="platFilters" role="group" aria-label="Platform"></div>
           <div class="chips" id="filters" role="group" aria-label="Filter"></div>
           <div class="chips lang-row" id="langFilters" role="group" aria-label="Language"></div>
           <div class="t-more" id="moreFilters" role="group" aria-label="More filters"></div>
@@ -845,6 +856,9 @@ var T = {
   'tal.speaks':['พูด','Speaks'],
   'tal.partner':['ทาเลนต์ในหน้านี้เป็น<b>พาร์ทเนอร์ที่ร่วมงานกับ endear</b> ไม่ได้อยู่ในสังกัดของเรา บางคนทำงานอิสระ บางคนมีสังกัดของตัวเอง (ดูได้จากป้ายสังกัดของแต่ละคน) เราทำงานร่วมกับทาเลนต์และต้นสังกัด เพื่อเชื่อมงานที่ใช่ให้ตรงกับคนที่ใช่ และดูแลโปรเจกต์ให้ราบรื่นทั้งสองฝั่ง ทั้งนี้ ข้อมูลและภาพที่ลงไว้ที่นี่ได้รับอนุญาตจากเจ้าตัวและต้นสังกัดแล้ว','Talent here are <b>partners who work with endear</b>, not signed to us. Some are independent and some are with their own agency (see each profile’s agency tag). We work hand in hand with talent and their agencies to match the right work with the right people, and keep every project running smoothly for both sides. Everything shown here is published with permission from each talent and their agency.'],
   'tal.pbadge':['พาร์ทเนอร์','Partner'],
+  'tal.plat':['อยากโปรโมตช่องทางไหน?','Where do you want to promote?'],
+  'tal.platd':['เลือกแพลตฟอร์ม แล้วดูได้เลยว่ามีใครบ้าง เรียงตามยอดผู้ติดตามในช่องทางนั้น','Pick a platform to see who is on it, sorted by followers there.'],
+  'tal.allplat':['ทุกช่องทาง','All platforms'],
   'tal.soon':['ทาเลนต์พาร์ทเนอร์คนใหม่กำลังจะมาเร็วๆ นี้','More partner talent joining soon'],
   'tal.agency':['สังกัด','Agency:'],
   'tal.followers':['ผู้ติดตาม','FOLLOWERS'],
@@ -978,7 +992,7 @@ var ICONS = {
 function icon(k, size, sw){ return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+(sw||(size>40?1.4:2))+'" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block">'+(ICONS[k]||'')+'</svg>'; }
 
 /* ---------- state ---------- */
-var st = { lang:'th', tlang:'all', filter:'All', tag:'all', work:'all', aff:'all', fol:'all', sel:'hanami', mode:'select', art:0, pub:0, open:{} };
+var st = { lang:'th', plat:'all', tlang:'all', filter:'All', tag:'all', work:'all', aff:'all', fol:'all', sel:'hanami', mode:'select', art:0, pub:0, open:{} };
 try{ var saved = localStorage.getItem('endear-lang'); if(saved==='th'||saved==='en') st.lang = saved; }catch(e){}
 function li(){ return st.lang==='en' ? 1 : 0; }
 function L(pair){ return Array.isArray(pair) ? pair[li()] : pair; }
@@ -1064,7 +1078,14 @@ function affKey(x){ return !x.aff ? '' : x.aff==='indie' ? 'indie' : x.aff.name;
 function talentList(){ var R = FRANGES.filter(function(r){ return r[0]===st.fol; })[0];
   return TALENTS.filter(function(x){ return (st.filter==='All' || x.type===st.filter) && (st.tlang==='all' || langsOf(x).indexOf(st.tlang)!==-1)
     && (st.tag==='all' || x.tags.indexOf(st.tag)!==-1) && (st.work==='all' || x.works.indexOf(st.work)!==-1)
-    && (st.aff==='all' || affKey(x)===st.aff) && (!R || (totalF(x)>=R[1] && totalF(x)<R[2])); }); }
+    && (st.aff==='all' || affKey(x)===st.aff) && (!R || (totalF(x)>=R[1] && totalF(x)<R[2])) && (st.plat==='all' || platN(x)!==null); })
+    .sort(function(a,b){ return st.plat==='all' ? 0 : (platN(b)||0)-(platN(a)||0); }); }
+function platN(x){ var l = x.links.filter(function(k){ return k[0]===st.plat; })[0]; return l ? (l[1]||0) : null; }
+function renderPlat(){
+  var pl=[]; TALENTS.forEach(function(x){ x.links.forEach(function(l){ if(pl.indexOf(l[0])===-1) pl.push(l[0]); }); });
+  var cnt=function(k){ return TALENTS.filter(function(x){ return k==='all' || x.links.some(function(l){ return l[0]===k; }); }).length; };
+  $('platFilters').innerHTML = '<p>'+t('tal.plat')+'<small>'+t('tal.platd')+'</small></p><div class="plat-row">'+['all'].concat(pl).map(function(k){ return '<button type="button" class="plat" data-plat="'+esc(k)+'" aria-pressed="'+(st.plat===k)+'">'+esc(k==='all' ? t('tal.allplat') : k)+'<i>'+cnt(k)+'</i></button>'; }).join('')+'</div>';
+}
 function renderMoreFilters(){
   var tags=[], works=[], affs=[];
   TALENTS.forEach(function(x){ x.tags.forEach(function(g){ if(tags.indexOf(g)===-1) tags.push(g); }); x.works.forEach(function(w){ if(works.indexOf(w)===-1) works.push(w); }); var a=affKey(x); if(a && affs.indexOf(a)===-1) affs.push(a); });
@@ -1072,7 +1093,7 @@ function renderMoreFilters(){
   affs.sort(function(a,b){ return a==='indie' ? -1 : b==='indie' ? 1 : a.localeCompare(b); });
   function sel(key, label, opts){ var v=st[key], all=[['all', t('tal.f.any')]].concat(opts), curL=(all.filter(function(o){ return o[0]===v; })[0]||all[0])[1], open=st.tfOpen===key;
     return '<div class="tf'+(v!=='all'?' on':'')+(open?' open':'')+'"><button type="button" class="tf-btn" data-tfopen="'+key+'" aria-haspopup="listbox" aria-expanded="'+open+'"><span class="tf-l">'+label+'</span><span class="tf-v">'+esc(curL)+'</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="tf-pop" role="listbox">'+all.map(function(o){ return '<button type="button" class="tf-opt" role="option" data-tfset="'+key+'" data-v="'+esc(o[0])+'" aria-selected="'+(o[0]===v)+'">'+esc(o[1])+'</button>'; }).join('')+'</div></div>'; }
-  var any = st.filter!=='All' || st.tlang!=='all' || st.tag!=='all' || st.work!=='all' || st.aff!=='all' || st.fol!=='all';
+  var any = st.plat!=='all' || st.filter!=='All' || st.tlang!=='all' || st.tag!=='all' || st.work!=='all' || st.aff!=='all' || st.fol!=='all';
   $('moreFilters').innerHTML =
     sel('tag', t('tal.f.tag'), tags.map(function(g){ return [g,g]; })) +
     sel('work', t('tal.f.work'), Object.keys(WORKS).filter(function(k){ return works.indexOf(k)!==-1; }).map(function(k){ return [k, L(WORKS[k])]; })) +
@@ -1091,14 +1112,14 @@ function infoHTML(x, idAttr){
     '<div><p class="mini">'+t('tal.content')+'</p><div class="row">'+x.tags.map(function(g){ return '<span class="tag">'+esc(g)+'</span>'; }).join('')+'</div></div>'+
     '<div><p class="mini">'+t('tal.works')+'</p><div class="row">'+x.works.map(function(w){ return '<span class="work">'+esc(L(WORKS[w]))+'</span>'; }).join('')+'</div></div>'+
     '<blockquote class="quote">“'+esc(L(x.quote))+'”</blockquote>'+
-    '<div><p class="mini">'+t('tal.followers')+'</p>'+(totalF(x) ? '<div class="ftot"><b>'+fmtN(totalF(x))+'</b><span>'+t('tal.totalall')+'</span></div>' : '')+'<div class="row">'+x.links.map(function(l){ return '<a class="social" href="'+(l[2]||'#talent')+'"'+(l[2]?' target="_blank" rel="noopener"':'')+'>'+esc(l[0])+(l[1]?' <b>'+fmtN(l[1])+'</b>':'')+' ↗</a>'; }).join('')+'</div></div>';
+    '<div><p class="mini">'+t('tal.followers')+'</p>'+(totalF(x) ? '<div class="ftot"><b>'+fmtN(totalF(x))+'</b><span>'+t('tal.totalall')+'</span></div>' : '')+'<div class="row">'+x.links.map(function(l){ return '<a class="social'+(l[0]===st.plat?' hl':'')+'" href="'+(l[2]||'#talent')+'"'+(l[2]?' target="_blank" rel="noopener"':'')+'>'+esc(l[0])+(l[1]?' <b>'+fmtN(l[1])+'</b>':'')+' ↗</a>'; }).join('')+'</div></div>';
 }
 function renderTalent(){
   var used = []; TALENTS.forEach(function(x){ langsOf(x).forEach(function(c){ if(used.indexOf(c)===-1) used.push(c); }); });
   $('langFilters').hidden = used.length < 2;
   $('langFilters').innerHTML = '<span class="lang-lbl">'+t('tal.lang')+'</span>'+['all'].concat(used).map(function(c){ return '<button class="chip sm" data-tlang="'+c+'" aria-pressed="'+(st.tlang===c)+'">'+esc(c==='all' ? t('tal.alllang') : L(TLANGS[c]||[c,c]))+'</button>'; }).join('');
   $('filters').innerHTML = Object.keys(TYPES).filter(function(k){ return k==='All' || TALENTS.some(function(x){ return x.type===k; }); }).map(function(k){ return '<button class="chip" data-filter="'+k+'" aria-pressed="'+(st.filter===k)+'">'+esc(L(TYPES[k]))+'</button>'; }).join('');
-  renderMoreFilters();
+  renderMoreFilters(); renderPlat();
   var list = talentList();
   if(!list.length){
     var em = '<div class="t-empty"><span>'+t('tal.none')+'</span><button class="chip sm" type="button" data-tclear>'+t('tal.clear')+'</button></div>';
@@ -1111,7 +1132,7 @@ function renderTalent(){
   $('talentSelect').innerHTML = '<div class="stage"><div class="stage-art" style="background:'+cur.color+'">'+(cur.img ? '<img class="stage-img" src="'+cur.img+'" alt="'+esc(nameOf(cur))+'">' : '<span class="ini" aria-hidden="true">'+cur.ini+'</span><span class="lbl">'+t('tal.img')+'</span>')+'<i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></div><div class="stage-info">'+infoHTML(cur)+'</div>'+
     '<div class="roster" role="group">'+list.map(function(x){ return '<button class="r-btn" data-pick="'+x.id+'" aria-pressed="'+(x.id===cur.id)+'"><span class="r-face" style="background:'+x.color+'">'+(x.face ? '<img src="'+x.face+'" alt="">' : x.ini)+'</span><span class="nm">'+esc(x.short)+'</span></button>'; }).join('')+'<div class="r-soon" aria-hidden="true"><span class="r-face">+</span><span class="nm">Coming soon</span></div>'+'</div></div>';
   $('talentCards').innerHTML = '<div class="cards-wrap"><button class="c-nav prev" type="button" data-cnav="-1" aria-label="'+t('tal.prev')+'">←</button><div class="cards">'+list.map(function(x){
-    return '<button class="t-card" data-open="'+x.id+'"><span class="face" style="background:'+x.color+'" aria-hidden="true">'+(x.card ? '<img class="cover" src="'+x.card+'" alt="" loading="lazy">' : x.img ? '<img src="'+x.img+'" alt="" loading="lazy">' : x.ini)+'</span><span class="body"><span class="ty">'+esc(L(TYPES[x.type]))+' · '+t('tal.pbadge')+affText(x)+' · '+langsOf(x).map(function(c){ return c.toUpperCase(); }).join('/')+'</span><span class="nm">'+esc(nameOf(x))+'</span><span class="tg">'+x.tags.join('  ')+'</span><span class="fl">'+(totalF(x) ? t('tal.followers')+' '+fmtN(totalF(x))+' · ' : '')+x.links.map(function(l){ return esc(l[0]); }).join(' · ')+'</span></span></button>';
+    return '<button class="t-card" data-open="'+x.id+'"><span class="face" style="background:'+x.color+'" aria-hidden="true">'+(x.card ? '<img class="cover" src="'+x.card+'" alt="" loading="lazy">' : x.img ? '<img src="'+x.img+'" alt="" loading="lazy">' : x.ini)+'</span><span class="body"><span class="ty">'+esc(L(TYPES[x.type]))+' · '+t('tal.pbadge')+affText(x)+' · '+langsOf(x).map(function(c){ return c.toUpperCase(); }).join('/')+'</span><span class="nm">'+esc(nameOf(x))+'</span><span class="tg">'+x.tags.join('  ')+'</span><span class="fl">'+(totalF(x) ? t('tal.followers')+' '+fmtN(totalF(x))+' · ' : '')+(st.plat!=='all' && platN(x) ? '' : x.links.map(function(l){ return esc(l[0]); }).join(' · '))+(st.plat!=='all' && platN(x) ? esc(st.plat)+' '+fmtN(platN(x)) : '')+'</span></span></button>';
   }).join('')+'<div class="t-soon"><i>+</i><b>Coming soon</b><span>'+t('tal.soon')+'</span></div></div><button class="c-nav next" type="button" data-cnav="1" aria-label="'+t('tal.next')+'">→</button></div><p class="note">'+t('tal.swipe')+'</p>';
   $('talentSelect').hidden = st.mode!=='select';
   $('talentCards').hidden = st.mode!=='cards';
@@ -1246,6 +1267,7 @@ document.addEventListener('click', function(e){
   if(el.hasAttribute('data-close-search') || el.hasAttribute('data-close-modal')){ hideOverlays(); return; }
   if(el.classList.contains('overlay')){ if(e.target===el) hideOverlays(); return; }
   if(el.dataset.toggle){ setSvc(el.dataset.toggle, el.getAttribute('aria-expanded')!=='true'); return; }
+  if(el.dataset.plat){ st.plat = el.dataset.plat; var tl = talentList(); if(st.plat!=='all' && tl.length) st.sel = tl[0].id; renderTalent(); return; }
   if(el.dataset.filter){ st.filter = el.dataset.filter; renderTalent(); return; }
   if(el.dataset.tlang){ st.tlang = el.dataset.tlang; renderTalent(); return; }
   if(el.dataset.mode){ st.mode = el.dataset.mode; renderTalent(); return; }
@@ -1309,7 +1331,7 @@ function updCardNav(){ var c=document.querySelector('#talentCards .cards'); if(!
   sec.addEventListener('click', function(e){
     var o=e.target.closest('[data-tfopen]'); if(o){ var k=o.dataset.tfopen, was=st.tfOpen===k; closeTf(); if(!was){ st.tfOpen=k; o.parentNode.classList.add('open'); o.setAttribute('aria-expanded','true'); } return; }
     var s=e.target.closest('[data-tfset]'); if(s){ st[s.dataset.tfset]=s.dataset.v; st.tfOpen=null; renderTalent(); return; }
-    if(e.target.closest('[data-tclear]')){ st.filter='All'; st.tlang='all'; st.tag='all'; st.work='all'; st.aff='all'; st.fol='all'; st.tfOpen=null; renderTalent(); }
+    if(e.target.closest('[data-tclear]')){ st.plat='all'; st.filter='All'; st.tlang='all'; st.tag='all'; st.work='all'; st.aff='all'; st.fol='all'; st.tfOpen=null; renderTalent(); }
   });
   document.addEventListener('click', function(e){ if(!e.target.closest('#moreFilters .tf')) closeTf(); });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeTf(); });
