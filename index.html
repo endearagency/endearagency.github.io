@@ -780,6 +780,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
 </div>
 
 <script>
+/* v20261016b */
 (function(){
 /* ---------- text: [Thai, English] ---------- */
 var T = {
@@ -873,7 +874,7 @@ var T = {
   'tal.partner':['ทาเลนต์ในหน้านี้เป็น<b>พาร์ทเนอร์ที่ร่วมงานกับ endear</b> ไม่ได้อยู่ในสังกัดของเรา บางคนทำงานอิสระ บางคนมีสังกัดของตัวเอง (ดูได้จากป้ายสังกัดของแต่ละคน) เราทำงานร่วมกับทาเลนต์และต้นสังกัด เพื่อเชื่อมงานที่ใช่ให้ตรงกับคนที่ใช่ และดูแลโปรเจกต์ให้ราบรื่นทั้งสองฝั่ง ทั้งนี้ ข้อมูลและภาพที่ลงไว้ที่นี่ได้รับอนุญาตจากเจ้าตัวและต้นสังกัดแล้ว','Talent here are <b>partners who work with endear</b>, not signed to us. Some are independent and some are with their own agency (see each profile’s agency tag). We work hand in hand with talent and their agencies to match the right work with the right people, and keep every project running smoothly for both sides. Everything shown here is published with permission from each talent and their agency.'],
   'tal.pbadge':['พาร์ทเนอร์','Partner'],
   'tal.form':['ร่าง','Look'],
-  'tal.zoom':['กดเพื่อดูใกล้ๆ','Tap to zoom'],
+  'tal.zoom':['ดูใกล้ๆ','Close-up'],
   'tal.full':['ดูเต็มตัว','Full body'],
   'tal.f.plat':['ช่องทาง','Platform'],
   'tal.soon':['ทาเลนต์พาร์ทเนอร์คนใหม่กำลังจะมาเร็วๆ นี้','More partner talent joining soon'],
@@ -942,7 +943,7 @@ var SVC_OPTS = [
 var WORKS = { review:['รีวิวเกม','Game Review'], promo:['โปรโมต','Promotion'], dub:['พากย์เสียง','Voice Dubbing'], collab:['คอลแลป','Collab'], cover:['คัฟเวอร์เพลง','Cover Song'], mc:['พิธีกรงานอีเวนต์','Event MC'], guest:['แขกรับเชิญงานอีเวนต์','Event Guest'] };
 var TYPES = { All:['ทั้งหมด','All'], VTuber:['VTuber','VTuber'], KOL:['KOL','KOL'], MC:['MC','MC'], Cosplayer:['คอสเพลเยอร์','Cosplayer'] };
 var TALENTS = [
-  { id:'hanami', name:'Hanami Lay', short:'Hanami', ini:'HL', type:'VTuber', aff:'indie', langs:['th'], color:'#FFFFFF', img:'talent-hanami.jpg', face:'talent-hanami-face.jpg', card:'talent-hanami-half.jpg', tags:['#Gaming','#Karaoke','#Drawing','#Chitchat','#Cooking','#HandCam'], works:['promo','review','dub','collab'], links:[['YouTube',70200,'https://www.youtube.com/@HanamiLayCH'],['TikTok',89800,'https://www.tiktok.com/@hanamilay'],['Facebook',29000,'https://www.facebook.com/profile.php?id=61552160366840'],['X',5931,'https://x.com/HanamiLay']], quote:['วีทูปเบอร์ที่สามารถไลฟ์เล่นเกมได้ 24 ชั่วโมงแบบไม่ยอมแพ้ พร้อมอยู่กับคุณตั้งแต่ตอนบอกฝันดีจนตื่นมาอรุณสวัสดิ์','A VTuber who can stream games for 24 hours straight without giving up, here with you from good night all the way to good morning.'] },
+  { id:'hanami', name:'Hanami Lay', short:'Hanami', ini:'HL', type:'VTuber', aff:'indie', langs:['th'], color:'#FFFFFF', img:'talent-hanami.jpg', face:'talent-hanami-face.jpg', card:'talent-hanami-half.jpg', halves:['talent-hanami-half.jpg'], tags:['#Gaming','#Karaoke','#Drawing','#Chitchat','#Cooking','#HandCam'], works:['promo','review','dub','collab'], links:[['YouTube',70200,'https://www.youtube.com/@HanamiLayCH'],['TikTok',89800,'https://www.tiktok.com/@hanamilay'],['Facebook',29000,'https://www.facebook.com/profile.php?id=61552160366840'],['X',5931,'https://x.com/HanamiLay']], quote:['วีทูปเบอร์ที่สามารถไลฟ์เล่นเกมได้ 24 ชั่วโมงแบบไม่ยอมแพ้ พร้อมอยู่กับคุณตั้งแต่ตอนบอกฝันดีจนตื่นมาอรุณสวัสดิ์','A VTuber who can stream games for 24 hours straight without giving up, here with you from good night all the way to good morning.'] },
   { id:'justpark', name:['Justpark Channel (จีน)','Justpark Channel (Jeen)'], short:'Justpark', ini:'JP', type:'KOL', aff:{name:'GaconX', logo:'logos/gaconx-mark.png'}, langs:['th'], color:'#FFFFFF', img:'talent-justpark.jpg', face:'talent-justpark-face.jpg', tags:['#Gaming'], works:['review'], links:[['YouTube',591000,'https://www.youtube.com/@justparkchannel1419'],['TikTok',13600,'https://www.tiktok.com/@justparkchannel'],['Facebook',34000,'https://www.facebook.com/JeenJustpark'],['Instagram',314,'https://www.instagram.com/justpark_channel/']], quote:['ช่องรีวิวเกมที่ลงคลิปทุกวัน...... ที่ทำเสร็จ','A game review channel with a new clip every day...... that gets finished.'] },
   { id:'zona', halves:['talent-zona-half.webp'], card:'talent-zona-half.webp', img:'talent-zona.webp', face:'talent-zona-face.webp?v=5',  name:'ZONA', short:'ZONA', ini:'ZN', type:'VTuber', aff:{name:'Polygon', logo:'logos/polygon-mark.png'}, langs:['th','en','jp'], color:'#CFE6FF', tags:['#Singing','#FreeTalk','#Gaming'], works:['promo','review','cover','collab','dub'], links:[['YouTube',172662,'https://www.youtube.com/c/ZonaCh'],['TikTok',63715,'https://www.tiktok.com/@zonaplg'],['Facebook',35123,'https://www.facebook.com/ZONAPolygon'],['X',53983,'http://twitter.com/ZonaPLG']], quote:['โซน่า ออก้าแห่งท้องทะเลผู้รักในเสียงเพลงและเท่(ซน)มาก','Zona, the music-loving orca of the sea. Super cool (and super cheeky).'] },
   { id:'hoku', halves:['talent-hoku-half.webp'], card:'talent-hoku-half.webp', img:'talent-hoku.webp?v=3', face:'talent-hoku-face.webp?v=5',  name:'Hoku', short:'Hoku', ini:'HK', type:'VTuber', aff:{name:'Polygon', logo:'logos/polygon-mark.png'}, langs:['th','en'], color:'#E9DFC8', tags:['#Singing','#FreeTalk','#Gaming','#Horror'], works:['promo','review','cover','collab','dub'], links:[['YouTube',119655,'https://www.youtube.com/@HokuPLG'],['TikTok',35000,'https://www.tiktok.com/@hokuplg'],['Facebook',23440,'http://facebook.com/HokuPolygon'],['X',32083,'http://twitter.com/HokuPLG']], quote:['โฮคุ นกฮูกเปี่ยมไมตรีที่ชอบเรื่องผีและหาทำ','Hoku, a friendly owl who loves ghost stories and always finds something to get into.'] },
@@ -1019,7 +1020,7 @@ var ICONS = {
 function icon(k, size, sw){ return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+(sw||(size>40?1.4:2))+'" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block">'+(ICONS[k]||'')+'</svg>'; }
 
 /* ---------- state ---------- */
-var st = { zoom:false, form:{}, lang:'th', plat:'all', tlang:'all', filter:'All', tag:'all', work:'all', aff:'all', fol:'all', sel:'hanami', mode:'select', art:0, pub:0, open:{} };
+var st = { zoom:true, form:{}, lang:'th', plat:'all', tlang:'all', filter:'All', tag:'all', work:'all', aff:'all', fol:'all', sel:'hanami', mode:'select', art:0, pub:0, open:{} };
 try{ var saved = localStorage.getItem('endear-lang'); if(saved==='th'||saved==='en') st.lang = saved; }catch(e){}
 function li(){ return st.lang==='en' ? 1 : 0; }
 function L(pair){ return Array.isArray(pair) ? pair[li()] : pair; }
