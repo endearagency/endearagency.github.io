@@ -374,7 +374,9 @@ html[lang="th"] .h2{padding-top:.08em}
 .tf-opt{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:9px 12px;border:0;border-radius:10px;background:none;font:inherit;font-size:15px;color:var(--muted);text-align:left;cursor:pointer}
 .tf-opt:hover{color:var(--accent);background:var(--soft)}
 .tf-opt[aria-selected="true"]{color:var(--accent);font-weight:600}
-.tf-opt[aria-selected="true"]::after{content:"✓";font-size:13px}
+.tf-opt::before{content:"";flex:0 0 16px;height:16px;border-radius:5px;border:1.5px solid #D9D3D5;order:-1;margin-right:-2px}
+.tf-opt[aria-selected="true"]::before{background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") center/12px no-repeat;border-color:var(--accent)}
+.tf-opt{justify-content:flex-start}
 @media (max-width:640px){.t-more{display:grid;grid-template-columns:1fr 1fr}.tf-btn{width:100%;flex-wrap:wrap;justify-content:flex-start;row-gap:0;padding:6px 12px 6px 14px;border-radius:16px;position:relative}.tf-l{width:100%;text-align:left}.tf-btn svg{position:absolute;right:12px;top:50%;margin-top:-6px}.tf.open .tf-btn svg{transform:rotate(180deg)}.tf-pop{min-width:100%}.tf:nth-child(even) .tf-pop{left:auto;right:0}.t-clear{grid-column:1 / -1;justify-self:start}}
 .t-clear{border:0;background:none;padding:6px 8px;font:inherit;font-size:13px;font-weight:600;color:var(--accent);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .t-empty{display:flex;flex-direction:column;align-items:flex-start;gap:12px;margin-top:20px;padding:40px 28px;border-radius:24px;background:var(--soft);font-size:16px;color:#4A4547}
@@ -868,6 +870,7 @@ var T = {
   'tal.f.aff':['สังกัด','Agency'],
   'tal.f.fol':['ผู้ติดตาม','Followers'],
   'tal.f.any':['ทั้งหมด','Any'],
+  'tal.f.n':['รายการ','selected'],
   'tal.clear':['ล้างตัวกรอง','Clear filters'],
   'tal.none':['ยังไม่มีทาเลนต์ที่ตรงกับตัวกรองนี้ ลองเปลี่ยนตัวเลือกดูนะ','No talent matches these filters yet. Try changing them.'],
   'tal.speaks':['พูด','Speaks'],
@@ -1020,7 +1023,7 @@ var ICONS = {
 function icon(k, size, sw){ return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+(sw||(size>40?1.4:2))+'" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block">'+(ICONS[k]||'')+'</svg>'; }
 
 /* ---------- state ---------- */
-var st = { zoom:true, form:{}, lang:'th', plat:'all', tlang:'all', filter:'All', tag:'all', work:'all', aff:'all', fol:'all', sel:'hanami', mode:'select', art:0, pub:0, open:{} };
+var st = { zoom:true, form:{}, lang:'th', plat:[], tlang:'all', filter:'All', tag:[], work:[], aff:[], fol:[], sel:'hanami', mode:'select', art:0, pub:0, open:{} };
 try{ var saved = localStorage.getItem('endear-lang'); if(saved==='th'||saved==='en') st.lang = saved; }catch(e){}
 function li(){ return st.lang==='en' ? 1 : 0; }
 function L(pair){ return Array.isArray(pair) ? pair[li()] : pair; }
@@ -1105,20 +1108,21 @@ function langsOf(x){ return x.langs || ['th']; }
 function langText(x){ return langsOf(x).map(function(c){ return L(TLANGS[c]||[c,c]); }).join(', '); }
 var FRANGES = [['s',0,1e4,['ต่ำกว่า 10K','Under 10K']],['m',1e4,1e5,['10K–100K','10K–100K']],['l',1e5,5e5,['100K–500K','100K–500K']],['xl',5e5,1e6,['500K–1M','500K–1M']],['xxl',1e6,Infinity,['1M ขึ้นไป','1M+']]];
 function affKey(x){ return !x.aff ? '' : x.aff==='indie' ? 'indie' : x.aff.name; }
-function talentList(){ var R = FRANGES.filter(function(r){ return r[0]===st.fol; })[0];
+function talentList(){ var RS = FRANGES.filter(function(r){ return st.fol.indexOf(r[0])>-1; });
   return TALENTS.filter(function(x){ return (st.filter==='All' || x.type===st.filter) && (st.tlang==='all' || langsOf(x).indexOf(st.tlang)!==-1)
-    && (st.tag==='all' || x.tags.indexOf(st.tag)!==-1) && (st.work==='all' || x.works.indexOf(st.work)!==-1)
-    && (st.aff==='all' || affKey(x)===st.aff) && (!R || (totalF(x)>=R[1] && totalF(x)<R[2])) && (st.plat==='all' || platN(x)!==null); })
-    .sort(function(a,b){ return st.plat==='all' ? 0 : (platN(b)||0)-(platN(a)||0); }); }
-function platN(x){ var l = x.links.filter(function(k){ return k[0]===st.plat; })[0]; return l ? (l[1]||0) : null; }
+    && (!st.tag.length || x.tags.some(function(g){ return st.tag.indexOf(g)>-1; })) && (!st.work.length || x.works.some(function(w){ return st.work.indexOf(w)>-1; }))
+    && (!st.aff.length || st.aff.indexOf(affKey(x))>-1) && (!RS.length || RS.some(function(R){ return totalF(x)>=R[1] && totalF(x)<R[2]; })) && (!st.plat.length || platN(x)!==null); })
+    .sort(function(a,b){ return !st.plat.length ? 0 : (platN(b)||0)-(platN(a)||0); }); }
+function platBest(x){ var b=null; x.links.forEach(function(k){ if(st.plat.indexOf(k[0])>-1 && (!b || (k[1]||0)>(b[1]||0))) b=k; }); return b; }
+function platN(x){ var b=platBest(x); return b ? (b[1]||0) : null; }
 function renderMoreFilters(){
   var tags=[], works=[], affs=[];
   TALENTS.forEach(function(x){ x.tags.forEach(function(g){ if(tags.indexOf(g)===-1) tags.push(g); }); x.works.forEach(function(w){ if(works.indexOf(w)===-1) works.push(w); }); var a=affKey(x); if(a && affs.indexOf(a)===-1) affs.push(a); });
   tags.sort(function(a,b){ return a.localeCompare(b); });
   affs.sort(function(a,b){ return a==='indie' ? -1 : b==='indie' ? 1 : a.localeCompare(b); });
-  function sel(key, label, opts){ var v=st[key], all=[['all', t('tal.f.any')]].concat(opts), curL=(all.filter(function(o){ return o[0]===v; })[0]||all[0])[1], open=st.tfOpen===key;
-    return '<div class="tf'+(v!=='all'?' on':'')+(open?' open':'')+'"><button type="button" class="tf-btn" data-tfopen="'+key+'" aria-haspopup="listbox" aria-expanded="'+open+'"><span class="tf-l">'+label+'</span><span class="tf-v">'+esc(curL)+'</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="tf-pop" role="listbox">'+all.map(function(o){ return '<button type="button" class="tf-opt" role="option" data-tfset="'+key+'" data-v="'+esc(o[0])+'" aria-selected="'+(o[0]===v)+'">'+esc(o[1])+'</button>'; }).join('')+'</div></div>'; }
-  var any = st.plat!=='all' || st.filter!=='All' || st.tlang!=='all' || st.tag!=='all' || st.work!=='all' || st.aff!=='all' || st.fol!=='all';
+  function sel(key, label, opts){ var v=st[key], all=[['all', t('tal.f.any')]].concat(opts), picked=opts.filter(function(o){ return v.indexOf(o[0])>-1; }), curL=!picked.length ? t('tal.f.any') : picked.length===1 ? picked[0][1] : picked.length+' '+t('tal.f.n'), open=st.tfOpen===key;
+    return '<div class="tf'+(v.length?' on':'')+(open?' open':'')+'"><button type="button" class="tf-btn" data-tfopen="'+key+'" aria-haspopup="listbox" aria-expanded="'+open+'"><span class="tf-l">'+label+'</span><span class="tf-v">'+esc(curL)+'</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="tf-pop" role="listbox" aria-multiselectable="true">'+all.map(function(o){ return '<button type="button" class="tf-opt" role="option" data-tfset="'+key+'" data-v="'+esc(o[0])+'" aria-selected="'+(o[0]==='all' ? !v.length : v.indexOf(o[0])>-1)+'">'+esc(o[1])+'</button>'; }).join('')+'</div></div>'; }
+  var any = st.plat.length || st.filter!=='All' || st.tlang!=='all' || st.tag.length || st.work.length || st.aff.length || st.fol.length;
   var pl=[]; TALENTS.forEach(function(x){ x.links.forEach(function(l){ if(pl.indexOf(l[0])===-1) pl.push(l[0]); }); });
   $('moreFilters').innerHTML =
     sel('plat', t('tal.f.plat'), pl.map(function(k){ return [k, k+' ('+TALENTS.filter(function(x){ return x.links.some(function(l){ return l[0]===k; }); }).length+')']; })) +
@@ -1140,7 +1144,7 @@ function infoHTML(x, idAttr){
     '<div><p class="mini">'+t('tal.content')+'</p><div class="row">'+x.tags.map(function(g){ return '<span class="tag">'+esc(g)+'</span>'; }).join('')+'</div></div>'+
     '<div><p class="mini">'+t('tal.works')+'</p><div class="row">'+x.works.map(function(w){ return '<span class="work">'+esc(L(WORKS[w]))+'</span>'; }).join('')+'</div></div>'+
     '<blockquote class="quote">“'+esc(L(x.quote))+'”</blockquote>'+
-    '<div><p class="mini">'+t('tal.followers')+'</p>'+(totalF(x) ? '<div class="ftot"><b>'+fmtN(totalF(x))+'</b><span>'+t('tal.totalall')+'</span></div>' : '')+'<div class="row">'+x.links.map(function(l){ if(!l[2]) return '<span class="social nolink'+(l[0]===st.plat?' hl':'')+'">'+esc(l[0])+(l[1]?' <b>'+fmtN(l[1])+'</b>':'')+'</span>'; return '<a class="social'+(l[0]===st.plat?' hl':'')+'" href="'+(l[2]||'#talent')+'"'+(l[2]?' target="_blank" rel="noopener"':'')+'>'+esc(l[0])+(l[1]?' <b>'+fmtN(l[1])+'</b>':'')+' ↗</a>'; }).join('')+'</div></div>';
+    '<div><p class="mini">'+t('tal.followers')+'</p>'+(totalF(x) ? '<div class="ftot"><b>'+fmtN(totalF(x))+'</b><span>'+t('tal.totalall')+'</span></div>' : '')+'<div class="row">'+x.links.map(function(l){ if(!l[2]) return '<span class="social nolink'+(st.plat.indexOf(l[0])>-1?' hl':'')+'">'+esc(l[0])+(l[1]?' <b>'+fmtN(l[1])+'</b>':'')+'</span>'; return '<a class="social'+(st.plat.indexOf(l[0])>-1?' hl':'')+'" href="'+(l[2]||'#talent')+'"'+(l[2]?' target="_blank" rel="noopener"':'')+'>'+esc(l[0])+(l[1]?' <b>'+fmtN(l[1])+'</b>':'')+' ↗</a>'; }).join('')+'</div></div>';
 }
 function renderTalent(){
   var used = []; TALENTS.forEach(function(x){ langsOf(x).forEach(function(c){ if(used.indexOf(c)===-1) used.push(c); }); });
@@ -1160,7 +1164,7 @@ function renderTalent(){
   $('talentSelect').innerHTML = '<div class="stage"><div class="stage-art'+(cur.halves?(st.zoom?' zoomable zoomed':' zoomable'):'')+'" style="background:'+cur.color+'"'+(cur.halves?' data-zoom="1"':'')+'>'+(cur.img ? '<img class="stage-img" src="'+(st.zoom && cur.halves ? cur.halves[st.form[cur.id]||0] : imgOf(cur))+'" alt="'+esc(nameOf(cur))+'">' : '<span class="ini" aria-hidden="true">'+cur.ini+'</span><span class="lbl">'+t('tal.img')+'</span>')+formSw(cur)+(cur.halves?'<span class="zoom-hint">'+(st.zoom?'⤢ '+t('tal.full'):'🔍 '+t('tal.zoom'))+'</span>':'')+'<i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></div><div class="stage-info">'+infoHTML(cur)+'</div>'+
     '<div class="roster" role="group">'+list.map(function(x){ return '<button class="r-btn" data-pick="'+x.id+'" aria-pressed="'+(x.id===cur.id)+'"><span class="r-face" style="background:'+x.color+'">'+(x.face ? '<img src="'+x.face+'" alt="">' : x.ini)+'</span>'+'<span class="nm">'+esc(x.short)+'</span></button>'; }).join('')+'<div class="r-soon" aria-hidden="true"><span class="r-face">+</span><span class="nm">Coming soon</span></div>'+'</div></div>';
   $('talentCards').innerHTML = '<div class="cards-wrap"><button class="c-nav prev" type="button" data-cnav="-1" aria-label="'+t('tal.prev')+'">←</button><div class="cards">'+list.map(function(x){
-    return '<button class="t-card" data-open="'+x.id+'"><span class="face" style="background:'+x.color+'" aria-hidden="true">'+(x.aff && x.aff.logo ? '<span class="c-aff"><img src="'+x.aff.logo+'" alt="">'+esc(x.aff.name)+'</span>' : '')+(x.card ? '<img class="cover" src="'+x.card+'" alt="" loading="lazy">' : x.img ? '<img src="'+imgOf(x)+'" alt="" loading="lazy">' : x.ini)+'</span><span class="body"><span class="ty">'+esc(L(TYPES[x.type]))+' · '+t('tal.pbadge')+affText(x)+' · '+langsOf(x).map(function(c){ return c.toUpperCase(); }).join('/')+'</span><span class="nm">'+esc(nameOf(x))+'</span><span class="tg">'+x.tags.join('  ')+'</span><span class="fl">'+(totalF(x) ? t('tal.followers')+' '+fmtN(totalF(x))+' · ' : '')+(st.plat!=='all' && platN(x) ? '' : x.links.map(function(l){ return esc(l[0]); }).join(' · '))+(st.plat!=='all' && platN(x) ? esc(st.plat)+' '+fmtN(platN(x)) : '')+'</span></span></button>';
+    return '<button class="t-card" data-open="'+x.id+'"><span class="face" style="background:'+x.color+'" aria-hidden="true">'+(x.aff && x.aff.logo ? '<span class="c-aff"><img src="'+x.aff.logo+'" alt="">'+esc(x.aff.name)+'</span>' : '')+(x.card ? '<img class="cover" src="'+x.card+'" alt="" loading="lazy">' : x.img ? '<img src="'+imgOf(x)+'" alt="" loading="lazy">' : x.ini)+'</span><span class="body"><span class="ty">'+esc(L(TYPES[x.type]))+' · '+t('tal.pbadge')+affText(x)+' · '+langsOf(x).map(function(c){ return c.toUpperCase(); }).join('/')+'</span><span class="nm">'+esc(nameOf(x))+'</span><span class="tg">'+x.tags.join('  ')+'</span><span class="fl">'+(totalF(x) ? t('tal.followers')+' '+fmtN(totalF(x))+' · ' : '')+(st.plat.length && platN(x) ? '' : x.links.map(function(l){ return esc(l[0]); }).join(' · '))+(st.plat.length && platN(x) ? esc(platBest(x)[0])+' '+fmtN(platN(x)) : '')+'</span></span></button>';
   }).join('')+'<div class="t-soon"><i>+</i><b>Coming soon</b><span>'+t('tal.soon')+'</span></div></div><button class="c-nav next" type="button" data-cnav="1" aria-label="'+t('tal.next')+'">→</button></div><p class="note">'+t('tal.swipe')+'</p>';
   $('talentSelect').hidden = st.mode!=='select';
   $('talentCards').hidden = st.mode!=='cards';
@@ -1359,10 +1363,10 @@ function updCardNav(){ var c=document.querySelector('#talentCards .cards'); if(!
   function closeTf(){ if(st.tfOpen){ st.tfOpen=null; document.querySelectorAll('#moreFilters .tf.open').forEach(function(d){ d.classList.remove('open'); d.querySelector('.tf-btn').setAttribute('aria-expanded','false'); }); } }
   sec.addEventListener('click', function(e){
     var o=e.target.closest('[data-tfopen]'); if(o){ var k=o.dataset.tfopen, was=st.tfOpen===k; closeTf(); if(!was){ st.tfOpen=k; o.parentNode.classList.add('open'); o.setAttribute('aria-expanded','true'); } return; }
-    var s=e.target.closest('[data-tfset]'); if(s){ st[s.dataset.tfset]=s.dataset.v; st.tfOpen=null; if(s.dataset.tfset==='plat' && st.plat!=='all'){ var tl=talentList(); if(tl.length) st.sel=tl[0].id; } renderTalent(); return; }
-    if(e.target.closest('[data-tclear]')){ st.plat='all'; st.filter='All'; st.tlang='all'; st.tag='all'; st.work='all'; st.aff='all'; st.fol='all'; st.tfOpen=null; renderTalent(); }
+    var s=e.target.closest('[data-tfset]'); if(s){ var k=s.dataset.tfset, v=s.dataset.v; if(v==='all') st[k]=[]; else { var i=st[k].indexOf(v); if(i>-1) st[k].splice(i,1); else st[k].push(v); } if(k==='plat' && st.plat.length){ var tl=talentList(); if(tl.length) st.sel=tl[0].id; } renderTalent(); return; }
+    if(e.target.closest('[data-tclear]')){ st.plat=[]; st.filter='All'; st.tlang='all'; st.tag=[]; st.work=[]; st.aff=[]; st.fol=[]; st.tfOpen=null; renderTalent(); }
   });
-  document.addEventListener('click', function(e){ if(!e.target.closest('#moreFilters .tf')) closeTf(); });
+  document.addEventListener('click', function(e){ if(e.target.isConnected && !e.target.closest('#moreFilters .tf')) closeTf(); });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeTf(); });
 })();
 (function(){
