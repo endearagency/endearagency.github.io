@@ -441,6 +441,15 @@ html[lang="th"] .h2{padding-top:.08em}
 .ph-soon small{font-size:12px;color:var(--faint)}
 .g-soon{flex:1 1 100%;height:220px;display:flex;align-items:center;justify-content:center}
 .g-photo{width:100%;height:100%;object-fit:cover;display:block}
+.g-btn{padding:0;border:0;background:var(--soft);cursor:zoom-in;font:inherit}
+.g-btn .g-photo{transition:transform .3s ease}
+.g-btn:hover .g-photo{transform:scale(1.03)}
+.g-zoom{position:absolute;right:10px;bottom:10px;width:32px;height:32px;border-radius:999px;background:rgba(255,255,255,.9);display:grid;place-items:center;font-size:15px;color:var(--dark);opacity:0;transition:opacity .2s}
+.g-btn:hover .g-zoom,.g-btn:focus-visible .g-zoom{opacity:1}
+.overlay.lb{background:rgba(21,19,20,.88);padding:24px}
+.lb img{max-width:100%;max-height:calc(100vh - 48px);object-fit:contain;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+.lb-x{position:absolute;top:16px;right:16px;background:#fff}
+@media (max-width:640px){.g-tile.g-btn{max-width:85vw}}
 .social.hl{background:var(--accent)}
 .social.nolink{cursor:default}
 .social.nolink:hover{transform:none;background:var(--dark)}
@@ -805,6 +814,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
   </div>
 </div>
 
+<div class="overlay center lb" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image"><button class="icon-btn lb-x" type="button" data-close-modal aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><img id="lbImg" alt=""></div>
 <div class="overlay center" id="modalWrap" hidden role="dialog" aria-modal="true" aria-labelledby="mName">
   <div class="modal" id="modal"></div>
 </div>
@@ -1030,8 +1040,8 @@ var TALENTS = [
 ];
 var ART = [
   { label:['สติกเกอร์ LINE','LINE Sticker'], icon:'sticker', bg:'#FFF0C9', desc:['สติกเกอร์ไลน์ทั้งแบบนิ่งและแบบเคลื่อนไหว','Static and animated LINE stickers.'], kw:'สติกเกอร์ สติ๊กเกอร์ ไลน์ sticker' },
-  { label:['ภาพประกอบ Full CG','Full CG Illustration'], icon:'image', bg:'#F1E2F6', desc:['ภาพประกอบลงสีเต็ม สำหรับคีย์วิชวล ปก และงานโปรโมต','Fully rendered illustrations for key visuals, covers and promotion.'], kw:'ภาพประกอบ วาดรูป คีย์วิชวล ปก illustration' },
-  { label:['ออกแบบตัวละคร','Character Design'], icon:'person', bg:'#FBDDE8', desc:['ออกแบบตัวละคร พร้อมชีตหลายมุมและสีหน้า','Character design with turnaround sheets and expressions.'], kw:'ออกแบบตัวละคร คาแรคเตอร์ character' },
+  { label:['ภาพประกอบ Full CG','Full CG Illustration'], icon:'image', imgs:[['art-cg-1.webp',2400,1350],['art-cg-2.webp',2400,1350],['art-cg-3.webp',1414,2000],['art-cg-4.webp',2400,1004]], bg:'#F1E2F6', desc:['ภาพประกอบลงสีเต็ม สำหรับคีย์วิชวล ปก และงานโปรโมต','Fully rendered illustrations for key visuals, covers and promotion.'], kw:'ภาพประกอบ วาดรูป คีย์วิชวล ปก illustration' },
+  { label:['ออกแบบตัวละคร','Character Design'], icon:'person', imgs:[['art-char-1.webp',3200,1203],['art-char-2.webp',3600,757]], bg:'#FBDDE8', desc:['ออกแบบตัวละคร พร้อมชีตหลายมุมและสีหน้า','Character design with turnaround sheets and expressions.'], kw:'ออกแบบตัวละคร คาแรคเตอร์ character' },
   { label:['คอมิก / เว็บตูน','Comic / Webtoon'], icon:'panels', bg:'#FFE3D6', desc:['การ์ตูนช่องและเว็บตูน ตั้งแต่สตอรีบอร์ดถึงลงสี','Comics and webtoons, from storyboard to colour.'], kw:'การ์ตูน คอมมิค เว็บตูน มังงะ comic manga' },
   { label:['Live2D และริกกิ้ง','Live2D & Rigging'], icon:'rig', bg:'#E6DEFB', desc:['โมเดล Live2D และริกกิ้ง พร้อมใช้งานสำหรับ VTuber','Live2D models and rigging, ready for VTubers.'], kw:'ไลฟ์ทูดี โมเดล ริก vtuber model live2d' },
   { label:['โมชันกราฟิก','Motion Graphic'], icon:'play', bg:'#FFE3D6', desc:['โมชันกราฟิกสำหรับโปรโมตและโซเชียลมีเดีย','Motion graphics for promotion and social media.'], kw:'โมชัน โมชั่นกราฟิก วิดีโอ motion video' },
@@ -1262,7 +1272,7 @@ function renderArt(){
   $('artTabs').innerHTML = ART.map(function(a,i){ return '<button class="chip" role="tab" data-art="'+i+'" aria-selected="'+(i===st.art)+'">'+esc(L(a.label))+'</button>'; }).join('');
   var a = ART[st.art];
   $('artDesc').textContent = L(a.desc);
-  var tiles = (a.imgs||[]).map(function(src,n){ return '<div class="g-tile"><img class="g-photo" src="'+src+'" alt="'+esc(L(a.label))+' '+(n+1)+'" loading="lazy"></div>'; })
+  var tiles = (a.imgs||[]).map(function(im,n){ var src=Array.isArray(im)?im[0]:im, w=Array.isArray(im)?Math.min(Math.round(280*im[1]/im[2]),620):280; return '<button type="button" class="g-tile g-btn" data-lb="'+src+'" style="flex-basis:'+w+'px" aria-label="'+esc(L(a.label))+' '+(n+1)+'"><img class="g-photo" src="'+src+'" alt="'+esc(L(a.label))+' '+(n+1)+'" loading="lazy"><span class="g-zoom" aria-hidden="true">⤢</span></button>'; })
     .concat((a.nda||[]).map(function(d){ return '<div class="g-tile"><div class="g-conf"><span class="blob" style="background:'+a.bg+'" aria-hidden="true"></span><span class="lock">'+icon('lock',14,2)+t('art.conf')+'</span><span class="big">'+icon(a.icon,84)+'</span><span><b>'+esc(L(a.label))+'</b><small>'+esc(L(d))+'</small></span></div></div>'; }));
   if(!tiles.length) tiles = ['<div class="g-tile g-soon" style="background:'+a.bg+'"><span class="ph-soon"><b>Coming soon</b><small>'+t('ph.img')+'</small></span></div>'];
   $('gallery').innerHTML = tiles.join('');
@@ -1296,8 +1306,8 @@ function closeMenus(){ setMega(false); setMobile(false); }
 var lastFocus = null;
 function showOverlay(id){ lastFocus = document.activeElement; $(id).hidden = false; document.body.style.overflow = 'hidden'; }
 function hideOverlays(){
-  var any = !$('search').hidden || !$('modalWrap').hidden;
-  $('search').hidden = true; $('modalWrap').hidden = true; document.body.style.overflow = '';
+  var any = !$('search').hidden || !$('modalWrap').hidden || !$('lightbox').hidden;
+  $('search').hidden = true; $('modalWrap').hidden = true; $('lightbox').hidden = true; document.body.style.overflow = '';
   if(any && lastFocus && lastFocus.focus) try{ lastFocus.focus({preventScroll:true}); }catch(e){}
 }
 function applySet(o){
@@ -1385,6 +1395,7 @@ document.addEventListener('click', function(e){
   if(el.dataset.form){ var fp=el.dataset.form.split(':'); st.form[fp[0]]=+fp[1]; renderTalent(); if(!$('modalWrap').hidden) openModal(fp[0]); return; }
   if(el.dataset.pick){ st.sel = el.dataset.pick; renderTalent(); return; }
   if(el.dataset.goto){ st.sel = el.dataset.goto; st.mode = 'select'; var oR=document.querySelector('#talentSelect .roster'); if(oR) oR.remove(); renderTalent(); var ts=$('talentSelect'); var y=ts.getBoundingClientRect().top+window.pageYOffset-90; window.scrollTo({top:y, behavior:'smooth'}); return; }
+  if(el.dataset.lb){ $('lbImg').src = el.dataset.lb; showOverlay('lightbox'); return; }
   if(el.dataset.open){ openModal(el.dataset.open); return; }
   if(el.dataset.art!==undefined){ st.art = +el.dataset.art; renderArt(); return; }
   if(el.dataset.pub!==undefined){ st.pub = +el.dataset.pub; renderPub(); return; }
