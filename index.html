@@ -228,7 +228,11 @@ html[lang="th"] .h2{padding-top:.08em}
 .work{display:inline-block;padding:6px 12px;border-radius:999px;border:1px solid var(--fg);font-size:14px;font-weight:500}
 .quote{margin:2px 0 0;padding:16px 18px;border-radius:16px;background:var(--bg);font-size:17px;line-height:1.7}
 .social{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 16px;border-radius:999px;background:var(--dark);color:var(--bg);text-decoration:none;font-size:14px;font-weight:500}
-.roster{flex:1 1 100%;border-top:1px solid var(--line);padding-top:14px;display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}
+.roster-bar{flex:1 1 100%;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding-bottom:12px;min-width:0}
+.roster{flex:1 1 auto;min-width:0;display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.r-grid{flex:0 0 auto;width:58px;height:58px;border-radius:16px;border:1px solid var(--line);background:#fff;color:var(--dark);display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 10px rgba(21,19,20,.06);transition:background .15s,color .15s}
+.r-grid:hover{background:var(--dark);color:#fff}
+.r-grid[aria-pressed]{}
 .r-btn{flex:0 0 auto;width:86px;padding:6px;border-radius:16px;border:2px solid transparent;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px}
 .r-btn:hover{border-color:var(--soft2)}
 .r-btn[aria-pressed="true"]{border-color:var(--dark)}
@@ -1222,13 +1226,14 @@ function renderTalent(){
     return;
   }
   var cur = list.filter(function(x){ return x.id===st.sel; })[0] || list[0];
-  $('talentSelect').innerHTML = '<div class="stage"><div class="stage-art'+(canZoom(cur)?(zoomOn(cur)?' zoomable zoomed':' zoomable'):'')+'" style="background:'+cur.color+'"'+(canZoom(cur)?' data-zoom="1"':'')+'>'+(cur.img ? '<img class="stage-img" src="'+(zoomOn(cur) ? cur.halves[st.form[cur.id]||0] : imgOf(cur))+'" alt="'+esc(nameOf(cur))+'">' : '<span class="ini" aria-hidden="true">'+cur.ini+'</span><span class="lbl">'+t('tal.img')+'</span>')+formSw(cur)+(canZoom(cur)?'<span class="zoom-hint">'+(zoomOn(cur)?'⤢ '+t('tal.full'):'🔍 '+t('tal.zoom'))+'</span>':'')+'<i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></div><div class="stage-info">'+infoHTML(cur)+'</div>'+
-    '<div class="roster" role="group">'+list.map(function(x){ return '<button class="r-btn" data-pick="'+x.id+'" aria-pressed="'+(x.id===cur.id)+'"><span class="r-face" style="background:'+x.color+'">'+(x.face ? '<img src="'+x.face+'" alt="">' : x.ini)+'</span>'+'<span class="nm">'+esc(x.short)+'</span></button>'; }).join('')+'<div class="r-soon" aria-hidden="true"><span class="r-face">+</span><span class="nm">Coming soon</span></div>'+'</div></div>';
+  var oldR = document.querySelector('#talentSelect .roster'), oldSL = oldR ? oldR.scrollLeft : null;
+  $('talentSelect').innerHTML = '<div class="stage">'+'<div class="roster-bar"><div class="roster" role="group">'+list.map(function(x){ return '<button class="r-btn" data-pick="'+x.id+'" aria-pressed="'+(x.id===cur.id)+'"><span class="r-face" style="background:'+x.color+'">'+(x.face ? '<img src="'+x.face+'" alt="">' : x.ini)+'</span>'+'<span class="nm">'+esc(x.short)+'</span></button>'; }).join('')+'<div class="r-soon" aria-hidden="true"><span class="r-face">+</span><span class="nm">Coming soon</span></div>'+'</div><button class="r-grid" type="button" data-mode="cards" title="'+t('tal.cards')+'" aria-label="'+t('tal.cards')+'"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg></button></div>'+'<div class="stage-art'+(canZoom(cur)?(zoomOn(cur)?' zoomable zoomed':' zoomable'):'')+'" style="background:'+cur.color+'"'+(canZoom(cur)?' data-zoom="1"':'')+'>'+(cur.img ? '<img class="stage-img" src="'+(zoomOn(cur) ? cur.halves[st.form[cur.id]||0] : imgOf(cur))+'" alt="'+esc(nameOf(cur))+'">' : '<span class="ini" aria-hidden="true">'+cur.ini+'</span><span class="lbl">'+t('tal.img')+'</span>')+formSw(cur)+(canZoom(cur)?'<span class="zoom-hint">'+(zoomOn(cur)?'⤢ '+t('tal.full'):'🔍 '+t('tal.zoom'))+'</span>':'')+'<i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></div><div class="stage-info">'+infoHTML(cur)+'</div></div>';
   $('talentCards').innerHTML = '<div class="tg-grid">'+list.map(function(x){
     var src = x.face || x.card || imgOf(x);
     return '<button class="tg" data-open="'+x.id+'"><span class="tg-img" style="background:'+x.color+'">'+(src ? '<img src="'+src+'" alt="" loading="lazy">' : '<b>'+x.ini+'</b>')+'</span><span class="tg-nm">'+esc(x.short||nameOf(x))+'</span></button>';
   }).join('')+'<div class="tg tg-soon" aria-hidden="true"><span class="tg-img"><i>+</i></span><span class="tg-nm">Coming soon</span></div></div><p class="note">'+t('tal.swipe')+'</p>';
   $('talentSelect').hidden = st.mode!=='select';
+  (function(){ var r=document.querySelector('#talentSelect .roster'); if(!r) return; if(oldSL!==null){ r.scrollLeft=oldSL; return; } var p=r.querySelector('.r-btn[aria-pressed="true"]'); if(p) r.scrollLeft=p.offsetLeft-r.offsetLeft-r.clientWidth/2+p.offsetWidth/2; })();
   $('talentCards').hidden = st.mode!=='cards';
   updCardNav();
   fixWrap($('talent'));
@@ -1350,6 +1355,7 @@ function renderSearch(){
 }
 
 /* ---------- events ---------- */
+document.addEventListener('wheel', function(e){ var r=e.target.closest && e.target.closest('.roster'); if(!r || Math.abs(e.deltaY)<=Math.abs(e.deltaX) || r.scrollWidth<=r.clientWidth) return; var max=r.scrollWidth-r.clientWidth; if((e.deltaY<0 && r.scrollLeft<=0) || (e.deltaY>0 && r.scrollLeft>=max-1)) return; r.scrollLeft+=e.deltaY; e.preventDefault(); }, {passive:false});
 document.addEventListener('click', function(e){
   var el = e.target.closest('button, a, .overlay, [data-zoom]');
   if(!el){ if(!$('mega').hidden && !e.target.closest('#mega')) setMega(false); return; }
