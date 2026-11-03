@@ -443,9 +443,10 @@ html[lang="th"] .h2{padding-top:.08em}
 .form-sw button[aria-pressed="true"]{background:var(--accent);color:#fff}
 .modal .face{position:relative}
 .stage-info,.modal .bd{position:relative}
-.agency{position:absolute;top:0;right:0;display:flex;align-items:center;gap:12px;padding:10px 16px 10px 10px;border-radius:16px;background:#fff;border:1px solid var(--line)}
-.modal .bd .agency{top:22px;right:84px}
-@media (max-width:640px){.agency{position:static;align-self:flex-start}}
+.info-top{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.agency{display:flex;align-items:center;gap:12px;padding:10px 16px 10px 10px;border-radius:16px;background:#fff;border:1px solid var(--line)}
+.modal .bd .info-top{padding-right:52px}
+
 .agency .lg{width:44px;height:44px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;flex:0 0 auto}
 .agency .lg img{width:36px;height:36px;object-fit:contain}
 .agency small{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--faint)}
@@ -1159,7 +1160,7 @@ function affHTML(x){
 function agencyHTML(x){ if(!x.aff) return ''; if(x.aff==='indie') return '<div class="agency indie"><span class="lg">✦</span><span><small>'+t('tal.f.aff')+'</small><b>'+t('tal.indie')+'</b></span></div>'; return '<div class="agency"><span class="lg">'+(x.aff.logo?'<img src="'+x.aff.logo+'" alt="">':'')+'</span><span><small>'+t('tal.f.aff')+'</small><b>'+esc(x.aff.name)+'</b></span></div>'; }
 function affText(x){ return !x.aff ? '' : ' · '+(x.aff==='indie' ? t('tal.indie') : esc(x.aff.name)); }
 function infoHTML(x, idAttr){
-  return agencyHTML(x)+'<div class="badges"><span class="type-badge">'+esc(L(TYPES[x.type]))+'</span><span class="p-badge">'+t('tal.pbadge')+'</span><span class="aff">'+t('tal.speaks')+' '+esc(langText(x))+'</span></div><h3'+(idAttr?' id="'+idAttr+'"':'')+'>'+esc(nameOf(x))+'</h3>'+
+  return '<div class="info-top">'+agencyHTML(x)+'<div class="badges"><span class="type-badge">'+esc(L(TYPES[x.type]))+'</span><span class="p-badge">'+t('tal.pbadge')+'</span><span class="aff">'+t('tal.speaks')+' '+esc(langText(x))+'</span></div></div><h3'+(idAttr?' id="'+idAttr+'"':'')+'>'+esc(nameOf(x))+'</h3>'+
     '<div><p class="mini">'+t('tal.content')+'</p><div class="row">'+x.tags.map(function(g){ return '<span class="tag">'+esc(g)+'</span>'; }).join('')+'</div></div>'+
     '<div><p class="mini">'+t('tal.works')+'</p><div class="row">'+x.works.map(function(w){ return '<span class="work">'+esc(L(WORKS[w]))+'</span>'; }).join('')+'</div>'+(x.note?'<p class="t-note">'+esc(L(x.note))+'</p>':'')+'</div>'+
     '<blockquote class="quote">“'+esc(L(x.quote))+'”</blockquote>'+
