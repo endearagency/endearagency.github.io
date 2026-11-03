@@ -93,6 +93,9 @@ h1,h2,h3{text-wrap:balance}
 .mega-col h3{margin:0 0 12px;font-size:16px;font-weight:600}
 .mega-col h3 a{text-decoration:none}
 .mega-col a.sub{display:block;padding:6px 0;color:var(--muted);text-decoration:none;font-size:15px}
+.mega-col .sub.soon{display:flex;align-items:center;gap:8px;padding:6px 0;color:#B7AEB2;font-size:15px;cursor:default}
+.sub.soon em,.mp-subs .soon em{font-style:normal;font-size:10.5px;font-weight:600;letter-spacing:.02em;color:var(--accent);background:#FBE7EE;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.mp-subs .soon{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 6px 0 12px;border-radius:999px;background:var(--soft);font-size:13px;color:#B7AEB2;cursor:default}
 .mega-col a.sub:hover,.mega-col h3 a:hover{color:var(--accent)}
 .mega-foot{max-width:var(--wrap);margin:0 auto;padding:0 20px 26px}
 .ask{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:16px 20px;border-radius:16px;background:var(--soft);text-decoration:none}
@@ -1062,6 +1065,7 @@ var CATS = [
   { id:'events', img:'event-cafe.jpg', title:SVC_OPTS[4][1], tint:'#F1EAF8', blurb:['ช่วยดูแลงานอีเวนต์ร่วมกับคุณ สตาฟบูธ และผลิตสินค้าที่ระลึก','Event support alongside your team, booth staff and merchandise production.'],
     items:EVENTS.map(function(e){ return [e.title,{}]; }) }
 ];
+function itemSoon(it){ var f=it[1]&&it[1].filter; return !!f && !TALENTS.some(function(x){ return x.type===f; }); }
 var SVC_IDS = CATS.map(function(c){ return c.id; });
 
 /* ---------- icons ---------- */
@@ -1106,11 +1110,11 @@ function renderStatic(){
 
   $('megaGrid').innerHTML = CATS.map(function(c){
     return '<div class="mega-col"><h3><a href="#'+c.id+'" data-close>'+esc(L(c.title))+' →</a></h3>'+
-      c.items.map(function(it){ return '<a class="sub" href="#'+c.id+'" data-close data-set="'+setAttr(it[1])+'">'+esc(L(it[0]))+'</a>'; }).join('')+'</div>';
+      c.items.map(function(it){ if(itemSoon(it)) return '<span class="sub soon">'+esc(L(it[0]))+'<em>Coming soon</em></span>'; return '<a class="sub" href="#'+c.id+'" data-close data-set="'+setAttr(it[1])+'">'+esc(L(it[0]))+'</a>'; }).join('')+'</div>';
   }).join('');
   $('mpCats').innerHTML = CATS.map(function(c){
     return '<div class="mp-cat"><a href="#'+c.id+'" data-close>'+esc(L(c.title))+'</a><div class="mp-subs">'+
-      c.items.map(function(it){ return '<a href="#'+c.id+'" data-close data-set="'+setAttr(it[1])+'">'+esc(L(it[0]))+'</a>'; }).join('')+'</div></div>';
+      c.items.map(function(it){ if(itemSoon(it)) return '<span class="soon">'+esc(L(it[0]))+'<em>Coming soon</em></span>'; return '<a href="#'+c.id+'" data-close data-set="'+setAttr(it[1])+'">'+esc(L(it[0]))+'</a>'; }).join('')+'</div></div>';
   }).join('');
   $('tiles').innerHTML = CATS.map(function(c,i){
     return '<a class="tile" href="#'+c.id+'" style="background:'+c.tint+'">'+(c.img ? '<img class="tile-img" src="'+c.img+'" alt="" loading="lazy">' : '<span class="ph">'+phImg()+'</span>')+'<span class="tx"><span class="num">0'+(i+1)+'</span><b>'+esc(L(c.title))+'</b><span class="d">'+esc(L(c.blurb))+'</span><span class="more-link">'+t('tile.more')+'</span></span></a>';
