@@ -462,6 +462,18 @@ html[lang="th"] .h2{padding-top:.08em}
 .stage-art.zoomed .stage-img{object-fit:cover;object-position:center top;padding:0;max-height:none;height:auto;aspect-ratio:1/1.03}
 .zoom-hint{position:absolute;left:14px;bottom:14px;z-index:3;display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.92);box-shadow:0 4px 14px -6px rgba(0,0,0,.25);font-size:13px;font-weight:600;color:var(--fg);pointer-events:none}
 .t-note{margin:8px 0 0;font-size:13px;color:var(--muted)}
+.tg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:14px 12px;margin-top:18px}
+.tg{display:flex;flex-direction:column;gap:8px;padding:0;border:0;background:none;cursor:pointer;text-align:center;font:inherit;color:var(--fg)}
+.tg-img{display:block;position:relative;aspect-ratio:1/1;border-radius:16px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(21,19,20,.06);transition:transform .2s ease, box-shadow .2s ease}
+.tg-img img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .3s ease}
+.tg-img b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-size:34px;color:rgba(21,19,20,.4)}
+.tg:hover .tg-img{transform:translateY(-4px);box-shadow:0 14px 26px -14px rgba(214,51,108,.45),inset 0 0 0 2px var(--accent)}
+.tg-nm{font-size:14px;font-weight:600;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tg-soon{cursor:default}
+.tg-soon .tg-img{border:2px dashed #E3C3CF;box-shadow:none;background:#FFF8FA;display:flex;align-items:center;justify-content:center}
+.tg-soon i{font-style:normal;font-size:30px;color:var(--accent)}
+.tg-soon .tg-nm{color:var(--accent)}
+@media (max-width:640px){.tg-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 8px}.tg-nm{font-size:12px}.tg-img{border-radius:12px}}
 .fact span{font-size:14px;line-height:1.5;color:#4A4547}
 
 /* creators */
@@ -639,8 +651,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
           <div class="panel-top">
             <p class="lead" data-t="tal.lead"></p>
             <div class="seg" role="group" aria-label="Layout">
-              <button data-mode="select" aria-pressed="true" data-t="tal.select"></button>
-              <button data-mode="cards" aria-pressed="false" data-t="tal.cards"></button>
+              <button data-mode="cards" aria-pressed="true" data-t="tal.cards"></button>
+              <button data-mode="select" aria-pressed="false" data-t="tal.select"></button>
             </div>
           </div>
           <div class="chips" id="filters" role="group" aria-label="Filter"></div>
@@ -888,7 +900,7 @@ var T = {
   'tal.total':['รวม','total'],
   'tal.totalall':['รวมทุกช่องทาง','across all platforms'],
   'tal.img':['ภาพทาเลนต์','Talent image'],
-  'tal.swipe':['กดที่การ์ดเพื่อดูรายละเอียด · กดลูกศรซ้าย-ขวาเพื่อดูคนอื่น','Tap a card for details · use the arrows to see more'],
+  'tal.swipe':['กดที่การ์ดเพื่อดูรายละเอียด','Tap a card for details'],
   'tal.prev':['ก่อนหน้า','Previous'],
   'tal.next':['ถัดไป','Next'],
   'tal.note':['* รายชื่อและข้อมูลทาเลนต์ในหน้านี้เป็นตัวอย่างสมมติสำหรับทดสอบ · ยอดผู้ติดตาม ณ ต.ค. 2026','* Talent names and details on this page are fictional examples for testing · Follower counts as of Oct 2026'],
@@ -1028,7 +1040,7 @@ var ICONS = {
 function icon(k, size, sw){ return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+(sw||(size>40?1.4:2))+'" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block">'+(ICONS[k]||'')+'</svg>'; }
 
 /* ---------- state ---------- */
-var st = { zoom:true, form:{}, lang:'th', plat:[], tlang:[], filter:'All', tag:[], work:[], aff:[], fol:[], sel:'hanami', mode:'select', art:0, pub:0, open:{} };
+var st = { zoom:true, form:{}, lang:'th', plat:[], tlang:[], filter:'All', tag:[], work:[], aff:[], fol:[], sel:'hanami', mode:'cards', art:0, pub:0, open:{} };
 try{ var saved = localStorage.getItem('endear-lang'); if(saved==='th'||saved==='en') st.lang = saved; }catch(e){}
 function li(){ return st.lang==='en' ? 1 : 0; }
 function L(pair){ return Array.isArray(pair) ? pair[li()] : pair; }
@@ -1169,9 +1181,10 @@ function renderTalent(){
   var cur = list.filter(function(x){ return x.id===st.sel; })[0] || list[0];
   $('talentSelect').innerHTML = '<div class="stage"><div class="stage-art'+(cur.halves?(st.zoom?' zoomable zoomed':' zoomable'):'')+'" style="background:'+cur.color+'"'+(cur.halves?' data-zoom="1"':'')+'>'+(cur.img ? '<img class="stage-img" src="'+(st.zoom && cur.halves ? cur.halves[st.form[cur.id]||0] : imgOf(cur))+'" alt="'+esc(nameOf(cur))+'">' : '<span class="ini" aria-hidden="true">'+cur.ini+'</span><span class="lbl">'+t('tal.img')+'</span>')+formSw(cur)+(cur.halves?'<span class="zoom-hint">'+(st.zoom?'⤢ '+t('tal.full'):'🔍 '+t('tal.zoom'))+'</span>':'')+'<i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></div><div class="stage-info">'+infoHTML(cur)+'</div>'+
     '<div class="roster" role="group">'+list.map(function(x){ return '<button class="r-btn" data-pick="'+x.id+'" aria-pressed="'+(x.id===cur.id)+'"><span class="r-face" style="background:'+x.color+'">'+(x.face ? '<img src="'+x.face+'" alt="">' : x.ini)+'</span>'+'<span class="nm">'+esc(x.short)+'</span></button>'; }).join('')+'<div class="r-soon" aria-hidden="true"><span class="r-face">+</span><span class="nm">Coming soon</span></div>'+'</div></div>';
-  $('talentCards').innerHTML = '<div class="cards-wrap"><button class="c-nav prev" type="button" data-cnav="-1" aria-label="'+t('tal.prev')+'">←</button><div class="cards">'+list.map(function(x){
-    return '<button class="t-card" data-open="'+x.id+'"><span class="face" style="background:'+x.color+'" aria-hidden="true">'+(x.aff && x.aff.logo ? '<span class="c-aff"><img src="'+x.aff.logo+'" alt="">'+esc(x.aff.name)+'</span>' : '')+(x.card ? '<img class="cover" src="'+x.card+'" alt="" loading="lazy">' : x.img ? '<img src="'+imgOf(x)+'" alt="" loading="lazy">' : x.ini)+'</span><span class="body"><span class="ty">'+esc(L(TYPES[x.type]))+' · '+t('tal.pbadge')+affText(x)+' · '+langsOf(x).map(function(c){ return c.toUpperCase(); }).join('/')+'</span><span class="nm">'+esc(nameOf(x))+'</span><span class="tg">'+x.tags.join('  ')+'</span><span class="fl">'+(totalF(x) ? t('tal.followers')+' '+fmtN(totalF(x))+' · ' : '')+(st.plat.length && platN(x) ? '' : x.links.map(function(l){ return esc(l[0]); }).join(' · '))+(st.plat.length && platN(x) ? esc(platBest(x)[0])+' '+fmtN(platN(x)) : '')+'</span></span></button>';
-  }).join('')+'<div class="t-soon"><i>+</i><b>Coming soon</b><span>'+t('tal.soon')+'</span></div></div><button class="c-nav next" type="button" data-cnav="1" aria-label="'+t('tal.next')+'">→</button></div><p class="note">'+t('tal.swipe')+'</p>';
+  $('talentCards').innerHTML = '<div class="tg-grid">'+list.map(function(x){
+    var src = x.face || x.card || imgOf(x);
+    return '<button class="tg" data-open="'+x.id+'"><span class="tg-img" style="background:'+x.color+'">'+(src ? '<img src="'+src+'" alt="" loading="lazy">' : '<b>'+x.ini+'</b>')+'</span><span class="tg-nm">'+esc(x.short||nameOf(x))+'</span></button>';
+  }).join('')+'<div class="tg tg-soon" aria-hidden="true"><span class="tg-img"><i>+</i></span><span class="tg-nm">Coming soon</span></div></div><p class="note">'+t('tal.swipe')+'</p>';
   $('talentSelect').hidden = st.mode!=='select';
   $('talentCards').hidden = st.mode!=='cards';
   updCardNav();
