@@ -471,7 +471,8 @@ html[lang="th"] .h2{padding-top:.08em}
 .form-sw{position:absolute;right:14px;bottom:14px;z-index:3;display:flex;gap:4px;padding:4px;border-radius:999px;background:rgba(255,255,255,.92);box-shadow:0 4px 14px -6px rgba(0,0,0,.25)}
 .form-sw button{border:0;background:none;padding:6px 12px;border-radius:999px;font:inherit;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
 .form-sw button[aria-pressed="true"]{background:var(--accent);color:#fff}
-@media (max-width:640px){.stage-art .form-sw{right:12px;bottom:12px;flex-direction:column;align-items:stretch;border-radius:18px;gap:2px}.stage-art .form-sw button{border-radius:14px;text-align:center}.form-sw button{padding:5px 10px;font-size:12px;white-space:nowrap}.zoom-hint{left:12px;bottom:12px;font-size:12px;padding:6px 10px}}
+.fsw-tg{display:none}.fsw-list{display:contents}
+@media (max-width:640px){.form-sw{right:12px;bottom:12px;flex-direction:column-reverse;align-items:stretch;border-radius:18px;gap:2px}.form-sw .fsw-tg{display:inline-flex;align-items:center;justify-content:center;gap:6px;color:var(--fg);background:none}.form-sw .fsw-tg svg{transition:transform .2s}.form-sw.open .fsw-tg svg{transform:rotate(180deg)}.form-sw .fsw-list{display:none}.form-sw.open .fsw-list{display:flex;flex-direction:column;gap:2px;padding-bottom:2px;border-bottom:1px solid var(--line)}.form-sw button{border-radius:14px;text-align:center}.form-sw button{padding:5px 10px;font-size:12px;white-space:nowrap}.zoom-hint{left:12px;bottom:12px;font-size:12px;padding:6px 10px}}
 .modal .face{position:relative}
 .stage-info,.modal .bd{position:relative}
 .info-top{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
@@ -1213,7 +1214,7 @@ function nameOf(x){ return Array.isArray(x.name) ? L(x.name) : x.name; }
 function zoomOn(x){ var f=st.form[x.id]||0; return !!(st.zoom && x.halves && x.halves[f] && !(x.flat && x.flat[f])); }
 function canZoom(x){ var f=st.form[x.id]||0; return !!(x.halves && x.halves[f] && !(x.flat && x.flat[f])); }
 function imgOf(x){ return x.forms ? x.forms[st.form[x.id]||0] : x.img; }
-function formSw(x){ if(!x.forms) return ''; var f=st.form[x.id]||0; return '<div class="form-sw" role="group">'+x.forms.map(function(_,i){ return '<button type="button" data-form="'+x.id+':'+i+'" aria-pressed="'+(i===f)+'">'+(x.formNames ? esc(L(x.formNames[i])) : t('tal.form')+' '+(i+1))+'</button>'; }).join('')+'</div>'; }
+function formSw(x){ if(!x.forms) return ''; var f=st.form[x.id]||0, nm=function(i){ return x.formNames ? esc(L(x.formNames[i])) : t('tal.form')+' '+(i+1); }; return '<div class="form-sw" role="group"><button type="button" class="fsw-tg" data-fswtg aria-expanded="false">'+nm(f)+' <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button><div class="fsw-list">'+x.forms.map(function(_,i){ return '<button type="button" data-form="'+x.id+':'+i+'" aria-pressed="'+(i===f)+'">'+nm(i)+'</button>'; }).join('')+'</div></div>'; }
 function langsOf(x){ return x.langs || ['th']; }
 function langText(x){ return langsOf(x).map(function(c){ return L(TLANGS[c]||[c,c]); }).join(', '); }
 var FRANGES = [['s',0,1e4,['ต่ำกว่า 10K','Under 10K']],['m',1e4,1e5,['10K–100K','10K–100K']],['l',1e5,5e5,['100K–500K','100K–500K']],['xl',5e5,1e6,['500K–1M','500K–1M']],['xxl',1e6,Infinity,['1M ขึ้นไป','1M+']]];
@@ -1423,6 +1424,7 @@ document.addEventListener('click', function(e){
   if(el.dataset.filter){ st.filter = el.dataset.filter; renderTalent(); return; }
   if(el.dataset.mode){ st.mode = el.dataset.mode; renderTalent(); return; }
   if(el.dataset.zoom){ st.zoom=!st.zoom; renderTalent(); return; }
+  if(el.hasAttribute('data-fswtg')){ var fw=el.parentNode, op=!fw.classList.contains('open'); fw.classList.toggle('open',op); el.setAttribute('aria-expanded',op); return; }
   if(el.dataset.form){ var fp=el.dataset.form.split(':'); st.form[fp[0]]=+fp[1]; renderTalent(); if(!$('modalWrap').hidden) openModal(fp[0]); return; }
   if(el.dataset.pick){ st.sel = el.dataset.pick; renderTalent(); return; }
   if(el.dataset.goto){ st.sel = el.dataset.goto; st.mode = 'select'; var oR=document.querySelector('#talentSelect .roster'); if(oR) oR.remove(); renderTalent(); var ts=$('talentSelect'); var y=ts.getBoundingClientRect().top+window.pageYOffset-90; window.scrollTo({top:y, behavior:'smooth'}); return; }
