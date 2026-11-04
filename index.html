@@ -455,9 +455,12 @@ html[lang="th"] .h2{padding-top:.08em}
 .lb-body>img{background:none}
 .lb-comic{width:min(800px,92vw);height:calc(100vh - 48px);overflow-y:auto;overscroll-behavior:contain;border-radius:12px;background:#fff;box-shadow:0 10px 40px rgba(0,0,0,.4)}
 .lb-comic img{display:block;width:100%;height:auto}
+.lb-yt{width:min(1100px,92vw);aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+.lb-yt iframe{width:100%;height:100%;border:0;display:block}
+.g-ttl{position:absolute;left:10px;top:10px;right:10px;text-align:left;font-size:12.5px;font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.7)}
 .g-badge{position:absolute;left:10px;bottom:10px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--dark);font-size:12.5px;font-weight:600;box-shadow:0 1px 6px rgba(0,0,0,.15)}
 .lb-x{position:absolute;top:16px;right:16px;background:#fff}
-@media (max-width:640px){.g-tile.g-btn{flex-basis:100%!important}}
+@media (max-width:640px){.g-tile.g-btn{flex-basis:100%!important;flex-grow:1!important}}
 .social.hl{background:var(--accent)}
 .social.nolink{cursor:default}
 .social.nolink:hover{transform:none;background:var(--dark)}
@@ -1061,7 +1064,8 @@ var ART = [
   { label:['คอมิก / เว็บตูน','Comic / Webtoon'], icon:'panels', imgs:[{comic:[11344,9906,9446,10667,9249,9370,10149,12533,10667,9283,7253].map(function(h,i){ return ['art-comic-p'+(i<9?'0':'')+(i+1)+'.webp',800,h]; }), src:'art-comic-cover.webp', w:1555, h:2200, pv:[[1,0],[2,1],[3,2],[4,3],[5,4]]}], bg:'#FFE3D6', desc:['การ์ตูนช่องและเว็บตูน ตั้งแต่สตอรีบอร์ดถึงลงสี','Comics and webtoons, from storyboard to colour.'], kw:'การ์ตูน คอมมิค เว็บตูน มังงะ comic manga' },
   { label:['Live2D และริกกิ้ง','Live2D & Rigging'], icon:'rig', imgs:[{v:'art-live2d-1.mp4', snd:1, big:1, src:'art-live2d-1.webp', w:1280, h:720},['art-p-l2d-1.webp',856,1600],['art-p-l2d-2.webp',1151,1121],['art-p-l2d-3.webp',1499,1600],['art-p-l2d-4.webp',1422,1535],['art-p-l2d-7.webp',727,957],['art-p-l2d-8.webp',672,886],['art-p-l2d-9.webp',637,882]], bg:'#E6DEFB', desc:['โมเดล Live2D และริกกิ้ง พร้อมใช้งานสำหรับ VTuber','Live2D models and rigging, ready for VTubers.'], kw:'ไลฟ์ทูดี โมเดล ริก vtuber model live2d' },
   { label:['โมชันกราฟิก','Motion Graphic'], icon:'play', imgs:[{v:'art-motion-1.mp4', src:'art-motion-1.webp', w:1280, h:720},{v:'art-motion-3.mp4', src:'art-motion-3.webp', w:1280, h:904},{v:'art-motion-2.mp4', src:'art-motion-2.webp', w:1280, h:720},{v:'art-motion-4.mp4', snd:1, src:'art-motion-4.webp', w:1280, h:502}], bg:'#FFE3D6', desc:['โมชันกราฟิกสำหรับโปรโมตและโซเชียลมีเดีย','Motion graphics for promotion and social media.'], kw:'โมชัน โมชั่นกราฟิก วิดีโอ motion video' },
-  { label:['แอนิเมชัน','Animation'], icon:'play', imgs:[{v:'art-anim-1.mp4', snd:1, big:1, src:'art-anim-1.webp', w:1280, h:720}], bg:'#FBDDE8', desc:['แอนิเมชันสำหรับเปิดตัว โปรโมต และคอนเทนต์','Animation for launches, promotion and content.'], kw:'แอนิเมชัน อนิเมชั่น การ์ตูนเคลื่อนไหว animation' }
+  { label:['แอนิเมชัน','Animation'], icon:'play', imgs:[{v:'art-anim-1.mp4', snd:1, big:1, src:'art-anim-1.webp', w:1280, h:720}], bg:'#FBDDE8', desc:['แอนิเมชันสำหรับเปิดตัว โปรโมต และคอนเทนต์','Animation for launches, promotion and content.'], kw:'แอนิเมชัน อนิเมชั่น การ์ตูนเคลื่อนไหว animation' },
+  { label:['เพลงและ MV','Music & MV'], icon:'play', bg:'#E6DEFB', imgs:[{yt:'laZymlZOSd8',w:16,h:9,t:'แค่ฉันมีเธอ "Together"'},{yt:'8vefV8LsqSU',w:16,h:9,t:'ZONA – REPRISE'},{yt:'THGGlod5bYo',w:16,h:9,t:'MEMORIA · Motion Illustration MV'},{yt:'L6DGM8ZpSkA',w:16,h:9,t:'เอาปากกามาวง · Japanese Style MV'},{yt:'pIWR515faEg',w:16,h:9,t:'ฟ้า · Minimal Lyric Video'}], desc:['แต่งเพลง แต่งเนื้อร้อง อัดร้อง มิกซ์ และทำ MV ตั้งแต่ Lyric Video จนถึง Motion Illustration MV','Original songs, lyrics, vocal recording, mixing and MVs, from lyric videos to full motion-illustration MVs.'], kw:'เพลง แต่งเพลง มิวสิกวิดีโอ เอ็มวี ร้องเพลง มิกซ์ music mv song lyric video' }
 ];
 var FAB = [
   { imgs:['fab-game-4.jpg','fab-game-3.jpg','fab-game-2.jpg','fab-game-1.jpg'], title:['โมเดล 3D สำหรับเกม','3D Model — Game'], desc:['โมเดล 3D สำหรับใช้ในเกม','3D models for games.'], kw:'สามมิติ เกม โมเดล 3d' },
@@ -1292,10 +1296,11 @@ function renderArt(){
   var tiles = list.map(function(L3){ var im=L3[0], n=L3[1], pg=L3[2];
     if(pg>=0) return '<button type="button" class="g-tile g-btn" data-lbc="'+st.art+':'+n+':'+pg+'" style="flex:71 1 163px;aspect-ratio:0.708" aria-label="'+esc(L(a.label))+' '+(pg+1)+'"><img class="g-photo" src="'+im.pvsrc+'" alt="" loading="lazy"><span class="g-zoom" aria-hidden="true">📖</span></button>';
     var o = Array.isArray(im) ? {src:im[0], w:im[1], h:im[2]} : (typeof im==='string' ? {src:im, w:1, h:1} : im), r=o.w/o.h, lbl=esc(L(a.label))+' '+(n+1);
-    var attr = o.v ? 'data-lbv="'+st.art+':'+n+'"' : o.comic ? 'data-lbc="'+st.art+':'+n+'"' : 'data-lb="'+o.src+'"';
-    var media = o.v ? '<video class="g-photo" src="'+o.v+'" poster="'+o.src+'" muted loop autoplay playsinline preload="metadata" aria-hidden="true"></video>' : '<img class="g-photo" src="'+o.src+'" alt="'+lbl+'" loading="lazy">';
-    var badge = o.v ? '<span class="g-badge" aria-hidden="true">▶ '+t(o.snd?'art.play':'art.watch')+'</span>' : o.comic ? '<span class="g-badge" aria-hidden="true">📖 '+t('art.read')+'</span>' : '<span class="g-zoom" aria-hidden="true">⤢</span>';
-    return '<button type="button" class="g-tile g-btn'+(o.big?' g-big':'')+'" '+attr+' style="flex:'+(o.big?'1 1 100%':Math.round(r*100)+' 1 '+Math.round(r*230)+'px')+';aspect-ratio:'+r.toFixed(4)+'" aria-label="'+lbl+'">'+media+badge+'</button>'; })
+    if(o.yt){ o.src='https://i.ytimg.com/vi/'+o.yt+'/hqdefault.jpg'; }
+    var attr = o.yt ? 'data-lby="'+o.yt+'"' : o.v ? 'data-lbv="'+st.art+':'+n+'"' : o.comic ? 'data-lbc="'+st.art+':'+n+'"' : 'data-lb="'+o.src+'"';
+    var media = o.yt ? '<img class="g-photo" src="'+o.src+'" alt="" loading="lazy" onerror="this.onerror=null;this.src=\'art-mv-'+o.yt+'.webp\'">' : o.v ? '<video class="g-photo" src="'+o.v+'" poster="'+o.src+'" muted loop autoplay playsinline preload="metadata" aria-hidden="true"></video>' : '<img class="g-photo" src="'+o.src+'" alt="'+lbl+'" loading="lazy">';
+    var badge = o.yt ? '<span class="g-badge" aria-hidden="true">▶ '+t('art.play')+'</span>' : o.v ? '<span class="g-badge" aria-hidden="true">▶ '+t(o.snd?'art.play':'art.watch')+'</span>' : o.comic ? '<span class="g-badge" aria-hidden="true">📖 '+t('art.read')+'</span>' : '<span class="g-zoom" aria-hidden="true">⤢</span>';
+    return '<button type="button" class="g-tile g-btn'+(o.big?' g-big':'')+'" '+attr+' style="flex:'+(o.big?'1 1 100%':o.yt?'0 1 calc(33.333% - 10px)':Math.round(r*100)+' 1 '+Math.round(r*230)+'px')+';aspect-ratio:'+r.toFixed(4)+'" aria-label="'+(o.t?esc(o.t):lbl)+'"'+(o.t?' title="'+esc(o.t)+'"':'')+'>'+media+badge+'</button>'; })
     .concat((a.nda||[]).map(function(d){ return '<div class="g-tile"><div class="g-conf"><span class="blob" style="background:'+a.bg+'" aria-hidden="true"></span><span class="lock">'+icon('lock',14,2)+t('art.conf')+'</span><span class="big">'+icon(a.icon,84)+'</span><span><b>'+esc(L(a.label))+'</b><small>'+esc(L(d))+'</small></span></div></div>'; }));
   if(!tiles.length) tiles = ['<div class="g-tile g-soon" style="background:'+a.bg+'"><span class="ph-soon"><b>Coming soon</b><small>'+t('ph.img')+'</small></span></div>'];
   $('gallery').innerHTML = tiles.join('');
@@ -1419,6 +1424,7 @@ document.addEventListener('click', function(e){
   if(el.dataset.pick){ st.sel = el.dataset.pick; renderTalent(); return; }
   if(el.dataset.goto){ st.sel = el.dataset.goto; st.mode = 'select'; var oR=document.querySelector('#talentSelect .roster'); if(oR) oR.remove(); renderTalent(); var ts=$('talentSelect'); var y=ts.getBoundingClientRect().top+window.pageYOffset-90; window.scrollTo({top:y, behavior:'smooth'}); return; }
   if(el.dataset.lb){ $('lbBody').innerHTML = '<img src="'+el.dataset.lb+'" alt="">'; showOverlay('lightbox'); return; }
+  if(el.dataset.lby){ $('lbBody').innerHTML = '<div class="lb-yt"><iframe src="https://www.youtube-nocookie.com/embed/'+el.dataset.lby+'?autoplay=1&rel=0" title="YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>'; showOverlay('lightbox'); return; }
   if(el.dataset.lbv || el.dataset.lbc){ var pr=(el.dataset.lbv||el.dataset.lbc).split(':'), it=ART[+pr[0]].imgs[+pr[1]];
     $('lbBody').innerHTML = it.v ? '<video src="'+it.v+'" poster="'+it.src+'" controls autoplay playsinline></video>' : '<div class="lb-comic">'+it.comic.map(function(p,i){ return '<img src="'+p[0]+'" width="'+p[1]+'" height="'+p[2]+'" alt="'+(i+1)+'" loading="'+(i<1?'eager':'lazy')+'">'; }).join('')+'</div>';
     showOverlay('lightbox'); var lc=$('lbBody').querySelector('.lb-comic'); if(lc){ var pg=+(pr[2]||0), ims=lc.querySelectorAll('img'); if(ims[pg]) ims[pg].loading='eager'; lc.scrollTop = pg>0 && ims[pg] ? ims[pg].offsetTop : 0; } return; }
