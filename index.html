@@ -646,7 +646,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
       </div>
       <a class="btn ghost" href="#services" data-t="hero.btn"></a>
     </div>
-    <div class="hero-strip"><img class="strip-img" src="fab-game-4.jpg" alt="3D game characters" style="object-position:center 30%"><img class="strip-img" src="hero-3dkid.jpg" alt="3D character model"><img class="strip-img" src="work-vtuber-stream-v4.jpg" alt="VTuber game stream" style="object-position:center 55%"><img class="strip-img" src="merch3d-1.jpg" alt="3D printed merch" style="object-position:24% center"></div>
+    <div class="hero-strip"><img class="strip-img" src="fab-game-4.jpg" alt="3D game characters" style="object-position:center 30%"><img class="strip-img" src="hero-3dkid.jpg" alt="3D character model"><img class="strip-img" src="hero-art-cathood.jpg" alt="Character illustration" style="object-position:center 20%"><img class="strip-img" src="merch3d-1.jpg" alt="3D printed merch" style="object-position:24% center"></div>
   </section>
 
   <div class="wrap"><div class="tiles" id="tiles"></div></div>
@@ -1100,7 +1100,7 @@ var EVENTS = [
 var CATS = [
   { id:'talent', img:'tile-talent-v6.jpg', title:SVC_OPTS[0][1], tint:'#FBE7EE', blurb:['KOL, VTuber, MC และคอสเพลเยอร์ รับงานโปรโมต พากย์เสียง หรือคอลแลป ตามความถนัดของแต่ละคน','KOLs, VTubers, MCs and cosplayers for promotion, voice dubbing or collabs, depending on each person’s strengths.'],
     items:[['VTuber',{filter:'VTuber'}],['KOL',{filter:'KOL'}],['MC',{filter:'MC'}],['Cosplayer',{filter:'Cosplayer'}]] },
-  { id:'art', title:SVC_OPTS[1][1], tint:'#FFF3D9', blurb:['ภาพประกอบ ออกแบบตัวละคร อีโมต คอมิก Live2D แอนิเมชัน และ MV','Illustration, character design, emotes, comics, Live2D, animation and MVs.'],
+  { id:'art', img:'tile-art-v1.jpg', title:SVC_OPTS[1][1], tint:'#FFF3D9', blurb:['ภาพประกอบ ออกแบบตัวละคร อีโมต คอมิก Live2D แอนิเมชัน และ MV','Illustration, character design, emotes, comics, Live2D, animation and MVs.'],
     items:ART.map(function(a,i){ return [a.label,{art:i}]; }) },
   { id:'fab', img:'merch3d-3.jpg?v=3', title:SVC_OPTS[2][1], tint:'#ECE8E9', blurb:['โมเดล 3D งานพิมพ์ 3D และพิมพ์ UV บนพื้นผิวพิเศษ','3D models, 3D printing and UV printing on special surfaces.'],
     items:FAB.slice(0,5).map(function(f){ return [f.title,{}]; }) },
