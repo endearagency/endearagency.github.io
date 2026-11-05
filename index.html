@@ -1111,7 +1111,12 @@ var CATS = [
     items:EVENTS.map(function(e){ return [e.title,{}]; }) }
 ];
 function itemSoon(it){ var f=it[1]&&it[1].filter; return !!f && !TALENTS.some(function(x){ return x.type===f; }); }
-var SVC_IDS = CATS.map(function(c){ return c.id; });
+/* Hidden services: add an id here to hide it everywhere; remove it to bring the section back */
+var HIDDEN_SVC = ['publishing'];
+function svcOn(id){ return HIDDEN_SVC.indexOf(id)===-1; }
+var SHOWN_CATS = CATS.filter(function(c){ return svcOn(c.id); });
+var SVC_IDS = SHOWN_CATS.map(function(c){ return c.id; });
+(function(){ var n=0; CATS.forEach(function(c){ var sec=document.getElementById(c.id); if(!sec) return; if(!svcOn(c.id)){ sec.hidden=true; return; } n++; var num=sec.querySelector('.svc-head .num'); if(num) num.textContent=(n<10?'0':'')+n; }); })();
 
 /* ---------- icons ---------- */
 var ICONS = {
@@ -1150,18 +1155,18 @@ function renderStatic(){
   $('langFlip').textContent = st.lang==='th' ? 'EN' : 'TH';
   $('langFlip').setAttribute('aria-label', st.lang==='th' ? 'Switch to English' : 'เปลี่ยนเป็นภาษาไทย');
   var fs = $('fSvc'), cur = fs.value;
-  fs.innerHTML = SVC_OPTS.map(function(o){ return '<option value="'+o[0]+'">'+esc(L(o[1]))+'</option>'; }).join('');
+  fs.innerHTML = SVC_OPTS.filter(function(o){ return svcOn(o[0]); }).map(function(o){ return '<option value="'+o[0]+'">'+esc(L(o[1]))+'</option>'; }).join('');
   if(cur) fs.value = cur;
 
-  $('megaGrid').innerHTML = CATS.map(function(c){
+  $('megaGrid').innerHTML = SHOWN_CATS.map(function(c){
     return '<div class="mega-col"><h3><a href="#'+c.id+'" data-close>'+esc(L(c.title))+' →</a></h3>'+
       c.items.map(function(it){ if(itemSoon(it)) return '<span class="sub soon">'+esc(L(it[0]))+'<em>Coming soon</em></span>'; return '<a class="sub" href="#'+c.id+'" data-close data-set="'+setAttr(it[1])+'">'+esc(L(it[0]))+'</a>'; }).join('')+'</div>';
   }).join('');
-  $('mpCats').innerHTML = CATS.map(function(c){
+  $('mpCats').innerHTML = SHOWN_CATS.map(function(c){
     return '<div class="mp-cat"><a href="#'+c.id+'" data-close>'+esc(L(c.title))+'</a><div class="mp-subs">'+
       c.items.map(function(it){ if(itemSoon(it)) return '<span class="soon">'+esc(L(it[0]))+'<em>Coming soon</em></span>'; return '<a href="#'+c.id+'" data-close data-set="'+setAttr(it[1])+'">'+esc(L(it[0]))+'</a>'; }).join('')+'</div></div>';
   }).join('');
-  $('tiles').innerHTML = CATS.map(function(c,i){
+  $('tiles').innerHTML = SHOWN_CATS.map(function(c,i){
     return '<a class="tile" href="#'+c.id+'" style="background:'+c.tint+'">'+(c.img ? '<img class="tile-img" src="'+c.img+'" alt="" loading="lazy">' : '<span class="ph">'+phImg()+'</span>')+'<span class="tx"><span class="num">0'+(i+1)+'</span><b>'+esc(L(c.title))+'</b><span class="d">'+esc(L(c.blurb))+'</span><span class="more-link">'+t('tile.more')+'</span></span></a>';
   }).join('') + '<a class="tile other" href="#contact" data-set="'+setAttr({svc:'other'})+'"><span class="plus">+</span><span class="tx" style="padding:0"><b>'+t('tile.other.t')+'</b><span class="d">'+t('tile.other.d')+'</span><span class="more-link">'+t('tile.other.go')+'</span></span></a>';
   $('fabGrid').innerHTML = FAB.map(function(f,i){ return workCard('fab', f, i); }).join('');
@@ -1388,7 +1393,7 @@ addIdx(['โปรโมตเกม / สินค้า','Game / Product Promo
 addIdx(['คอลแลป','Collaboration'], CATS[0].title, '#talent', 'collab', {filter:'All'});
 ART.forEach(function(a,i){ addIdx(a.label, CATS[1].title, '#art', a.kw, {art:i}); });
 FAB.forEach(function(f){ addIdx(f.title, CATS[2].title, '#fab', f.kw, {}); });
-PUB.forEach(function(p,i){ addIdx(p.title, CATS[3].title, '#publishing', p.kw+' หนังสือ book', {pub:i}); });
+if(svcOn('publishing')) PUB.forEach(function(p,i){ addIdx(p.title, CATS[3].title, '#publishing', p.kw+' หนังสือ book', {pub:i}); });
 EVENTS.forEach(function(e){ addIdx(e.title, CATS[4].title, '#events', e.kw, {}); });
 addIdx(['ร่วมเป็นพาร์ทเนอร์','Partner with us'], T['cr.eyebrow'], '#creators', 'พาร์ทเนอร์ สมัคร เรทการ์ด rate card ผู้จัดการ creator partner', {svc:'partner'});
 addIdx(['วิธีการทำงาน','How we work'], ['endear','endear'], '#how', 'ขั้นตอน ประสานงาน เอกสาร project manager process', {});
