@@ -1518,6 +1518,31 @@ function updCardNav(){ var c=document.querySelector('#talentCards .cards'); if(!
   document.addEventListener('scroll', function(e){ if(e.target.classList && e.target.classList.contains('cs-track')) sync(e.target); }, true);
 })();
 renderStatic(); renderAll(); renderSearch(); fixWrap();
+
+/* ---------- live follower counts from Google Sheet ----------
+   Sheet: "ยอดผู้ติดตามในเว็บไซต์ endear" (must be shared: anyone with the link can view).
+   Rows are matched to talents by name; empty cells clear that platform's count. If the fetch fails, the numbers above stay. */
+var SHEET_ID = '1lHW0F7_C-XNCxLFrmErtsZOIKiNvN0ICVxhG1q0Sk6E';
+function parseCSV(t){ var rows=[], row=[], f='', q=false; for(var i=0;i<t.length;i++){ var c=t[i]; if(q){ if(c==='"'){ if(t[i+1]==='"'){ f+='"'; i++; } else q=false; } else f+=c; } else if(c==='"') q=true; else if(c===','){ row.push(f); f=''; } else if(c==='\n'){ row.push(f); rows.push(row); row=[]; f=''; } else if(c!=='\r') f+=c; } if(f!==''||row.length){ row.push(f); rows.push(row); } return rows; }
+function sheetNum(v){ v=String(v||'').replace(/[,\s]/g,''); if(!v) return null; var m=v.match(/^([\d.]+)([kKmM]?)$/); if(!m) return null; var n=parseFloat(m[1]); if(/k/i.test(m[2])) n*=1e3; if(/m/i.test(m[2])) n*=1e6; return Math.round(n); }
+function applySheet(rows){
+  if(!rows.length) return 0; var H=rows[0].map(function(h){ return h.trim(); }), iName=H.indexOf('ชื่อ'); if(iName<0) return 0;
+  var byName={}; TALENTS.forEach(function(x){ [x.name, x.short].concat(Array.isArray(x.name)?x.name:[]).forEach(function(n){ if(n && typeof n==='string') byName[sFold(sCompact(n))]=x; }); });
+  var n=0;
+  rows.slice(1).forEach(function(r){ var x=byName[sFold(sCompact(r[iName]||''))]; if(!x) return; n++;
+    H.forEach(function(h,ci){ if(ci===iName) return; var plat=h, nth=0;
+      if(/^X\s*\(/.test(h)){ plat='X'; nth=1; }
+      var hits=x.links.filter(function(l){ return l[0]===plat; }); var l=hits[nth]; if(!l) return;
+      l[1]=sheetNum(r[ci]); });
+  });
+  return n;
+}
+(function(){ if(!window.fetch) return;
+  fetch('https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:csv&headers=1&gid=0',{cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw 0; return r.text(); })
+    .then(function(t){ if(/^\s*</.test(t)) throw 0; if(applySheet(parseCSV(t))){ renderTalent(); } })
+    .catch(function(){});
+})();
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce || !('IntersectionObserver' in window)) return;
