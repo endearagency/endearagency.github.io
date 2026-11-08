@@ -16,8 +16,8 @@ SITE = 'https://endearagency.github.io/'
 PAGES = {
     'home': dict(dir='', title='endear | หา VTuber ไทย KOL งานอาร์ต งาน 3D และสินค้าที่ระลึก',
         desc='เอเจนซี่ดูแลโปรเจกต์สายอนิเมะ การ์ตูน และเกม หา VTuber ไทย, KOL, MC, คอสเพลเยอร์ รับทำงานอาร์ต Live2D แอนิเมชัน งาน 3D และ merchandise ครบในที่เดียว | Thai VTuber, art, 3D & merch agency.'),
-    'talent': dict(dir='talent/', title='VTuber ไทย KOL สตรีมเมอร์ รับงานโปรโมต รีวิว พากย์เสียง | endear',
-        desc='รวม VTuber ไทย สตรีมเมอร์ (streamer) และ KOL กว่า 50 คน รับงานโปรโมตเกมและสินค้า รีวิว พากย์เสียง คอลแลป Tie-in ดูยอดผู้ติดตามและช่องทางของแต่ละคนได้ทันที | Thai VTubers, streamers & KOLs for hire.'),
+    'talent': dict(dir='talent/', title='VTuber ไทยและต่างประเทศ KOL สตรีมเมอร์ รับงานโปรโมต รีวิว พากย์เสียง | endear',
+        desc='รวม VTuber ไทยและต่างประเทศ สตรีมเมอร์ (streamer) และ KOL กว่า 60 คน รับงานโปรโมตเกมและสินค้า รีวิว พากย์เสียง คอลแลป Tie-in ดูยอดผู้ติดตามและช่องทางของแต่ละคนได้ทันที | Thai VTubers, streamers & KOLs for hire.'),
     'art': dict(dir='art/', title='รับวาดภาพประกอบ ออกแบบตัวละคร Live2D แอนิเมชัน MV | endear',
         desc='ทีมนักวาดสายอนิเมะ รับวาดภาพประกอบ (illustration) ออกแบบตัวละคร (character design) อีโมต สติกเกอร์ LINE ฉากสตรีม โมเดล Live2D สำหรับ VTuber เว็บตูน โมชันกราฟิก แอนิเมชัน และ MV | Anime art, Live2D & animation.'),
     '3d': dict(dir='3d/', title='รับทำโมเดล 3D งานพิมพ์ 3D ของที่ระลึก พิมพ์ UV | endear',
