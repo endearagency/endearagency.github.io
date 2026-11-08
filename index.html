@@ -186,6 +186,7 @@ html[lang="th"] .h2{padding-top:.08em}
 .btn.white{background:#FFFFFF;color:var(--fg)}
 
 /* service tiles */
+.tiles-head{padding:72px 0 28px}.tiles-head .h2{margin:6px 0 10px}
 .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;padding-bottom:64px}
 .tiles .tile{padding:14px 14px 22px}
 .tiles .tile b{font-size:clamp(20px,2.2vw,26px)}
@@ -723,13 +724,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
 
   <section id="phero" class="wrap hero phero" hidden><p class="eyebrow" id="phEyebrow"></p><h1 id="phH1"></h1><p class="hero-sub" id="phSub"></p><div class="chips ph-jump" id="phJump"></div></section>
 
-  <div class="wrap" id="tilesWrap"><div class="tiles" id="tiles"></div></div>
-
   <section class="trusted" id="trusted" aria-label="Clients and partners">
     <div class="wrap">
       <div class="lg-group"><p data-t="lg.clients"></p><div class="logos"><div><img src="logos/playpark.png" alt="PLAYPARK" loading="lazy"></div><div><img src="logos/eliphant.png" alt="Eliphant" loading="lazy"></div><div><img src="logos/ampverse.png" alt="Ampverse" loading="lazy"></div><div><img src="logos/adg.png" alt="ACE Digital Group" loading="lazy"></div><div><img src="logos/gloryforever.png" alt="Glory Forever Public Company Limited" loading="lazy"></div><div><img src="logos/kpcomics.png" alt="KP Comics Studios" loading="lazy"></div><div><img src="logos/worldolet.png" alt="World-O-Let" loading="lazy"></div></div></div><div class="lg-group"><p data-t="lg.games"></p><div class="logos"><div><img src="logos/cod.png" alt="Call of Duty" loading="lazy"></div><div><img src="logos/freefire.png" alt="Free Fire" loading="lazy"></div><div><img src="logos/nikke.png" alt="NIKKE: Goddess of Victory" loading="lazy"></div><div><img src="logos/warships.png" alt="World of Warships" loading="lazy"></div><div><img src="logos/xbox.png" alt="Xbox" loading="lazy"></div><div><img src="logos/audition.png" alt="Audition" loading="lazy"></div><div><img src="logos/tsonline.png" alt="TS Online Mobile" loading="lazy"></div><div><img src="logos/revelation.png" alt="Revelation Mobile" loading="lazy"></div><div><img src="logos/talesrunner.png" alt="Tales Runner" loading="lazy"></div></div></div><div class="lg-group"><p data-t="lg.partners"></p><div class="logos"><div><img src="logos/kpcomics.png" alt="KP Comics Studios" loading="lazy"></div><div><img src="logos/casquad.png" alt="CA Squad" loading="lazy"></div><div><img class="round" src="logos/sarafim.png" alt="Sarafim" loading="lazy"></div><div><img src="logos/virtual7.png" alt="Virtual 7" loading="lazy"></div><div><img src="logos/polygon.png" alt="Polygon" loading="lazy"></div><div><img src="logos/vtory.png" alt="V-TORY" loading="lazy"></div></div></div>
     </div>
   </section>
+
+  <div class="wrap" id="tilesWrap"><div class="tiles-head"><p class="eyebrow" data-t="home.svc.e"></p><h2 class="h2" data-t="home.svc.h"></h2><p class="lead" data-t="home.svc.l"></p></div><div class="tiles" id="tiles"></div></div>
+
 
   <section id="how" class="wrap how">
     <p class="eyebrow" data-t="how.eyebrow"></p>
@@ -986,6 +988,7 @@ var T = {
   'st.4.d':['ใบเสนอราคา สัญญา และเอกสารการเงิน เราจัดการให้','Quotations, contracts and payment documents, handled.'],
   'how.note':['* บางโปรเจกต์ไม่จำเป็นต้องใช้ทุกขั้นตอน เราปรับตามงานจริง','* Not every project needs every step. We adapt to the job.'],
   'svc.eyebrow':['บริการ','Services'],
+  'home.svc.e':['Our services','Our services'], 'home.svc.h':['บริการของเรา','What we do'], 'home.svc.l':['ครบทั้งคน งานภาพ งาน 3D และอีเวนต์ เลือกดูรายละเอียดของแต่ละบริการได้เลย','Talent, art, 3D and events. Pick a service to see the details.'],
   'svc.h2':['บริการของเรา','What we do'],
   'svc.lead':['กดที่หัวข้อเพื่อดูรายละเอียดและตัวอย่างงาน','Tap a service to see details and examples.'],
   'svc.more':['ดูรายละเอียด','Details'],
