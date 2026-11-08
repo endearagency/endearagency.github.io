@@ -666,6 +666,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
 .modal h3{margin:0;font-family:'Outfit','Anuphan',sans-serif;font-size:32px;font-weight:600}
 .modal .tag{background:var(--soft)}
 .modal .quote{background:var(--soft)}
+img,video{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 </style>
 <script type="application/ld+json" id="ld">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://endearagency.github.io/#org","name":"endear","alternateName":["endear Project Management Service","endear agency"],"url":"https://endearagency.github.io/","logo":"https://endearagency.github.io/icon-192.png","description":"เอเจนซี่ดูแลโปรเจกต์สายอนิเมะ การ์ตูน และเกม ในประเทศไทย หา VTuber, KOL, MC, คอสเพลเยอร์ งานอาร์ต Live2D แอนิเมชัน งาน 3D และสินค้าที่ระลึก","areaServed":"TH","knowsLanguage":["th","en"],"knowsAbout":["VTuber","Thai VTuber","KOL","Influencer marketing","MC","Cosplay","Illustration","Character design","Live2D","Animation","Motion graphic","3D modeling","3D printing","Merchandise","Event"]}]}</script>
 </head>
@@ -1564,6 +1565,9 @@ function goSection(id, set){
 function renderPhero(){ var c=PH[PAGE]; if(!c) return; $('phEyebrow').innerHTML=L(c.e); $('phH1').innerHTML=L(c.h); $('phSub').innerHTML=L(c.s); var tg=$('phSub').querySelector('.ph-tags'); if(tg) tg.innerHTML=tg.innerHTML.split(' · ').map(function(w){ return '<span style="white-space:nowrap">'+w+'</span>'; }).join(' · '); }
 
 
+/* make saving images harder: no right-click save, no dragging, no long-press save on phones */
+document.addEventListener('contextmenu', function(e){ if(e.target.closest && e.target.closest('img, video, .g-tile, .t-clip, .tile-img, .stage-art, .lb, .overlay')) e.preventDefault(); });
+document.addEventListener('dragstart', function(e){ if(e.target.tagName==='IMG' || e.target.tagName==='VIDEO') e.preventDefault(); });
 /* justified gallery rows: every row (including the last) fills the width exactly */
 function justifyGalleries(){
   var mobile = window.innerWidth <= 640;
