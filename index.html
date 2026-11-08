@@ -510,6 +510,10 @@ html[lang="th"] .h2{padding-top:.08em}
 .lb-yt iframe{width:100%;height:100%;border:0;display:block}
 .g-ttl{position:absolute;left:10px;top:10px;right:10px;text-align:left;font-size:12.5px;font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.7)}
 .g-cap{font-weight:500;font-size:12px}
+.g-btn.g-capd{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line)}
+.g-btn.g-capd .g-photo{flex:1 1 auto;min-height:0;height:auto}
+.g-btn.g-capd .g-cap{position:static;order:2;flex:0 0 auto;margin:0;padding:8px 6px 9px;border-radius:0;box-shadow:none;background:#fff;text-align:center;font-size:12px;line-height:1.3;color:var(--muted)}
+.g-btn.g-capd .g-zoom{bottom:auto;top:8px}
 .g-badge{position:absolute;left:10px;bottom:10px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--dark);font-size:12.5px;font-weight:600;box-shadow:0 1px 6px rgba(0,0,0,.15)}
 .lb-x{position:absolute;top:16px;right:16px;background:#fff}
 @media (max-width:640px){.g-tile.g-btn{flex-basis:100%!important;flex-grow:1!important}.g-tile.g-btn.g-sm{flex-basis:calc(50% - 7px)!important}}
@@ -1386,7 +1390,7 @@ function renderArt(){
     var attr = o.yt ? 'data-lby="'+o.yt+'"' : o.v ? 'data-lbv="'+AI+':'+n+'"' : o.comic ? 'data-lbc="'+AI+':'+n+'"' : 'data-lb="'+o.src+'"';
     var media = o.yt ? '<img class="g-photo" src="'+o.src+'" alt="" loading="lazy" onerror="this.onerror=null;this.src=\'art-mv-'+o.yt+'.webp\'">' : o.v ? '<video class="g-photo" src="'+o.v+'" poster="'+o.src+'" muted loop autoplay playsinline preload="metadata" aria-hidden="true"></video>' : '<img class="g-photo" src="'+o.src+'" alt="'+lbl+'" loading="lazy">';
     var badge = o.yt ? '<span class="g-badge" aria-hidden="true">▶ '+t('art.play')+'</span>' : o.v ? '<span class="g-badge" aria-hidden="true">▶ '+t(o.snd?'art.play':'art.watch')+'</span>' : o.comic ? '<span class="g-badge" aria-hidden="true">📖 '+t('art.read')+'</span>' : '<span class="g-zoom" aria-hidden="true">⤢</span>'+(o.cap?'<span class="g-badge g-cap">'+esc(L(o.cap))+'</span>':'');
-    return '<button type="button" class="g-tile g-btn'+(o.big?' g-big':'')+(o.cap||a.sm?' g-sm':'')+'" '+attr+' style="flex:'+(o.big?'1 1 100%':o.yt?'0 1 calc(33.333% - 10px)':o.cap?'0 1 calc(14.285% - 12px)':a.sm?'0 1 calc(20% - 12px)':Math.round(r*100)+' 1 '+Math.round(r*230)+'px')+';aspect-ratio:'+r.toFixed(4)+'" aria-label="'+(o.t?esc(o.t):lbl)+'"'+(o.t?' title="'+esc(o.t)+'"':'')+'>'+media+badge+'</button>'+(o.big?'<i class="g-br" aria-hidden="true"></i>':''); })
+    return '<button type="button" class="g-tile g-btn'+(o.big?' g-big':'')+(o.cap||a.sm?' g-sm':'')+(o.cap?' g-capd':'')+'" '+attr+' style="flex:'+(o.big?'1 1 100%':o.yt?'0 1 calc(33.333% - 10px)':o.cap?'0 1 calc(14.285% - 12px)':a.sm?'0 1 calc(20% - 12px)':Math.round(r*100)+' 1 '+Math.round(r*230)+'px')+';aspect-ratio:'+r.toFixed(4)+'" aria-label="'+(o.t?esc(o.t):lbl)+'"'+(o.t?' title="'+esc(o.t)+'"':'')+'>'+media+badge+'</button>'+(o.big?'<i class="g-br" aria-hidden="true"></i>':''); })
     .concat((a.nda||[]).map(function(d){ return '<div class="g-tile"><div class="g-conf"><span class="blob" style="background:'+a.bg+'" aria-hidden="true"></span><span class="lock">'+icon('lock',14,2)+t('art.conf')+'</span><span class="big">'+icon(a.icon,84)+'</span><span><b>'+esc(L(a.label))+'</b><small>'+esc(L(d))+'</small></span></div></div>'; }));
   if(!tiles.length) tiles = ['<div class="g-tile g-soon" style="background:'+a.bg+'"><span class="ph-soon"><b>Coming soon</b><small>'+t('ph.img')+'</small></span></div>'];
   return '<div class="art-block" id="art-'+AI+'"><h2 class="art-h">'+esc(L(a.label))+'</h2><p class="art-desc">'+esc(L(a.desc))+'</p><div class="gallery"'+((a.imgs||[]).some(function(im){ return im&&im.comic; })?' data-cols="3"':'')+'>'+tiles.join('')+'</div></div>';
