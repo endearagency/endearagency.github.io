@@ -1542,7 +1542,7 @@ function justifyGalleries(){
     if(!plain || mobile){ tiles.forEach(function(t){ t.style.width=''; t.style.flex = t.dataset.flex0 || t.style.flex; }); g.classList.remove('jg'); return; }
     var W=g.clientWidth, gap=14; if(!W) return;
     var R=tiles.map(function(t){ var m=(t.getAttribute('style')||'').match(/aspect-ratio:\s*([\d.]+)/); return m?+m[1]:1; });
-    var target = W<1000 ? 280 : 380, n=R.length, cost=[0], cut=[0];
+    var target = W<700 ? 300 : 430, n=R.length, cost=[0], cut=[0];
     function rowH(i,j){ var sr=0; for(var k=i;k<j;k++) sr+=R[k]; return (W-gap*(j-i-1))/sr; }
     for(var j=1;j<=n;j++){ cost[j]=Infinity; for(var i=Math.max(0,j-4);i<j;i++){ var h=rowH(i,j), c=cost[i]+Math.pow((h-target)/target,2)*(h>target*1.8?6:1); if(c<cost[j]){ cost[j]=c; cut[j]=i; } } }
     var rows=[], j2=n; while(j2>0){ rows.unshift([cut[j2],j2]); j2=cut[j2]; }
