@@ -81,6 +81,13 @@ def build(src, page, urls=None, lang='th', alt=None):
         ld = json.loads(m.group(1))
         if page != 'talent':
             ld['@graph'] = [g for g in ld['@graph'] if g.get('@type') != 'ItemList']
+        if page == 'contact':
+            fm = re.search(r'<script type="application/json" id="faqData">(.*?)</script>', s, re.S)
+            if fm:
+                k = 1 if lang == 'en' else 0
+                ld['@graph'].append({'@type': 'FAQPage', 'mainEntity': [
+                    {'@type': 'Question', 'name': q[k], 'acceptedAnswer': {'@type': 'Answer', 'text': q[2 + k]}}
+                    for g in json.loads(fm.group(1)) for q in g[2]]})
         s = s[:m.start(1)] + json.dumps(ld, ensure_ascii=False, separators=(',', ':')) + s[m.end(1):]
     # page hero text in the HTML itself so search engines read it without running scripts
     if page != 'home':
