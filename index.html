@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="th">
+<html lang="th" data-page="home">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -43,6 +43,24 @@
 }
 *{box-sizing:border-box}
 [hidden]{display:none !important}
+.phero{padding-block:56px 28px}
+.phero h1{font-size:clamp(34px,5vw,68px)}
+.phero .hero-sub{max-width:820px;margin-top:22px}
+.ph-jump{margin-top:22px}
+.ph-jump:empty{display:none}
+.subpage .svc-head{display:none}
+.subpage #services > .eyebrow,.subpage #services > .h2,.subpage #services > .lead{display:none}
+.subpage .svc-list{margin-top:0;border-bottom:0}
+.subpage .svc{border-top:0}
+.subpage .svc-panel{padding-top:0}
+.subpage #contact > .eyebrow,.subpage #contact > .h2{display:none}
+.subpage #contact{padding-top:8px}
+a.chip{display:inline-flex;align-items:center;text-decoration:none;color:inherit}
+a.chip:hover{border-color:var(--dark)}
+.art-blocks{display:flex;flex-direction:column;gap:56px;margin-top:28px}
+.art-block{scroll-margin-top:84px}
+.art-h{margin:0;font-size:clamp(24px,3vw,34px);font-weight:600;line-height:1.25}
+.art-block .art-desc{margin:8px 0 18px}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none !important}}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-en);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
@@ -597,7 +615,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
 .modal .tag{background:var(--soft)}
 .modal .quote{background:var(--soft)}
 </style>
-<script type="application/ld+json" id="ld">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://endearagency.github.io/#org","name":"endear","alternateName":["endear Project Management Service","endear agency"],"url":"https://endearagency.github.io/","logo":"https://endearagency.github.io/icon-192.png","description":"เอเจนซี่ดูแลโปรเจกต์สายอนิเมะ การ์ตูน และเกม ในประเทศไทย หา VTuber, KOL, MC, คอสเพลเยอร์ งานอาร์ต Live2D แอนิเมชัน งาน 3D และสินค้าที่ระลึก","areaServed":"TH","knowsLanguage":["th","en"],"knowsAbout":["VTuber","Thai VTuber","KOL","Influencer marketing","MC","Cosplay","Illustration","Character design","Live2D","Animation","Motion graphic","3D modeling","3D printing","Merchandise","Event"]},{"@type":"ItemList","name":"ทาเลนต์และ VTuber ไทยใน endear","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"Person","name":"Hanami Lay","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@HanamiLayCH","https://www.tiktok.com/@hanamilay","https://www.facebook.com/profile.php?id=61552160366840","https://x.com/HanamiLay"]}},{"@type":"ListItem","position":2,"item":{"@type":"Person","name":"Justpark Channel (Jeen)","jobTitle":"KOL","sameAs":["https://www.youtube.com/@justparkchannel1419","https://www.tiktok.com/@justparkchannel","https://www.facebook.com/JeenJustpark","https://www.instagram.com/justpark_channel/"],"affiliation":{"@type":"Organization","name":"GaconX"}}},{"@type":"ListItem","position":3,"item":{"@type":"Person","name":"StagflationTV","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@STAGFLATIONTH","https://www.tiktok.com/@stagflationtv","https://www.twitch.tv/stagflationtv/","https://www.facebook.com/StagflationTV","https://www.instagram.com/stagflationtv/"],"affiliation":{"@type":"Organization","name":"GaconX"}}},{"@type":"ListItem","position":4,"item":{"@type":"Person","name":"Lunatrix","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@LunatrixCh","https://www.tiktok.com/@ltx022","https://www.facebook.com/LTX022","https://www.instagram.com/ltx022","https://x.com/LTX022"]}},{"@type":"ListItem","position":5,"item":{"@type":"Person","name":"PekorinSSR","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@pekorin_ssr","https://www.tiktok.com/@pekorinssr","https://www.facebook.com/PekorinSSR"]}},{"@type":"ListItem","position":6,"item":{"@type":"Person","name":"Era","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@Era_ARP","https://www.tiktok.com/@era_arp","https://www.instagram.com/era.the.first/","https://x.com/Era_ARP"],"affiliation":{"@type":"Organization","name":"Algorhythm Project"}}},{"@type":"ListItem","position":7,"item":{"@type":"Person","name":"KotoRiyo","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@kotoriyo.official","https://www.tiktok.com/@kotoriyo_","https://www.facebook.com/profile.php?id=61578431919963","https://www.instagram.com/kotoriyo.official/","https://x.com/kotoriyo_"]}},{"@type":"ListItem","position":8,"item":{"@type":"Person","name":"ZONA","jobTitle":"VTuber","sameAs":["https://www.youtube.com/c/ZonaCh","https://www.tiktok.com/@zonaplg","https://www.facebook.com/ZONAPolygon","http://twitter.com/ZonaPLG"],"affiliation":{"@type":"Organization","name":"Polygon"}}},{"@type":"ListItem","position":9,"item":{"@type":"Person","name":"Hoku","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@HokuPLG","https://www.tiktok.com/@hokuplg","http://facebook.com/HokuPolygon","http://twitter.com/HokuPLG"],"affiliation":{"@type":"Organization","name":"Polygon"}}},{"@type":"ListItem","position":10,"item":{"@type":"Person","name":"Lucene","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@LucenePLG","https://www.tiktok.com/@plglucene","https://www.facebook.com/LucenePolygon","https://x.com/LucenePLG"],"affiliation":{"@type":"Organization","name":"Polygon"}}},{"@type":"ListItem","position":11,"item":{"@type":"Person","name":"Lapine","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@LapinePLG","https://www.tiktok.com/@lapineplg","https://www.facebook.com/LapinePolygon","https://x.com/LapinePLG"],"affiliation":{"@type":"Organization","name":"Polygon"}}},{"@type":"ListItem","position":12,"item":{"@type":"Person","name":"Luxia","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@LuxiaPLG","https://www.tiktok.com/@luxiaplg","https://www.facebook.com/LuxiaPolygon","https://x.com/LuxiaPLG"],"affiliation":{"@type":"Organization","name":"Polygon"}}},{"@type":"ListItem","position":13,"item":{"@type":"Person","name":"Riona","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@RionaPLG","https://www.tiktok.com/@rionaplg","https://www.facebook.com/RionaPolygon","https://x.com/RionaPLG"],"affiliation":{"@type":"Organization","name":"Polygon"}}},{"@type":"ListItem","position":14,"item":{"@type":"Person","name":"Anya","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@AnyaPLG","https://www.tiktok.com/@anyaplg","https://www.facebook.com/AnyaPolygon","https://x.com/AnyaPLG"],"affiliation":{"@type":"Organization","name":"Polygon"}}},{"@type":"ListItem","position":15,"item":{"@type":"Person","name":"Monace","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@MONACEPLG","https://www.tiktok.com/@monaceplg","https://www.facebook.com/MONACEPLG","https://x.com/MONACEPLG"],"affiliation":{"@type":"Organization","name":"Polygon"}}},{"@type":"ListItem","position":16,"item":{"@type":"Person","name":"VinXIII","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@VinXIIIPLG","https://www.tiktok.com/@vinxiiiplg","https://www.facebook.com/VinXIIIPLG","https://x.com/VinXIIIPLG"],"affiliation":{"@type":"Organization","name":"Polygon"}}},{"@type":"ListItem","position":17,"item":{"@type":"Person","name":"Augustine","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@AugustinePLG","https://www.tiktok.com/@augustineplg","https://www.facebook.com/AugustinePLG","https://x.com/AugustinePLG"],"affiliation":{"@type":"Organization","name":"Polygon"}}},{"@type":"ListItem","position":18,"item":{"@type":"Person","name":"HØRI 07","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@HORI07","https://x.com/HO07RI","https://www.tiktok.com/@ho07ri","https://www.twitch.tv/ho07ri","https://www.facebook.com/HO07RI"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":19,"item":{"@type":"Person","name":"Little Lonita","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@LonitaCH","https://x.com/LittleLonita","https://www.tiktok.com/@littlelonita","https://www.facebook.com/LittleLonita"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":20,"item":{"@type":"Person","name":"TheQuillmon","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@TheQuillmon","https://x.com/thequillmon1112","https://www.tiktok.com/@thequillmon","https://www.facebook.com/thequillmonnn"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":21,"item":{"@type":"Person","name":"Moe Miyabi","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@MoeMiyabiV7","https://x.com/moe_miyabi","https://www.tiktok.com/@moe_miyabi","https://www.twitch.tv/moemiyabi","https://www.facebook.com/MoeMiyabiVZ","https://ganknow.com/moemiyabi"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":22,"item":{"@type":"Person","name":"Ziika","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@MU_ziika","https://x.com/MU_Ziika","https://www.tiktok.com/@mu_ziika","https://www.twitch.tv/ziika_vz","https://www.facebook.com/ZiikaVZ","https://ganknow.com/ziikavz"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":23,"item":{"@type":"Person","name":"C","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@ProjectC_VZ","https://x.com/VZ_Project_C","https://www.tiktok.com/@project_c.vz","https://www.facebook.com/ProjectC.vz"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":24,"item":{"@type":"Person","name":"Phoebe","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@PhoebeVZ","https://x.com/vz_phoebe","https://www.tiktok.com/@phoebebuddyvz","https://www.facebook.com/PhoebeVZ"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":25,"item":{"@type":"Person","name":"WIN3R","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@wint3r_vz","https://x.com/wint3r_vz","https://www.tiktok.com/@wint3r_vz","https://www.facebook.com/Wint3rVZ","https://ganknow.com/wint333r"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":26,"item":{"@type":"Person","name":"SPR1NG","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@spr1ng_vz","https://x.com/SPR1NG_VZ","https://www.tiktok.com/@spr1ng_vz"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":27,"item":{"@type":"Person","name":"STATE & SIA","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@StateSiaVZ","https://www.tiktok.com/@statesia.vz","https://x.com/State_vz","https://x.com/SIA_vz","https://www.facebook.com/statesia.vz"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":28,"item":{"@type":"Person","name":"PE:RIKA","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@PerikaVZ","https://x.com/PerikaVZ"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":29,"item":{"@type":"Person","name":"CHE:SHIRE","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@CheshireVZ","https://x.com/CheshireVZ"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":30,"item":{"@type":"Person","name":"Stamp LMTY","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@StampLMTY","https://x.com/StampLMTY","https://www.tiktok.com/@stamplmty","https://www.facebook.com/StampLMTY"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":31,"item":{"@type":"Person","name":"Supeacha","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@Supeacha","https://x.com/Supeacha_Vtuber","https://www.tiktok.com/@supeacha_vtuber","https://www.facebook.com/Supeacha"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":32,"item":{"@type":"Person","name":"XINPIA","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@XINPIA","https://x.com/xinpia","https://www.tiktok.com/@xinpia03","https://www.facebook.com/XINPIA03","https://www.twitch.tv/xinpia03"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":33,"item":{"@type":"Person","name":"Shogo","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@ShogoCh","https://x.com/KamikoShogo","https://www.tiktok.com/@kamikoshogo","https://www.facebook.com/people/Shogo-CH/100089248571864/"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":34,"item":{"@type":"Person","name":"FL_FirstsLove","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@fl_firstslove","https://x.com/FL_FirstsLove","https://www.tiktok.com/@fl_firstslove","https://www.facebook.com/FL.FirstsLove","https://www.twitch.tv/fl_firstslove","https://www.instagram.com/fl.firstslove"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":35,"item":{"@type":"Person","name":"SaiMaiZ","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@SaiMaiZ","https://x.com/SaiMaiZ_","https://www.tiktok.com/@saimaiz_","https://www.facebook.com/SaiMaiZVtuberTH","https://www.twitch.tv/saimaizvtuberth"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":36,"item":{"@type":"Person","name":"FoodieFo","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@foodiefoch","https://x.com/FoodieFo_4","https://www.tiktok.com/@foodiefo_4","https://www.facebook.com/profile.php?id=100081675722891"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":37,"item":{"@type":"Person","name":"Derya","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@Derya_Vtuber","https://x.com/DeryaVtuber","https://www.tiktok.com/@derya_vtuber"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":38,"item":{"@type":"Person","name":"CozyClover","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@CozyClover-Vtuber","https://x.com/CozyClover_","https://www.tiktok.com/@cozyclover_","https://www.facebook.com/profile.php?id=100093952976608","https://www.twitch.tv/cozyclover_"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":39,"item":{"@type":"Person","name":"Amellyn","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@AmellynFairy","https://x.com/AmellynFairy","https://www.tiktok.com/@amellynfairy"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":40,"item":{"@type":"Person","name":"JazyKix","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@JazyKix_Channel","https://x.com/JazyKix_Vtuber","https://www.tiktok.com/@jazykix","https://www.facebook.com/jazykix.vtuber"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":41,"item":{"@type":"Person","name":"LUM1N S.","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@LUM1NS","https://x.com/LuminShinehart","https://www.tiktok.com/@luminshinehart"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":42,"item":{"@type":"Person","name":"Kealan Hmm","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@KealanHmm","https://x.com/KealanHmm","https://www.tiktok.com/@kealan.hmm"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":43,"item":{"@type":"Person","name":"Chiipika Poya","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@ChiipikaPoyaVZ","https://x.com/chiipikapoya_vz","https://www.tiktok.com/@chiipikapoya_vz","https://www.twitch.tv/ChiipikaPoya_VZ"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":44,"item":{"@type":"Person","name":"Coralyn Mare","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@CoralynMareVZ","https://x.com/coralynmare_vz","https://www.tiktok.com/@coralynmare_vz","https://www.twitch.tv/coralynmare_vz"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":45,"item":{"@type":"Person","name":"Flynn Mycorrin","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@FlynnMycorrinVZ","https://x.com/FlynnMyco_VZ","https://www.tiktok.com/@flynnmycorrin_vz","https://www.twitch.tv/flynnmycorrin_vz"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":46,"item":{"@type":"Person","name":"Jack Valentine","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@JackValentineVZ","https://x.com/JackV_VZ","https://www.tiktok.com/@jackvalentine_vz","https://www.twitch.tv/jackvalentine_vz"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":47,"item":{"@type":"Person","name":"Lovely Loafty","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@LovelyLoaftyVZ","https://x.com/LovelyLoafty_VZ","https://www.tiktok.com/@loafty_vz"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":48,"item":{"@type":"Person","name":"Raz Tablo","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@RazTabloVZ","https://x.com/RazTablo_VZ","https://www.tiktok.com/@raztablo_vz"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":49,"item":{"@type":"Person","name":"Vai Valentine","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@VaiValentineVZ","https://x.com/VaiValentine_VZ","https://www.tiktok.com/@vaivalentine_vz","https://www.twitch.tv/vaivalentine_vz"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":50,"item":{"@type":"Person","name":"Shouka Dreadprince","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@ShoukaDreadprinceVZ","https://x.com/ShoukaDP_VZ","https://www.tiktok.com/@shoukadpvz","https://www.twitch.tv/shoukadp_vz"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":51,"item":{"@type":"Person","name":"Whim Sical","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@WhimSicalVZ","https://x.com/WhimSical_VZ","https://www.tiktok.com/@whimsical_vz"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":52,"item":{"@type":"Person","name":"Wilo","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@WiloVZ","https://x.com/Wilo_VZ","https://www.tiktok.com/@wilo_vz","https://www.twitch.tv/wilo_v7","https://www.instagram.com/wilo.vzen"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":53,"item":{"@type":"Person","name":"Akime Gyoro","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@GyoroVZ","https://x.com/gyorovz","https://www.tiktok.com/@gyoro_vz"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":54,"item":{"@type":"Person","name":"Fuyukawa Nao","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@Nao_VZ","https://x.com/VZ_NAO","https://www.tiktok.com/@fuyukawanao"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}},{"@type":"ListItem","position":55,"item":{"@type":"Person","name":"Shinonome Kone","jobTitle":"VTuber","sameAs":["https://www.youtube.com/@ShinonomeKone","https://x.com/ShinonomeKone"],"affiliation":{"@type":"Organization","name":"Virtual 7"}}}]}]}</script>
+<script type="application/ld+json" id="ld">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://endearagency.github.io/#org","name":"endear","alternateName":["endear Project Management Service","endear agency"],"url":"https://endearagency.github.io/","logo":"https://endearagency.github.io/icon-192.png","description":"เอเจนซี่ดูแลโปรเจกต์สายอนิเมะ การ์ตูน และเกม ในประเทศไทย หา VTuber, KOL, MC, คอสเพลเยอร์ งานอาร์ต Live2D แอนิเมชัน งาน 3D และสินค้าที่ระลึก","areaServed":"TH","knowsLanguage":["th","en"],"knowsAbout":["VTuber","Thai VTuber","KOL","Influencer marketing","MC","Cosplay","Illustration","Character design","Live2D","Animation","Motion graphic","3D modeling","3D printing","Merchandise","Event"]}]}</script>
 </head>
 <body>
 <header class="top">
@@ -653,9 +671,11 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
     <div class="hero-strip"><img class="strip-img" src="fab-game-4.jpg" alt="3D game characters" style="object-position:center 30%"><img class="strip-img" src="hero-art-cathood.jpg" alt="Character illustration" style="object-position:center 20%"><img class="strip-img" src="hero-art-knight.jpg?v=2" alt="Character illustration" style="object-position:center 12%"><img class="strip-img" src="merch3d-1.jpg" alt="3D printed merch" style="object-position:24% center"></div>
   </section>
 
-  <div class="wrap"><div class="tiles" id="tiles"></div></div>
+  <section id="phero" class="wrap hero phero" hidden><p class="eyebrow" id="phEyebrow"></p><h1 id="phH1"></h1><p class="hero-sub" id="phSub"></p><div class="chips ph-jump" id="phJump"></div></section>
 
-  <section class="trusted" aria-label="Clients and partners">
+  <div class="wrap" id="tilesWrap"><div class="tiles" id="tiles"></div></div>
+
+  <section class="trusted" id="trusted" aria-label="Clients and partners">
     <div class="wrap">
       <div class="lg-group"><p data-t="lg.clients"></p><div class="logos"><div><img src="logos/playpark.png" alt="PLAYPARK" loading="lazy"></div><div><img src="logos/eliphant.png" alt="Eliphant" loading="lazy"></div><div><img src="logos/ampverse.png" alt="Ampverse" loading="lazy"></div><div><img src="logos/adg.png" alt="ACE Digital Group" loading="lazy"></div><div><img src="logos/gloryforever.png" alt="Glory Forever Public Company Limited" loading="lazy"></div><div><img src="logos/kpcomics.png" alt="KP Comics Studios" loading="lazy"></div><div><img src="logos/worldolet.png" alt="World-O-Let" loading="lazy"></div></div></div><div class="lg-group"><p data-t="lg.games"></p><div class="logos"><div><img src="logos/cod.png" alt="Call of Duty" loading="lazy"></div><div><img src="logos/freefire.png" alt="Free Fire" loading="lazy"></div><div><img src="logos/nikke.png" alt="NIKKE: Goddess of Victory" loading="lazy"></div><div><img src="logos/warships.png" alt="World of Warships" loading="lazy"></div><div><img src="logos/xbox.png" alt="Xbox" loading="lazy"></div><div><img src="logos/audition.png" alt="Audition" loading="lazy"></div><div><img src="logos/tsonline.png" alt="TS Online Mobile" loading="lazy"></div><div><img src="logos/revelation.png" alt="Revelation Mobile" loading="lazy"></div><div><img src="logos/talesrunner.png" alt="Tales Runner" loading="lazy"></div></div></div><div class="lg-group"><p data-t="lg.partners"></p><div class="logos"><div><img src="logos/kpcomics.png" alt="KP Comics Studios" loading="lazy"></div><div><img src="logos/casquad.png" alt="CA Squad" loading="lazy"></div><div><img src="logos/virtual7.png" alt="Virtual 7" loading="lazy"></div><div><img src="logos/polygon.png" alt="Polygon" loading="lazy"></div><div><img class="round" src="logos/sarafim.png" alt="Sarafim" loading="lazy"></div></div></div>
     </div>
@@ -1110,11 +1130,11 @@ var CATS = [
   { id:'art', img:'tile-art-v1.jpg', title:SVC_OPTS[1][1], tint:'#FFF3D9', blurb:['ภาพประกอบ ออกแบบตัวละคร อีโมต คอมิก Live2D แอนิเมชัน และ MV','Illustration, character design, emotes, comics, Live2D, animation and MVs.'],
     items:ART.map(function(a,i){ return [a.label,{art:i}]; }) },
   { id:'fab', img:'merch3d-3.jpg?v=3', title:SVC_OPTS[2][1], tint:'#ECE8E9', blurb:['โมเดล 3D งานพิมพ์ 3D และพิมพ์ UV บนพื้นผิวพิเศษ','3D models, 3D printing and UV printing on special surfaces.'],
-    items:FAB.slice(0,5).map(function(f){ return [f.title,{}]; }) },
+    items:FAB.slice(0,5).map(function(f,i){ return [f.title,{to:'fab-'+i}]; }) },
   { id:'publishing', title:SVC_OPTS[3][1], tint:'#F6EEE9', blurb:['ครบตั้งแต่ออกแบบ แปล จัดหน้า จนถึงโรงพิมพ์','Everything from design and translation to layout and printing.'],
     items:PUB.map(function(p,i){ return [p.title,{pub:i}]; }) },
   { id:'events', img:'event-cafe.jpg', title:SVC_OPTS[4][1], tint:'#F1EAF8', blurb:['ช่วยดูแลงานอีเวนต์ร่วมกับคุณ สตาฟบูธ และผลิตสินค้าที่ระลึก','Event support alongside your team, booth staff and merchandise production.'],
-    items:EVENTS.map(function(e){ return [e.title,{}]; }) }
+    items:EVENTS.map(function(e,i){ return [e.title,{to:'ev-'+i}]; }) }
 ];
 function itemSoon(it){ var f=it[1]&&it[1].filter; return !!f && !TALENTS.some(function(x){ return x.type===f; }); }
 /* Hidden services: add an id here to hide it everywhere; remove it to bring the section back */
@@ -1178,6 +1198,7 @@ function renderStatic(){
   $('fabGrid').innerHTML = FAB.map(function(f,i){ return workCard('fab', f, i); }).join('');
   $('evGrid').innerHTML = EVENTS.map(function(f,i){ return workCard('ev', f, i); }).join('');
   setMobile(!$('mobilePanel').hidden);
+  renderPhero(); fixLinks();
 }
 function mediaHTML(f){
   if(f.imgs && f.imgs.length>1) return '<div class="cslide"><div class="cs-track">'+f.imgs.map(function(src,i){ return '<img src="'+src+'" alt="'+esc(L(f.title))+' '+(i+1)+'" loading="lazy">'; }).join('')+'</div>'+
@@ -1188,7 +1209,7 @@ function mediaHTML(f){
 }
 var WORKGROUPS = { fab:function(){ return FAB; }, ev:function(){ return EVENTS; } };
 function workCard(g, f, i){
-  return '<div class="s-card" data-work="'+g+':'+i+'" role="button" tabindex="0" aria-label="'+esc(L(f.title))+'">'+mediaHTML(f)+'<div class="bd"><h3>'+esc(L(f.title))+'</h3><p>'+esc(L(f.desc))+'</p><span class="more">'+t('w.more')+' →</span></div></div>';
+  return '<div class="s-card" id="'+g+'-'+i+'" data-work="'+g+':'+i+'" role="button" tabindex="0" aria-label="'+esc(L(f.title))+'">'+mediaHTML(f)+'<div class="bd"><h3>'+esc(L(f.title))+'</h3><p>'+esc(L(f.desc))+'</p><span class="more">'+t('w.more')+' →</span></div></div>';
 }
 function moreHTML(m){ if(!m) return ''; var h='';
   if(m.chips) h+='<div class="w-chips">'+m.chips.map(function(c){ return '<span>'+esc(L(c))+'</span>'; }).join('')+'</div>';
@@ -1304,22 +1325,25 @@ function openModal(id){
   var b = $('modal').querySelector('[data-close-modal]'); if(b) b.focus();
 }
 function renderArt(){
-  $('artTabs').innerHTML = ART.map(function(a,i){ return '<button class="chip" role="tab" data-art="'+i+'" aria-selected="'+(i===st.art)+'">'+esc(L(a.label))+'</button>'; }).join('');
-  var a = ART[st.art];
-  $('artDesc').textContent = L(a.desc);
+  $('artTabs').innerHTML = ART.map(function(a,i){ return '<a class="chip" href="#art-'+i+'">'+esc(L(a.label))+'</a>'; }).join('');
+  $('artDesc').hidden = true;
+  var blocks = ART.map(function(a, AI){
   var list=[]; (a.imgs||[]).forEach(function(im,n){ list.push([im,n,-1]); if(im&&im.pv) im.pv.forEach(function(q){ list.push([{pvsrc:'art-comic-pv'+q[0]+'.webp', w:800, h:1130}, n, q[1]]); }); });
   var tiles = list.map(function(L3){ var im=L3[0], n=L3[1], pg=L3[2];
-    if(pg>=0) return '<button type="button" class="g-tile g-btn" data-lbc="'+st.art+':'+n+':'+pg+'" style="flex:71 1 163px;aspect-ratio:0.708" aria-label="'+esc(L(a.label))+' '+(pg+1)+'"><img class="g-photo" src="'+im.pvsrc+'" alt="" loading="lazy"><span class="g-zoom" aria-hidden="true">📖</span></button>';
+    if(pg>=0) return '<button type="button" class="g-tile g-btn" data-lbc="'+AI+':'+n+':'+pg+'" style="flex:71 1 163px;aspect-ratio:0.708" aria-label="'+esc(L(a.label))+' '+(pg+1)+'"><img class="g-photo" src="'+im.pvsrc+'" alt="" loading="lazy"><span class="g-zoom" aria-hidden="true">📖</span></button>';
     var o = Array.isArray(im) ? {src:im[0], w:im[1], h:im[2]} : (typeof im==='string' ? {src:im, w:1, h:1} : im), r=o.w/o.h, lbl=esc(L(a.label))+' '+(n+1);
     if(o.yt){ o.src='https://i.ytimg.com/vi/'+o.yt+'/hqdefault.jpg'; }
-    var attr = o.yt ? 'data-lby="'+o.yt+'"' : o.v ? 'data-lbv="'+st.art+':'+n+'"' : o.comic ? 'data-lbc="'+st.art+':'+n+'"' : 'data-lb="'+o.src+'"';
+    var attr = o.yt ? 'data-lby="'+o.yt+'"' : o.v ? 'data-lbv="'+AI+':'+n+'"' : o.comic ? 'data-lbc="'+AI+':'+n+'"' : 'data-lb="'+o.src+'"';
     var media = o.yt ? '<img class="g-photo" src="'+o.src+'" alt="" loading="lazy" onerror="this.onerror=null;this.src=\'art-mv-'+o.yt+'.webp\'">' : o.v ? '<video class="g-photo" src="'+o.v+'" poster="'+o.src+'" muted loop autoplay playsinline preload="metadata" aria-hidden="true"></video>' : '<img class="g-photo" src="'+o.src+'" alt="'+lbl+'" loading="lazy">';
     var badge = o.yt ? '<span class="g-badge" aria-hidden="true">▶ '+t('art.play')+'</span>' : o.v ? '<span class="g-badge" aria-hidden="true">▶ '+t(o.snd?'art.play':'art.watch')+'</span>' : o.comic ? '<span class="g-badge" aria-hidden="true">📖 '+t('art.read')+'</span>' : '<span class="g-zoom" aria-hidden="true">⤢</span>'+(o.cap?'<span class="g-badge g-cap">'+esc(L(o.cap))+'</span>':'');
     return '<button type="button" class="g-tile g-btn'+(o.big?' g-big':'')+(o.cap||a.sm?' g-sm':'')+'" '+attr+' style="flex:'+(o.big?'1 1 100%':o.yt?'0 1 calc(33.333% - 10px)':o.cap?'0 1 calc(14.285% - 12px)':a.sm?'0 1 calc(20% - 12px)':Math.round(r*100)+' 1 '+Math.round(r*230)+'px')+';aspect-ratio:'+r.toFixed(4)+'" aria-label="'+(o.t?esc(o.t):lbl)+'"'+(o.t?' title="'+esc(o.t)+'"':'')+'>'+media+badge+'</button>'+(o.big?'<i class="g-br" aria-hidden="true"></i>':''); })
     .concat((a.nda||[]).map(function(d){ return '<div class="g-tile"><div class="g-conf"><span class="blob" style="background:'+a.bg+'" aria-hidden="true"></span><span class="lock">'+icon('lock',14,2)+t('art.conf')+'</span><span class="big">'+icon(a.icon,84)+'</span><span><b>'+esc(L(a.label))+'</b><small>'+esc(L(d))+'</small></span></div></div>'; }));
   if(!tiles.length) tiles = ['<div class="g-tile g-soon" style="background:'+a.bg+'"><span class="ph-soon"><b>Coming soon</b><small>'+t('ph.img')+'</small></span></div>'];
-  $('gallery').innerHTML = tiles.join('');
-  var nn = document.querySelector('[data-t="art.note"]'); if(nn) nn.hidden = !(a.nda && a.nda.length);
+  return '<div class="art-block" id="art-'+AI+'"><h2 class="art-h">'+esc(L(a.label))+'</h2><p class="art-desc">'+esc(L(a.desc))+'</p><div class="gallery">'+tiles.join('')+'</div></div>';
+  });
+  $('gallery').className = 'art-blocks'; $('gallery').innerHTML = blocks.join('');
+  var nn = document.querySelector('[data-t="art.note"]'); if(nn) nn.hidden = !ART.some(function(a){ return a.nda && a.nda.length; });
+  fixLinks($('artTabs'));
 }
 function renderPub(){
   $('pubTabs').innerHTML = PUB.map(function(p,i){ return '<button class="chip" role="tab" data-pub="'+i+'" aria-selected="'+(i===st.pub)+'">0'+(i+1)+' '+esc(L(p.label))+'</button>'; }).join('');
@@ -1398,9 +1422,9 @@ addIdx(['พากย์เสียง','Voice Dubbing'], CATS[0].title, '#tale
 addIdx(['โปรโมตเกม / สินค้า','Game / Product Promotion'], CATS[0].title, '#talent', 'โฆษณา รีวิวเกม promote', {filter:'All'});
 addIdx(['คอลแลป','Collaboration'], CATS[0].title, '#talent', 'collab', {filter:'All'});
 ART.forEach(function(a,i){ addIdx(a.label, CATS[1].title, '#art', a.kw, {art:i}); });
-FAB.forEach(function(f){ addIdx(f.title, CATS[2].title, '#fab', f.kw, {}); });
+FAB.forEach(function(f,i){ addIdx(f.title, CATS[2].title, '#fab', f.kw, {to:'fab-'+i}); });
 if(svcOn('publishing')) PUB.forEach(function(p,i){ addIdx(p.title, CATS[3].title, '#publishing', p.kw+' หนังสือ book', {pub:i}); });
-EVENTS.forEach(function(e){ addIdx(e.title, CATS[4].title, '#events', e.kw, {}); });
+EVENTS.forEach(function(e,i){ addIdx(e.title, CATS[4].title, '#events', e.kw, {to:'ev-'+i}); });
 addIdx(['ร่วมเป็นพาร์ทเนอร์','Partner with us'], T['cr.eyebrow'], '#creators', 'พาร์ทเนอร์ สมัคร เรทการ์ด rate card ผู้จัดการ creator partner', {svc:'partner'});
 addIdx(['วิธีการทำงาน','How we work'], ['endear','endear'], '#how', 'ขั้นตอน ประสานงาน เอกสาร project manager process', {});
 addIdx(['เกี่ยวกับเรา','About endear'], ['endear','endear'], '#about', 'ผู้ก่อตั้ง ประวัติ ทีม เรา about founder story who', {});
@@ -1423,6 +1447,40 @@ function renderSearch(){
     return '<a class="result" href="'+r.href+'" data-close data-set="'+setAttr(r.set)+'"><span><b>'+esc(L(r.label))+'</b><small>'+esc(L(r.cat))+'</small></span><span class="arr" aria-hidden="true">→</span></a>';
   }).join('');
   $('sEmpty').hidden = !(q && !hits.length);
+  fixLinks($('sResults'));
+}
+
+
+/* ---------- multi-page: each service has its own page (built by tools/build.py) ---------- */
+var PAGE = document.documentElement.getAttribute('data-page') || 'home';
+var PAGE_URL = window.PAGE_URLS || {home:'./', talent:'talent/', art:'art/', '3d':'3d/', events:'events/', about:'about/', contact:'contact/'};
+var PAGE_ROOT = {home:'top', talent:'talent', art:'art', '3d':'fab', events:'events', about:'about', contact:'contact'};
+var SEC_PAGE = {top:'home', tilesWrap:'home', trusted:'home', services:'home', creators:'home', publishing:'home', talent:'talent', art:'art', fab:'3d', events:'events', about:'about', contact:'contact'};
+var PAGE_SHOW = {home:['top','tilesWrap','trusted','how','creators'], talent:['phero','services','talent'], art:['phero','services','art'], '3d':['phero','services','fab'], events:['phero','services','events'], about:['phero','about','how'], contact:['phero','contact']};
+var PH = {
+  talent:{ e:['ทาเลนต์และอินฟลูเอนเซอร์','Talent & Influencers'], h:['หา VTuber ไทย KOL และสตรีมเมอร์<br><em>สำหรับงานของคุณ</em>','Thai VTubers, KOLs &amp; streamers<br><em>for your next project</em>'], s:['รวม VTuber ไทย สตรีมเมอร์ (streamer) และ KOL กว่า 50 คน รับงานโปรโมตเกมและสินค้า รีวิว พากย์เสียง คอลแลป และ Tie-in ดูแนวคอนเทนต์ ยอดผู้ติดตาม และช่องทางของแต่ละคนได้ทันที','50+ Thai VTubers, streamers and KOLs for game and product promotion, reviews, voice dubbing, collabs and tie-ins. See each one’s content, followers and channels at a glance.'] },
+  art:{ e:['งานภาพและแอนิเมชัน','Art & Animation'], h:['งานอาร์ต ภาพประกอบ<br><em>Live2D และแอนิเมชัน</em>','Illustration, Live2D<br><em>&amp; animation</em>'], s:['ทีมนักวาดและแอนิเมเตอร์สายอนิเมะ รับวาดภาพประกอบ (illustration) ออกแบบตัวละคร (character design) อีโมตและสติกเกอร์ LINE ฉากสตรีม โมเดล Live2D สำหรับ VTuber เว็บตูน โมชันกราฟิก แอนิเมชัน (animation) และ MV','Anime-style artists and animators for illustration, character design, emotes and LINE stickers, stream assets, Live2D models for VTubers, webtoons, motion graphics, animation and MVs.'] },
+  '3d':{ e:['งาน 3D และงานผลิต','3D & Fabrication'], h:['โมเดล 3D งานพิมพ์ 3D<br><em>และของที่ระลึก</em>','3D models, 3D printing<br><em>&amp; custom merch</em>'], s:['ปั้นโมเดล 3D สำหรับเกมและงานทั่วไป ผลิตของที่ระลึกพิมพ์ 3D (3D printing) พิมพ์ UV บนพื้นผิวพิเศษ และคอร์สเรียน 3D Print ดูแลตั้งแต่แบบร่างจนได้ชิ้นงานจริง','3D modeling for games and general use, 3D-printed merch, UV printing on special surfaces and 3D print classes, from first sketch to finished piece.'] },
+  events:{ e:['อีเวนต์และสินค้าที่ระลึก','Events & Merch'], h:['อีเวนต์ สตาฟบูธ<br><em>และสินค้าที่ระลึก</em>','Events, booth staff<br><em>&amp; merchandise</em>'], s:['ช่วยดูแลอีเวนต์สายอนิเมะ การ์ตูน และเกมร่วมกับทีมของคุณ จัดหาสตาฟประจำบูธ (booth staff) และผลิตสินค้าที่ระลึก (merchandise) ตามแบบที่ต้องการ','Support for anime, comic and game events alongside your team, booth staffing, and merchandise made to your design.'] },
+  about:{ e:['เกี่ยวกับเรา','About us'], h:['endear เอเจนซี่ดูแลโปรเจกต์<br><em>สายอนิเมะ การ์ตูน และเกม</em>','endear, the project agency<br><em>for anime, comics &amp; games</em>'], s:['เราหาทีม ประสานงาน และดูแลงานให้จนจบ ทั้ง VTuber, KOL, งานอาร์ต, งาน 3D และสินค้าที่ระลึก','We find the team, run the coordination and see the work through: VTubers, KOLs, art, 3D and merchandise.'] },
+  contact:{ e:['ติดต่อเรา','Contact'], h:['คุยงานกับ <em>endear</em>','Talk to <em>endear</em>'], s:['บอกเราว่าอยากได้อะไร เราหาทีม ประสานงาน และดูแลให้จนจบงาน ทักได้ทาง LINE โทร หรือ Facebook','Tell us what you need. We find the team, run the coordination and stay until it’s done. Reach us on LINE, by phone or on Facebook.'] }
+};
+function pageOfId(id){ if(SEC_PAGE[id]) return SEC_PAGE[id]; if(id==='how') return PAGE==='about' ? 'about' : 'home'; if(/^art-/.test(id)) return 'art'; if(/^fab-/.test(id)) return '3d'; if(/^ev-/.test(id)) return 'events'; return PAGE; }
+function pageHref(p){ return PAGE_URL[p] || PAGE_URL.home; }
+function fixLinks(root){ (root||document).querySelectorAll('a[href^="#"]').forEach(function(a){ var id=a.getAttribute('href').slice(1); if(!id) return; var p=pageOfId(id); a.setAttribute('data-h','#'+id); a.setAttribute('href', pageHref(p)+(id===PAGE_ROOT[p] && p!==PAGE ? '' : '#'+id)); }); }
+function scrollToId(id){ setTimeout(function(){ if(PAGE!=='home' && id===PAGE_ROOT[PAGE]){ window.scrollTo({top:0, behavior:'smooth'}); return; } var el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }, 60); }
+function goSection(id, set){
+  var to=(set&&set.to)||(set&&typeof set.art==='number'?'art-'+set.art:'')||id, p=pageOfId(to);
+  if(p===PAGE){ if(set) applySet(set); scrollToId(to); try{ history.replaceState(null,'',pageHref(PAGE)+'#'+to); }catch(x){} return; }
+  try{ if(set) sessionStorage.setItem('endear-set', JSON.stringify(set)); }catch(x){}
+  location.href = pageHref(p) + (to===PAGE_ROOT[p] ? '' : '#'+to);
+}
+function renderPhero(){ var c=PH[PAGE]; if(!c) return; $('phEyebrow').innerHTML=L(c.e); $('phH1').innerHTML=L(c.h); $('phSub').innerHTML=L(c.s); }
+function setupPage(){
+  var show=PAGE_SHOW[PAGE]||PAGE_SHOW.home;
+  ['top','phero','tilesWrap','trusted','how','services','about','creators','contact'].forEach(function(id){ var el=$(id); if(el) el.hidden = show.indexOf(id)<0; });
+  if(PAGE==='about'){ var ab=$('about'), hw=$('how'); if(ab && hw) ab.parentNode.insertBefore(hw, ab.nextSibling); }
+  if(PAGE!=='home'){ document.documentElement.classList.add('subpage'); ['talent','art','fab','publishing','events'].forEach(function(id){ var sv=$(id); if(!sv) return; if(show.indexOf(id)<0) sv.hidden=true; else setSvc(id,true); }); }
 }
 
 /* ---------- events ---------- */
@@ -1461,6 +1519,7 @@ document.addEventListener('click', function(e){
     try{ navigator.clipboard.writeText(el.dataset.copy).then(done, function(){ selectText(btn); }); }catch(err){ selectText(btn); }
     return;
   }
+  if(el.tagName==='A' && el.getAttribute('data-h')){ e.preventDefault(); var so=null; try{ so=el.dataset.set?JSON.parse(el.dataset.set):null; }catch(x){} closeMenus(); hideOverlays(); goSection(el.getAttribute('data-h').slice(1), so); return; }
   if(el.dataset.set){ try{ applySet(JSON.parse(el.dataset.set)); }catch(err){} }
   var href = el.tagName==='A' ? el.getAttribute('href') : '';
   if(href && href.charAt(0)==='#' && SVC_IDS.indexOf(href.slice(1))!==-1){ setSvc(href.slice(1), true); }
@@ -1470,7 +1529,7 @@ document.addEventListener('click', function(e){
 function selectText(btn){ var s = btn.parentNode.querySelector('.cv, span, a'); if(!s) return; var r = document.createRange(); r.selectNodeContents(s); var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r); }
 document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeMenus(); hideOverlays(); } });
 $('q').addEventListener('input', renderSearch);
-$('q').addEventListener('keydown', function(e){ if(e.key==='Enter'){ var f = $('sResults').querySelector('a'); if(f){ e.preventDefault(); f.click(); location.hash = f.getAttribute('href'); } } });
+$('q').addEventListener('keydown', function(e){ if(e.key==='Enter'){ var f = $('sResults').querySelector('a'); if(f){ e.preventDefault(); f.click(); } } });
 $('form').addEventListener('submit', function(e){
   e.preventDefault();
   var n = $('fNote'), btn = $('form').querySelector('button[type="submit"]');
@@ -1523,7 +1582,7 @@ function updCardNav(){ var c=document.querySelector('#talentCards .cards'); if(!
   });
   document.addEventListener('scroll', function(e){ if(e.target.classList && e.target.classList.contains('cs-track')) sync(e.target); }, true);
 })();
-renderStatic(); renderAll(); renderSearch(); fixWrap();
+setupPage(); renderStatic(); renderAll(); renderSearch(); fixWrap();
 
 /* ---------- live follower counts from Google Sheet ----------
    Sheet: "ยอดผู้ติดตามในเว็บไซต์ endear" (must be shared: anyone with the link can view).
@@ -1577,7 +1636,10 @@ function applySheet(rows){
     el.classList.add('rv'); io.observe(el);
   });
 })();
-var h = (location.hash||'').slice(1); if(SVC_IDS.indexOf(h)!==-1) setSvc(h, true);
+(function(){ var so=null; try{ so=JSON.parse(sessionStorage.getItem('endear-set')||'null'); sessionStorage.removeItem('endear-set'); }catch(x){} if(so) applySet(so);
+  var h=(location.hash||'').slice(1); if(!h) return; var p=pageOfId(h);
+  if(p!==PAGE){ location.replace(pageHref(p)+(h===PAGE_ROOT[p]?'':'#'+h)); return; }
+  window.addEventListener('load', function(){ scrollToId(h); }); scrollToId(h); })();
 })();
 </script>
 </body>
