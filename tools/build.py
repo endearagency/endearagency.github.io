@@ -13,6 +13,23 @@ import json, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = 'https://endearagency.github.io/'
 
+PAGES_EN = {
+    'home': dict(title='endear | Thai VTubers, KOLs, anime art, 3D & merch agency',
+        desc='endear is a Thai project management agency for anime, comics and games. Hire Thai and global VTubers, KOLs, MCs and cosplayers, and get illustration, Live2D, animation, 3D and merchandise done in one place.'),
+    'talent': dict(title='Hire Thai VTubers, KOLs & streamers for promotion, reviews & voice | endear',
+        desc='60+ Thai and global VTubers, streamers and KOLs for game and product promotion, reviews, voice dubbing, collabs and tie-ins. See each talent’s followers, channels and top videos.'),
+    'art': dict(title='Anime illustration, character design, Live2D, animation & MV | endear',
+        desc='Anime-style illustration, character design, emotes, LINE stickers, stream assets, Live2D models for VTubers, webtoons, motion graphics, animation and music videos.'),
+    '3d': dict(title='3D modeling, 3D printing, custom merch & UV printing | endear',
+        desc='3D models for games and brands, 3D-printed figures and custom merch, UV printing on special surfaces, and hands-on 3D printing classes in Thailand.'),
+    'events': dict(title='Anime & game events, booth staff and merchandise | endear',
+        desc='Anime, comic and game events in Thailand: collab cafés, booth staff and custom merchandise made to your design.'),
+    'about': dict(title='About endear | anime, comics & games project agency in Thailand',
+        desc='endear is a Thai agency for anime, comics and games. We find the team, coordinate and see projects through, from VTubers and KOLs to art, 3D and merchandise.'),
+    'contact': dict(title='Contact endear | LINE, phone, Facebook',
+        desc='Tell us what you need and we will find the team and see it through. Contact endear via LINE plaiendear, phone +66 94 555 1424 or Facebook.'),
+}
+
 PAGES = {
     'home': dict(dir='', title='endear | หา VTuber ไทย KOL งานอาร์ต งาน 3D และสินค้าที่ระลึก',
         desc='เอเจนซี่ดูแลโปรเจกต์สายอนิเมะ การ์ตูน และเกม หา VTuber ไทย, KOL, MC, คอสเพลเยอร์ รับทำงานอาร์ต Live2D แอนิเมชัน งาน 3D และ merchandise ครบในที่เดียว | Thai VTuber, art, 3D & merch agency.'),
@@ -31,18 +48,26 @@ PAGES = {
 }
 
 
-def phero_th(src, page):
-    """Thai page-hero text, read from the PH table in the page's own script."""
-    m = re.search(r"\n  %s:\{ e:\['([^']*)'.*?h:\['([^']*)'.*?s:\['([^']*)'" % (("'3d'" if page == '3d' else page)), src)
+def phero(src, page, lang='th'):
+    """Page-hero text, read from the PH table in the page's own script."""
+    key = "'3d'" if page == '3d' else page
+    if lang == 'en':
+        m = re.search(r"\n  %s:\{ e:\['[^']*','([^']*)'\].*?h:\['[^']*','([^']*)'\].*?s:\['[^']*','([^']*)'\]" % key, src)
+    else:
+        m = re.search(r"\n  %s:\{ e:\['([^']*)'.*?h:\['([^']*)'.*?s:\['([^']*)'" % key, src)
     return m.groups() if m else None
 
 
-def build(src, page, urls=None):
-    cfg = PAGES[page]
+def build(src, page, urls=None, lang='th', alt=None):
+    cfg = dict(PAGES[page])
+    if lang == 'en': cfg.update(PAGES_EN[page]); cfg['dir'] = 'en/' + PAGES[page]['dir']
     s = src.replace('<meta name="robots" content="noindex"><!--SRC-->\n', '')
-    s = s.replace('<html lang="th">', '<html lang="th" data-page="%s">' % page, 1)
-    if cfg['dir']:
-        s = s.replace('<head>\n', '<head>\n<base href="../">\n', 1)
+    s = s.replace('<html lang="th">', '<html lang="%s" data-lang="%s" data-page="%s">' % (lang, lang, page), 1)
+    depth = cfg['dir'].count('/')
+    if depth:
+        s = s.replace('<head>\n', '<head>\n<base href="%s">\n' % ('../' * depth), 1)
+    th_url = SITE + PAGES[page]['dir']; en_url = SITE + 'en/' + PAGES[page]['dir']
+    s = s.replace('<link rel="canonical"', '<link rel="alternate" hreflang="th" href="%s">\n<link rel="alternate" hreflang="en" href="%s">\n<link rel="alternate" hreflang="x-default" href="%s">\n<link rel="canonical"' % (th_url, en_url, th_url), 1)
     url = SITE + cfg['dir']
     s = re.sub(r'<title>[^<]*</title>', '<title>%s</title>' % cfg['title'], s, count=1)
     s = re.sub(r'<meta name="description" content="[^"]*">', '<meta name="description" content="%s">' % cfg['desc'], s, count=1)
@@ -59,7 +84,7 @@ def build(src, page, urls=None):
         s = s[:m.start(1)] + json.dumps(ld, ensure_ascii=False, separators=(',', ':')) + s[m.end(1):]
     # page hero text in the HTML itself so search engines read it without running scripts
     if page != 'home':
-        ph = phero_th(src, page)
+        ph = phero(src, page, lang)
         if ph:
             e, h, sub = ph
             s = re.sub(r'<!--PHERO-->.*?<!--/PHERO-->',
@@ -68,32 +93,40 @@ def build(src, page, urls=None):
             s = s.replace('<section id="phero" class="wrap hero phero" hidden>', '<section id="phero" class="wrap hero phero">', 1)
     else:
         s = s.replace('<!--PHERO-->', '').replace('<!--/PHERO-->', '')
-    if urls:
-        s = s.replace('<script>\n', '<script>window.PAGE_URLS=%s;</script>\n<script>\n' % json.dumps(urls), 1)
+    if urls or alt is not None:
+        s = s.replace('<script>\n', '<script>%s%s</script>\n<script>\n' % ('window.PAGE_URLS=%s;' % json.dumps(urls) if urls else '', 'window.ALT_URL=%s;' % json.dumps(alt) if alt is not None else ''), 1)
     return s
 
 
 def sitemap(date):
-    rows = ''.join('  <url><loc>%s%s</loc><lastmod>%s</lastmod></url>\n' % (SITE, c['dir'], date) for c in PAGES.values())
+    rows = ''.join('  <url><loc>%s%s</loc><lastmod>%s</lastmod></url>\n' % (SITE, pre + c['dir'], date) for pre in ('', 'en/') for c in PAGES.values())
     return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + rows + '</urlset>\n'
 
 
 def main():
     src = open(os.path.join(ROOT, 'src', 'site.html'), encoding='utf-8').read()
     assert '<script>\n' in src
+    en_urls = {p: 'en/' + c['dir'] for p, c in PAGES.items()}
     for page, cfg in PAGES.items():
-        out = os.path.join(ROOT, cfg['dir'], 'index.html')
-        os.makedirs(os.path.dirname(out), exist_ok=True)
-        open(out, 'w', encoding='utf-8').write(build(src, page))
+        for lang in ('th', 'en'):
+            d = cfg['dir'] if lang == 'th' else 'en/' + cfg['dir']
+            out = os.path.join(ROOT, d, 'index.html')
+            os.makedirs(os.path.dirname(out), exist_ok=True)
+            alt = ('en/' + cfg['dir']) if lang == 'th' else (cfg['dir'] or './')
+            open(out, 'w', encoding='utf-8').write(build(src, page, en_urls if lang == 'en' else None, lang, alt))
     import datetime
     open(os.path.join(ROOT, 'sitemap.xml'), 'w').write(sitemap(datetime.date.today().isoformat()))
     if '--artifact' in sys.argv:
         dest = sys.argv[sys.argv.index('--artifact') + 1]
         urls = {p: (c['dir'] + 'index.html' if c['dir'] else 'endear.html') for p, c in PAGES.items()}
+        eurls = {p: 'en/' + c['dir'] + 'index.html' for p, c in PAGES.items()}
         for page, cfg in PAGES.items():
             out = os.path.join(dest, cfg['dir'] + 'index.html' if cfg['dir'] else 'endear.html')
             os.makedirs(os.path.dirname(out), exist_ok=True)
-            open(out, 'w', encoding='utf-8').write(build(src, page, urls))
+            open(out, 'w', encoding='utf-8').write(build(src, page, urls, 'th', eurls[page]))
+            out = os.path.join(dest, 'en', cfg['dir'], 'index.html')
+            os.makedirs(os.path.dirname(out), exist_ok=True)
+            open(out, 'w', encoding='utf-8').write(build(src, page, eurls, 'en', urls[page]))
     print('built', ', '.join(PAGES))
 
 
