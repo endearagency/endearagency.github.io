@@ -419,6 +419,8 @@ html[lang="th"] .h2{padding-top:.08em}
 .step .n{background:var(--accent)}
 .step:not(:last-child)::before{background:repeating-linear-gradient(to bottom,#F0B9CB 0 5px,transparent 5px 10px)}
 .t-more{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px}
+.t-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}.t-bar>#filters,.t-bar>.t-more{margin:0}.t-sep{width:1px;height:26px;background:#CFC6C9}
+@media (max-width:640px){.t-bar{display:block}.t-bar>.t-more{margin-top:10px}.t-sep{display:none}}
 .tf{position:relative}
 .tf-btn{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 12px 0 14px;border:1px solid #D9D3D5;border-radius:999px;background:var(--bg);font:inherit;font-size:13px;color:var(--fg);cursor:pointer;transition:border-color .2s ease, background-color .2s ease}
 .tf-btn:hover,.tf.open .tf-btn{border-color:var(--fg)}
@@ -477,7 +479,7 @@ html[lang="th"] .h2{padding-top:.08em}
 .modal.wk .w-li li::marker{color:var(--accent)}
 .modal.wk .w-note{margin:4px 0 0;padding:12px 16px;border-radius:14px;background:var(--soft);font-size:15px;line-height:1.6;font-weight:500}
 @media (max-width:640px){.modal.wk .cslide,.modal.wk .w-img{height:42vh}}
-.t-partner{display:flex;gap:10px;align-items:flex-start;margin:0 0 16px;padding:12px 16px;border-radius:14px;background:#FCE4EC;color:#7A1F42;font-size:14px;line-height:1.65;max-width:820px}
+.t-partner{display:flex;gap:10px;align-items:flex-start;margin:0 0 16px;padding:12px 16px;border-radius:14px;background:#FCE4EC;color:#7A1F42;font-size:14px;line-height:1.65}
 .t-partner svg{flex:0 0 auto;margin-top:2px;color:var(--accent)}
 .t-partner b{color:var(--accent)}
 .p-badge{display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;border:1px solid #F3C2D3;background:#fff;font-size:13px;font-weight:600;color:var(--accent)}
@@ -757,9 +759,12 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
           <div class="panel-top">
             <p class="lead" data-t="tal.lead"></p>
           </div>
-          <div class="chips" id="filters" role="group" aria-label="Filter"></div>
+          <div class="t-bar">
+            <div class="chips" id="filters" role="group" aria-label="Filter"></div>
+            <span class="t-sep" aria-hidden="true"></span>
+            <div class="t-more" id="moreFilters" role="group" aria-label="More filters"></div>
+          </div>
           <div class="chips lang-row" id="langFilters" role="group" aria-label="Language"></div>
-          <div class="t-more" id="moreFilters" role="group" aria-label="More filters"></div>
           <div id="talentSelect"></div>
           <div id="talentCards" hidden></div>
         </div>
