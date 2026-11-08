@@ -140,7 +140,7 @@ h1,h2,h3{text-wrap:balance}
 .mob{display:none;margin-left:auto;align-items:center;gap:6px}
 .menu-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px 0 16px;border-radius:999px;border:1.5px solid var(--dark);background:var(--dark);color:var(--bg);font-size:15px;font-weight:600;cursor:pointer}
 .menu-btn[aria-expanded="true"]{background:var(--bg);color:var(--fg)}
-@media (max-width:1000px){.desk{display:none !important}.mob{display:flex}}
+@media (max-width:1140px){.desk{display:none !important}.mob{display:flex}}
 @media (max-width:420px){.logo b{font-size:26px}.logo small{font-size:7px;letter-spacing:.08em}.logo{margin-right:0}}
 
 .mega{position:absolute;left:0;right:0;top:100%;background:var(--bg);border-bottom:1px solid var(--line);box-shadow:0 18px 36px rgba(21,19,20,.07);max-height:calc(100vh - 90px);overflow-y:auto}
@@ -703,6 +703,7 @@ img,video{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;-webk
       <a class="pill" href="#how" data-t="nav.how"></a>
       <a class="pill" href="#about" data-t="nav.about"></a>
       <a class="pill" href="#creators" data-t="nav.partner"></a>
+      <a class="pill" href="#faq" data-t="nav.faq"></a>
       <a class="pill" href="#contact" data-t="nav.contact"></a>
     </div>
     <div class="nav-right desk">
@@ -728,6 +729,7 @@ img,video{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;-webk
     <a class="mp-link" href="#how" data-close data-t="nav.how"></a>
     <a class="mp-link" href="#about" data-close data-t="nav.about"></a>
     <a class="mp-link" href="#creators" data-close data-t="nav.partner"></a>
+    <a class="mp-link" href="#faq" data-close data-t="nav.faq"></a>
     <a class="mp-cta" href="#contact" data-close data-t="nav.contact"></a>
   </div>
 </header>
@@ -964,7 +966,7 @@ img,video{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;-webk
 var T = {
   'nav.services':['บริการ','Services'],
   'nav.how':['วิธีการทำงาน','How we work'],
-  'nav.contact':['ติดต่อ','Contact'],
+  'nav.contact':['ติดต่อ','Contact'], 'nav.faq':['คำถามที่พบบ่อย','FAQ'],
   'nav.about':['เกี่ยวกับเรา','About us'],
   'ab.eyebrow':['เกี่ยวกับเรา','About endear'],
   'ab.h2':['ดูแลด้วยใจ<br>ทั้งลูกค้าและพาร์ทเนอร์','Caring for every client<br>and every partner.'],
@@ -1585,7 +1587,7 @@ function renderSearch(){
 var PAGE = document.documentElement.getAttribute('data-page') || 'home';
 var PAGE_URL = window.PAGE_URLS || {home:'./', talent:'talent/', art:'art/', '3d':'3d/', events:'events/', about:'about/', contact:'contact/'};
 var PAGE_ROOT = {home:'top', talent:'talent', art:'art', '3d':'fab', events:'events', about:'about', contact:'contact'};
-var SEC_PAGE = {top:'home', tilesWrap:'home', trusted:'home', services:'home', creators:'home', publishing:'home', talent:'talent', art:'art', fab:'3d', events:'events', about:'about', contact:'contact'};
+var SEC_PAGE = {faq:'contact', top:'home', tilesWrap:'home', trusted:'home', services:'home', creators:'home', publishing:'home', talent:'talent', art:'art', fab:'3d', events:'events', about:'about', contact:'contact'};
 var PAGE_SHOW = {home:['top','reel','tilesWrap','trusted','how','creators'], talent:['phero','services','talent'], art:['phero','services','art'], '3d':['phero','services','fab'], events:['phero','services','events'], about:['phero','about','how'], contact:['phero','contact','faq']};
 var PH = {
   talent:{ e:['ทาเลนต์และอินฟลูเอนเซอร์','Talent & Influencers'], h:['หา VTuber KOL และสตรีมเมอร์<br><em>สำหรับงานของคุณ</em>','VTubers, KOLs &amp; streamers<br><em>for your next project</em>'], s:['รวม VTuber สตรีมเมอร์ และ KOL ทั้งไทยและต่างประเทศ กว่า 60 คน<br>ดูแนวคอนเทนต์ ยอดผู้ติดตาม และช่องทางของแต่ละคนได้ทันที<br><span class="ph-tags">โปรโมตเกมและสินค้า · รีวิว · พากย์เสียง · คอลแลป · Tie-in · โปรโมตอีเวนต์</span>','60+ VTubers, streamers and KOLs from Thailand and around the world.<br>See each one’s content, followers and channels at a glance.<br><span class="ph-tags">Game &amp; product promotion · Reviews · Voice dubbing · Collabs · Tie-ins · Event promotion</span>'] },
