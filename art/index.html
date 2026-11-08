@@ -306,6 +306,8 @@ html[lang="th"] .h2{padding-top:.08em}
 .art-desc{margin:18px 0;font-size:16px;line-height:1.7;color:#4A4547}
 .gallery{display:flex;flex-wrap:wrap;gap:14px;padding-bottom:12px}
 .gallery::after{content:'';flex:1000 1 0}
+.gallery.jg::after{display:none}
+.gallery.jg .g-tile{max-width:none}
 .g-tile.g-btn{height:auto;min-width:0;max-width:100%}
 .g-tile{flex:0 0 280px;height:280px;scroll-snap-align:start;border-radius:20px;position:relative;overflow:hidden}
 .g-img{height:100%;display:flex;align-items:flex-end;padding:16px;font-size:13px;color:#3A3637}
@@ -1126,7 +1128,7 @@ var ART = [
   { label:['ออกแบบตัวละคร','Character Design'], icon:'person', imgs:[['art-char-1.webp',3200,1203],['art-char-2.webp',3600,757],['art-p-char-1.webp',2048,1153],['art-p-char-2.webp',2048,1153],['art-p-char-3.webp',1352,761],['art-p-char-4.webp',2048,1152],['art-p-char-5.webp',2048,1152],['art-p-char-6.webp',2048,1152],['art-p-char-7.webp',1875,1030],['art-p-char-8.webp',1970,1009]], bg:'#FBDDE8', desc:['ออกแบบตัวละคร พร้อมชีตหลายมุมและสีหน้า','Character design with turnaround sheets and expressions.'], kw:'ออกแบบตัวละคร คาแรคเตอร์ character' },
   { label:['ภาพตัวละคร & จิบิ','Character Art & Chibi'], icon:'person', imgs:[['art-p-cart-p-1.webp',678,931],['art-p-cart-p-2.webp',960,1139],['art-p-cart-p-3.webp',655,1146],['art-p-cart-p-4.webp',1038,1600],['art-p-cart-p-5.webp',1154,1237],['art-p-cart-p-6.webp',1112,1600],['art-p-cart-p-7.webp',1300,1008],['art-p-cart-p-8.webp',1007,1600],['art-p-cart-p-9.webp',405,1600],['art-p-cart-p-10.webp',549,1600],['art-p-cart-p-11.webp',527,1600],['art-p-cart-p-12.webp',1291,1600],['art-p-cart-p-13.webp',1591,1600],['art-p-cart-p-14.webp',1571,1600],['art-p-cart-p-15.webp',1504,1600],['art-p-cart-p-16.webp',1172,1302],['art-p-cart-p-17.webp',1119,1375],['art-p-cart-p-18.webp',1329,1600],['art-p-cart-p-19.webp',1097,1318],['art-p-cart-p-20.webp',1600,1321],['art-p-cart-p-21.webp',1600,1560],['art-p-cart-p-22.webp',1515,1600],['art-p-cart-p-23.webp',1088,1600]], bg:'#FBE7EE', desc:['ภาพตัวละครเต็มตัว ครึ่งตัว จิบิ และมาสคอต','Full-body, half-body, chibi and mascot character art.'], kw:'ภาพตัวละคร เต็มตัว ครึ่งตัว จิบิ มาสคอต chibi mascot full body' },
   { label:['อีโมต & ไอคอน','Emotes & Icons'], icon:'sticker', imgs:[['art-p-emote-1.webp',1014,1100],['art-p-emote-2.webp',1082,1100],['art-p-emote-3.webp',1100,1092],['art-p-emote-4.webp',1072,1100],['art-p-emote-5.webp',1100,1069],['art-p-emote-6.webp',1100,897],['art-p-emote-7.webp',995,1100],['art-p-emote-8.webp',907,1100],['art-p-emote-9.webp',1100,1096],['art-p-emote-10.webp',1100,895],['art-p-emote-11.webp',878,977],['art-p-emote-12.webp',981,990],['art-p-emote-13.webp',974,985],['art-p-emote-14.webp',970,955],['art-p-emote-15.webp',979,920]], bg:'#FFF0C9', sm:1, desc:['อีโมตและไอคอนแจ้งเตือนสำหรับสตรีม Twitch, YouTube, Discord และนำไปทำสติกเกอร์ LINE ได้','Emotes and alert icons for Twitch, YouTube and Discord, which can also be made into LINE stickers.'], kw:'สติกเกอร์ สติ๊กเกอร์ ไลน์ line sticker อีโมต อิโมจิ ไอคอน แจ้งเตือน emote emoji alert icon twitch discord' },
-  { label:['ฉากสตรีม & ฉากหลัง','Stream Assets & Backgrounds'], icon:'image', imgs:[['art-p-stream-1.webp',1350,760],['art-p-stream-2.webp',1396,1600],['art-p-stream-3.webp',1402,1600],['art-p-stream-4.webp',1600,900],['art-p-stream-5.webp',1280,720],['art-p-stream-6.webp',1600,900],['art-p-stream-10.webp',1600,686],['art-p-stream-11.webp',1600,873],['art-p-stream-12.webp',1600,900],['art-p-stream-13.webp',1600,931]], bg:'#E6DEFB', desc:['โอเวอร์เลย์ หน้าโหลด และฉากหลังสำหรับไลฟ์สตรีม','Overlays, loading screens and backgrounds for live streams.'], kw:'โอเวอร์เลย์ ฉากหลัง พื้นหลัง หน้าโหลด สตรีม overlay background loading screen stream asset' },
+  { label:['ฉากสตรีม & ฉากหลัง','Stream Assets & Backgrounds'], icon:'image', imgs:[['art-p-stream-1.webp',1350,760],['art-p-stream-2.webp',1396,1600],['art-p-stream-3.webp',1402,1600],['art-p-stream-4.webp',1600,900],['art-p-stream-5.webp',1280,720],['art-p-stream-6.webp',1600,900],['art-p-stream-10.webp',1600,686],['art-p-stream-11.webp',1600,873],['art-p-stream-12.webp',1600,900],['art-p-stream-13.webp?v=2',1110,623]], bg:'#E6DEFB', desc:['โอเวอร์เลย์ หน้าโหลด และฉากหลังสำหรับไลฟ์สตรีม','Overlays, loading screens and backgrounds for live streams.'], kw:'โอเวอร์เลย์ ฉากหลัง พื้นหลัง หน้าโหลด สตรีม overlay background loading screen stream asset' },
   { label:['คอมิก / เว็บตูน','Comic / Webtoon'], icon:'panels', imgs:[{comic:[11344,9906,9446,10667,9249,9370,10149,12533,10667,9283,7253].map(function(h,i){ return ['art-comic-p'+(i<9?'0':'')+(i+1)+'.webp',800,h]; }), src:'art-comic-cover.webp', w:1555, h:2200, pv:[[1,0],[2,1],[3,2],[4,3],[5,4]]}], bg:'#FFE3D6', desc:['การ์ตูนช่องและเว็บตูน ตั้งแต่สตอรีบอร์ดถึงลงสี','Comics and webtoons, from storyboard to colour.'], kw:'การ์ตูน คอมมิค เว็บตูน มังงะ comic manga' },
   { label:['Live2D และริกกิ้ง','Live2D & Rigging'], icon:'rig', imgs:[{v:'art-live2d-1.mp4', snd:1, big:1, src:'art-live2d-1.webp', w:1280, h:720},{src:'art-p-l2d-2.webp?v=3', w:621, h:828, cap:['สีหน้า Live2D','Live2D Face Expression']},{src:'art-p-l2d-3.webp?v=3', w:621, h:828, cap:['สีหน้า Live2D','Live2D Face Expression']},{src:'art-p-l2d-4.webp?v=3', w:621, h:828, cap:['สีหน้า Live2D','Live2D Face Expression']},{src:'art-p-l2dpose-1.webp', w:612, h:816, cap:['ท่าโพส Live2D','Live2D Pose']},{src:'art-p-l2dpose-2.webp', w:621, h:828, cap:['ท่าโพส Live2D','Live2D Pose']},{src:'art-p-l2dpose-3.webp', w:621, h:828, cap:['ท่าโพส Live2D','Live2D Pose']},{src:'art-p-l2dpose-4.webp', w:621, h:828, cap:['ท่าโพส Live2D','Live2D Pose']}], bg:'#E6DEFB', desc:['โมเดล Live2D และริกกิ้ง พร้อมใช้งานสำหรับ VTuber','Live2D models and rigging, ready for VTubers.'], kw:'ไลฟ์ทูดี โมเดล ริก vtuber model live2d' },
   { label:['โมชันกราฟิก','Motion Graphic'], icon:'play', imgs:[{v:'art-motion-1.mp4', src:'art-motion-1.webp', w:1280, h:720},{v:'art-motion-3.mp4', src:'art-motion-3.webp', w:1280, h:904},{v:'art-motion-2.mp4', src:'art-motion-2.webp', w:1280, h:720},{v:'art-motion-4.mp4', snd:1, src:'art-motion-4.webp', w:1280, h:502}], bg:'#FFE3D6', desc:['โมชันกราฟิกสำหรับโปรโมตและโซเชียลมีเดีย','Motion graphics for promotion and social media.'], kw:'โมชัน โมชั่นกราฟิก วิดีโอ motion video' },
@@ -1388,7 +1390,7 @@ function renderArt(){
     return '<button type="button" class="g-tile g-btn'+(o.big?' g-big':'')+(o.cap||a.sm?' g-sm':'')+'" '+attr+' style="flex:'+(o.big?'1 1 100%':o.yt?'0 1 calc(33.333% - 10px)':o.cap?'0 1 calc(14.285% - 12px)':a.sm?'0 1 calc(20% - 12px)':Math.round(r*100)+' 1 '+Math.round(r*230)+'px')+';aspect-ratio:'+r.toFixed(4)+'" aria-label="'+(o.t?esc(o.t):lbl)+'"'+(o.t?' title="'+esc(o.t)+'"':'')+'>'+media+badge+'</button>'+(o.big?'<i class="g-br" aria-hidden="true"></i>':''); })
     .concat((a.nda||[]).map(function(d){ return '<div class="g-tile"><div class="g-conf"><span class="blob" style="background:'+a.bg+'" aria-hidden="true"></span><span class="lock">'+icon('lock',14,2)+t('art.conf')+'</span><span class="big">'+icon(a.icon,84)+'</span><span><b>'+esc(L(a.label))+'</b><small>'+esc(L(d))+'</small></span></div></div>'; }));
   if(!tiles.length) tiles = ['<div class="g-tile g-soon" style="background:'+a.bg+'"><span class="ph-soon"><b>Coming soon</b><small>'+t('ph.img')+'</small></span></div>'];
-  return '<div class="art-block" id="art-'+AI+'"><h2 class="art-h">'+esc(L(a.label))+'</h2><p class="art-desc">'+esc(L(a.desc))+'</p><div class="gallery">'+tiles.join('')+'</div></div>';
+  return '<div class="art-block" id="art-'+AI+'"><h2 class="art-h">'+esc(L(a.label))+'</h2><p class="art-desc">'+esc(L(a.desc))+'</p><div class="gallery"'+((a.imgs||[]).some(function(im){ return im&&im.comic; })?' data-cols="3"':'')+'>'+tiles.join('')+'</div></div>';
   });
   $('gallery').className = 'art-blocks'; $('gallery').innerHTML = blocks.join('');
   var nn = document.querySelector('[data-t="art.note"]'); if(nn) nn.hidden = !ART.some(function(a){ return a.nda && a.nda.length; });
@@ -1401,7 +1403,7 @@ function renderPub(){
   $('pubTitle').textContent = L(p.title);
   $('pubDesc').textContent = L(p.desc);
 }
-function renderAll(){ renderTalent(); renderArt(); renderPub(); }
+function renderAll(){ renderTalent(); renderArt(); renderPub(); if(typeof sideSpy==='function' && document.readyState!=='loading') setTimeout(function(){ sideSpy(); justifyGalleries(); },0); }
 
 /* ---------- accordion ---------- */
 function setSvc(id, open){
@@ -1526,9 +1528,30 @@ function goSection(id, set){
 }
 function renderPhero(){ var c=PH[PAGE]; if(!c) return; $('phEyebrow').innerHTML=L(c.e); $('phH1').innerHTML=L(c.h); $('phSub').innerHTML=L(c.s); var tg=$('phSub').querySelector('.ph-tags'); if(tg) tg.innerHTML=tg.innerHTML.split(' · ').map(function(w){ return '<span style="white-space:nowrap">'+w+'</span>'; }).join(' · '); }
 
-function sideSpy(){ if(!window.IntersectionObserver) return; document.querySelectorAll('.side-nav').forEach(function(nav){ var links=[].slice.call(nav.querySelectorAll('a[data-h]')); if(!links.length) return;
+
+/* justified gallery rows: every row (including the last) fills the width exactly */
+function justifyGalleries(){
+  var mobile = window.innerWidth <= 640;
+  document.querySelectorAll('.gallery').forEach(function(g){
+    var tiles=[].slice.call(g.children).filter(function(c){ return c.classList.contains('g-tile'); });
+    var plain = tiles.length>1 && tiles.every(function(t){ return !t.classList.contains('g-big') && !t.classList.contains('g-sm') && !t.hasAttribute('data-lby') && /aspect-ratio/.test(t.getAttribute('style')||''); });
+    if(!plain || mobile){ tiles.forEach(function(t){ t.style.width=''; t.style.flex = t.dataset.flex0 || t.style.flex; }); g.classList.remove('jg'); return; }
+    var W=g.clientWidth, gap=14; if(!W) return;
+    var R=tiles.map(function(t){ var m=(t.getAttribute('style')||'').match(/aspect-ratio:\s*([\d.]+)/); return m?+m[1]:1; });
+    var target = W<1000 ? 220 : 280, n=R.length, cost=[0], cut=[0];
+    function rowH(i,j){ var sr=0; for(var k=i;k<j;k++) sr+=R[k]; return (W-gap*(j-i-1))/sr; }
+    for(var j=1;j<=n;j++){ cost[j]=Infinity; for(var i=Math.max(0,j-6);i<j;i++){ var h=rowH(i,j), c=cost[i]+Math.pow((h-target)/target,2)*(h>target*1.8?6:1); if(c<cost[j]){ cost[j]=c; cut[j]=i; } } }
+    var rows=[], j2=n; while(j2>0){ rows.unshift([cut[j2],j2]); j2=cut[j2]; }
+    var fc=+g.getAttribute('data-cols'); if(fc){ rows=[]; for(var q=0;q<n;q+=fc) rows.push([q,Math.min(n,q+fc)]); }
+    g.classList.add('jg');
+    rows.forEach(function(r){ var h=rowH(r[0],r[1]); for(var k=r[0];k<r[1];k++){ var t=tiles[k]; if(!t.dataset.flex0) t.dataset.flex0=t.style.flex; t.style.flex='0 0 auto'; t.style.width=(Math.floor(R[k]*h*100)/100)+'px'; } });
+  });
+}
+(function(){ var tm; window.addEventListener('resize', function(){ clearTimeout(tm); tm=setTimeout(justifyGalleries,120); }); })();
+var SPY_IO=[];
+function sideSpy(){ if(!window.IntersectionObserver) return; SPY_IO.forEach(function(o){ o.disconnect(); }); SPY_IO=[]; document.querySelectorAll('.side-nav').forEach(function(nav){ var links=[].slice.call(nav.querySelectorAll('a[data-h]')); if(!links.length) return;
   var io=new IntersectionObserver(function(ents){ ents.forEach(function(en){ if(!en.isIntersecting) return; var id=en.target.id; links.forEach(function(a){ var on=a.getAttribute('data-h')==='#'+id; a.setAttribute('aria-current', on); if(on && nav.scrollWidth>nav.clientWidth) nav.scrollTo({left:a.offsetLeft-16, behavior:'smooth'}); }); }); }, {rootMargin:'-30% 0px -60% 0px'});
-  links.forEach(function(a){ var el=document.getElementById(a.getAttribute('data-h').slice(1)); if(el) io.observe(el); }); }); }
+  links.forEach(function(a){ var el=document.getElementById(a.getAttribute('data-h').slice(1)); if(el) io.observe(el); }); SPY_IO.push(io); }); }
 function setupPage(){
   var show=PAGE_SHOW[PAGE]||PAGE_SHOW.home;
   ['top','phero','tilesWrap','trusted','how','services','about','creators','contact'].forEach(function(id){ var el=$(id); if(el) el.hidden = show.indexOf(id)<0; });
@@ -1635,7 +1658,7 @@ function updCardNav(){ var c=document.querySelector('#talentCards .cards'); if(!
   });
   document.addEventListener('scroll', function(e){ if(e.target.classList && e.target.classList.contains('cs-track')) sync(e.target); }, true);
 })();
-setupPage(); renderStatic(); renderAll(); renderSearch(); fixWrap(); sideSpy();
+setupPage(); renderStatic(); renderAll(); renderSearch(); fixWrap(); sideSpy(); justifyGalleries(); window.addEventListener('load', justifyGalleries);
 
 /* ---------- live follower counts from Google Sheet ----------
    Sheet: "ยอดผู้ติดตามในเว็บไซต์ endear" (must be shared: anyone with the link can view).
