@@ -671,12 +671,10 @@ img,video{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;-webk
 .reel{padding-top:8px;padding-bottom:56px}
 .reel-box{position:relative;border-radius:24px;overflow:hidden;background:#111;aspect-ratio:16/9;box-shadow:0 24px 50px -28px rgba(214,51,108,.45)}
 .reel-box video{display:block;width:100%;height:100%;object-fit:cover}
-.reel-play{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;border:0;cursor:pointer;background:rgba(20,10,16,.18);color:#fff;font:inherit;font-weight:600;font-size:16px;text-shadow:0 1px 8px rgba(0,0,0,.5);transition:background .2s}
-.reel-play:hover{background:rgba(20,10,16,.08)}
-.reel-ic{width:88px;height:88px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;padding-left:5px;box-shadow:0 10px 30px rgba(214,51,108,.5);transition:transform .2s}
-.reel-play:hover .reel-ic{transform:scale(1.08)}
-.reel.playing .reel-play{display:none}
-@media (max-width:640px){.reel{padding-bottom:36px}.reel-box{border-radius:16px}.reel-ic{width:64px;height:64px}.reel-play{font-size:14px}}
+.reel-snd{position:absolute;right:20px;bottom:20px;display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;padding:10px 18px 10px 14px;border-radius:999px;background:var(--accent);color:#fff;font:inherit;font-weight:600;font-size:15px;box-shadow:0 8px 24px rgba(214,51,108,.45);transition:transform .2s}
+.reel-snd:hover{transform:translateY(-2px)}
+.reel.playing .reel-snd{display:none}
+@media (max-width:640px){.reel{padding-bottom:36px}.reel-box{border-radius:16px}.reel-snd{right:12px;bottom:12px;font-size:13px;padding:8px 14px 8px 12px}}
 </style>
 <script type="application/ld+json" id="ld">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://endearagency.github.io/#org","name":"endear","alternateName":["endear Project Management Service","endear agency"],"url":"https://endearagency.github.io/","logo":"https://endearagency.github.io/icon-192.png","description":"เอเจนซี่ดูแลโปรเจกต์สายอนิเมะ การ์ตูน และเกม ในประเทศไทย หา VTuber, KOL, MC, คอสเพลเยอร์ งานอาร์ต Live2D แอนิเมชัน งาน 3D และสินค้าที่ระลึก","areaServed":"TH","knowsLanguage":["th","en"],"knowsAbout":["VTuber","Thai VTuber","KOL","Influencer marketing","MC","Cosplay","Illustration","Character design","Live2D","Animation","Motion graphic","3D modeling","3D printing","Merchandise","Event"]}]}</script>
 </head>
@@ -737,8 +735,8 @@ img,video{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;-webk
   <section id="phero" class="wrap hero phero"><p class="eyebrow" id="phEyebrow">อีเวนต์และสินค้าที่ระลึก</p><h1 id="phH1">อีเวนต์ สตาฟบูธ<br><em>และสินค้าที่ระลึก</em></h1><p class="hero-sub" id="phSub">ช่วยดูแลอีเวนต์สายอนิเมะ การ์ตูน และเกมร่วมกับทีมของคุณ<br><span class="ph-tags">ดูแลอีเวนต์ · สตาฟประจำบูธ · ผลิตสินค้าที่ระลึก</span></p><div class="chips ph-jump" id="phJump"></div></section>
 
   <section class="wrap reel" id="reel" aria-label="Showreel">
-    <div class="reel-box"><video id="reelVid" src="showreel.mp4" poster="showreel-poster.jpg" preload="none" playsinline controlslist="nodownload"></video>
-    <button type="button" class="reel-play" id="reelPlay"><span class="reel-ic" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-t="reel.play"></span></button></div>
+    <div class="reel-box"><video id="reelVid" src="showreel.mp4" poster="showreel-poster.jpg" preload="metadata" muted loop autoplay playsinline controlslist="nodownload"></video>
+    <button type="button" class="reel-snd" id="reelPlay"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg><span data-t="reel.play"></span></button></div>
   </section>
 
   <section class="trusted" id="trusted" aria-label="Clients and partners">
@@ -974,7 +972,7 @@ var T = {
   'hero.svc':['VTuber · KOL · MC · คอสเพลเยอร์ · งานอาร์ตและแอนิเมชัน · งาน 3D · สินค้าที่ระลึก (merchandise)','VTubers · KOLs · MCs · Cosplayers · Art &amp; animation · 3D &amp; fabrication · Merchandise'],
   'hero.lead':['บอกเราว่าอยากได้อะไร เราหาทีม ประสานงาน และดูแลให้จนจบงาน','Tell us what you need. We find the team, run the coordination and stay until it’s done.'],
   'hero.btn':['ดูบริการทั้งหมด','See all services'],
-  'reel.play':['ดูวิดีโอแนะนำ endear (2 นาที)','Watch the endear showreel (2 min)'],
+  'reel.play':['เปิดเสียงดูตั้งแต่ต้น','Watch with sound'],
   'tile.more':['ดูรายละเอียด →','See details →'],
   'tile.other.t':['งานอื่นๆ?','Something else?'],
   'tile.other.d':['ไม่เจองานที่ต้องการ? บอกเรามาได้ เรามีเครือข่ายที่ช่วยหาให้ได้','Don’t see it here? Tell us. Our network can often find it.'],
@@ -1581,6 +1579,8 @@ function goSection(id, set){
 function renderPhero(){ var c=PH[PAGE]; if(!c) return; $('phEyebrow').innerHTML=L(c.e); $('phH1').innerHTML=L(c.h); $('phSub').innerHTML=L(c.s); var tg=$('phSub').querySelector('.ph-tags'); if(tg) tg.innerHTML=tg.innerHTML.split(' · ').map(function(w){ return '<span style="white-space:nowrap">'+w+'</span>'; }).join(' · '); }
 
 
+/* showreel: play muted only while on screen */
+(function(){ var v=document.getElementById('reelVid'); if(!v || !window.IntersectionObserver) return; new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); } else if(v.muted) v.pause(); }); }, {threshold:.25}).observe(v); })();
 /* make saving images harder: no right-click save, no dragging, no long-press save on phones */
 document.addEventListener('contextmenu', function(e){ if(e.target.closest && e.target.closest('img, video, .g-tile, .t-clip, .tile-img, .stage-art, .lb, .overlay')) e.preventDefault(); });
 document.addEventListener('dragstart', function(e){ if(e.target.tagName==='IMG' || e.target.tagName==='VIDEO') e.preventDefault(); });
@@ -1643,7 +1643,7 @@ document.addEventListener('click', function(e){
   if(el.dataset.art!==undefined){ st.art = +el.dataset.art; renderArt(); return; }
   if(el.dataset.pub!==undefined){ st.pub = +el.dataset.pub; renderPub(); return; }
   if(el.hasAttribute('data-ctab')){ CLIP_TAB=el.getAttribute('data-ctab'); var box=el.closest('.t-clips'); box.querySelectorAll('[data-ctab]').forEach(function(b){ b.setAttribute('aria-selected', b===el); }); box.querySelectorAll('[data-cset]').forEach(function(r){ r.hidden = r.getAttribute('data-cset')!==CLIP_TAB; }); return; }
-  if(el.id==='reelPlay'){ var rv=$('reelVid'); $('reel').classList.add('playing'); rv.controls=true; rv.play(); return; }
+  if(el.id==='reelPlay'){ var rv=$('reelVid'); $('reel').classList.add('playing'); rv.currentTime=0; rv.muted=false; rv.loop=false; rv.controls=true; rv.play(); return; }
   if(el.id==='avatarBtn'){ el.classList.toggle('on'); avatarFx(el); return; }
   if(el.id==='pubPrev'){ st.pub = (st.pub+PUB.length-1)%PUB.length; renderPub(); return; }
   if(el.id==='pubNext'){ st.pub = (st.pub+1)%PUB.length; renderPub(); return; }
