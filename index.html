@@ -202,6 +202,9 @@ html[lang="th"] .h2{padding-top:.08em}
 .tile b{font-size:19px;font-weight:600;line-height:1.25}
 .tile .d{font-size:14px;line-height:1.6;color:#3A3637;flex:1 1 auto}
 .tile .more-link{margin-top:6px;font-size:14px;font-weight:600;color:var(--accent)}
+.tiles .tile:not(.other){background:#fff !important;box-shadow:inset 0 0 0 1px #EADDE2}
+.tiles .tile:not(.other) .tile-img{background:transparent;aspect-ratio:16/10}
+.tiles .tile:not(.other) .num{color:var(--accent)}
 .tile:hover .more-link{text-decoration:underline}
 .tile.other{border:2px dashed #D3CDCF;background:var(--bg);justify-content:space-between;padding:20px}
 .tile.other .plus{font-size:34px;line-height:1;color:var(--accent)}
@@ -1181,15 +1184,15 @@ var EVENTS = [
   { img:'merch-1.jpg', title:['ผลิตสินค้าที่ระลึก','Merch Production'], desc:['ผลิตสินค้าที่ระลึกและ merchandise ตามแบบของคุณ','Souvenirs and merchandise made to your design.'], kw:'ของที่ระลึก สินค้า เมิร์ช merch' }
 ];
 var CATS = [
-  { id:'talent', img:'tile-talent-v7.jpg', title:SVC_OPTS[0][1], tint:'#FBE7EE', blurb:['KOL, VTuber, MC และคอสเพลเยอร์ รับงานโปรโมต พากย์เสียง หรือคอลแลป ตามความถนัดของแต่ละคน','KOLs, VTubers, MCs and cosplayers for promotion, voice dubbing or collabs, depending on each person’s strengths.'],
+  { id:'talent', img:'tile-talent-v8.jpg', title:SVC_OPTS[0][1], tint:'#FBE7EE', blurb:['KOL, VTuber, MC และคอสเพลเยอร์ รับงานโปรโมต พากย์เสียง หรือคอลแลป ตามความถนัดของแต่ละคน','KOLs, VTubers, MCs and cosplayers for promotion, voice dubbing or collabs, depending on each person’s strengths.'],
     items:[['VTuber',{filter:'VTuber'}],['KOL',{filter:'KOL'}],['MC',{filter:'MC'}],['Cosplayer',{filter:'Cosplayer'}]] },
-  { id:'art', img:'tile-art-v1.jpg', title:SVC_OPTS[1][1], tint:'#FFF3D9', blurb:['ภาพประกอบ ออกแบบตัวละคร อีโมต คอมิก Live2D แอนิเมชัน และ MV','Illustration, character design, emotes, comics, Live2D, animation and MVs.'],
+  { id:'art', img:'tile-art-v3.webp', title:SVC_OPTS[1][1], tint:'#FFF3D9', blurb:['ภาพประกอบ ออกแบบตัวละคร อีโมต คอมิก Live2D แอนิเมชัน และ MV','Illustration, character design, emotes, comics, Live2D, animation and MVs.'],
     items:ART.map(function(a,i){ return [a.label,{art:i}]; }) },
-  { id:'fab', img:'merch3d-3.jpg?v=3', title:SVC_OPTS[2][1], tint:'#ECE8E9', blurb:['โมเดล 3D งานพิมพ์ 3D และพิมพ์ UV บนพื้นผิวพิเศษ','3D models, 3D printing and UV printing on special surfaces.'],
+  { id:'fab', img:'tile-fab-v3.webp', title:SVC_OPTS[2][1], tint:'#ECE8E9', blurb:['โมเดล 3D งานพิมพ์ 3D และพิมพ์ UV บนพื้นผิวพิเศษ','3D models, 3D printing and UV printing on special surfaces.'],
     items:FAB.slice(0,5).map(function(f,i){ return [f.title,{to:'fab-'+i}]; }) },
   { id:'publishing', title:SVC_OPTS[3][1], tint:'#F6EEE9', blurb:['ครบตั้งแต่ออกแบบ แปล จัดหน้า จนถึงโรงพิมพ์','Everything from design and translation to layout and printing.'],
     items:PUB.map(function(p,i){ return [p.title,{pub:i}]; }) },
-  { id:'events', img:'event-cafe.jpg', title:SVC_OPTS[4][1], tint:'#F1EAF8', blurb:['ช่วยดูแลงานอีเวนต์ร่วมกับคุณ สตาฟบูธ และผลิตสินค้าที่ระลึก','Event support alongside your team, booth staff and merchandise production.'],
+  { id:'events', img:'tile-ev-v3.webp', title:SVC_OPTS[4][1], tint:'#F1EAF8', blurb:['ช่วยดูแลงานอีเวนต์ร่วมกับคุณ สตาฟบูธ และผลิตสินค้าที่ระลึก','Event support alongside your team, booth staff and merchandise production.'],
     items:EVENTS.map(function(e,i){ return [e.title,{to:'ev-'+i}]; }) }
 ];
 function itemSoon(it){ var f=it[1]&&it[1].filter; return !!f && !TALENTS.some(function(x){ return x.type===f; }); }
