@@ -668,6 +668,15 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
 .modal .tag{background:var(--soft)}
 .modal .quote{background:var(--soft)}
 img,video{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.reel{padding-top:8px;padding-bottom:56px}
+.reel-box{position:relative;border-radius:24px;overflow:hidden;background:#111;aspect-ratio:16/9;box-shadow:0 24px 50px -28px rgba(214,51,108,.45)}
+.reel-box video{display:block;width:100%;height:100%;object-fit:cover}
+.reel-play{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;border:0;cursor:pointer;background:rgba(20,10,16,.18);color:#fff;font:inherit;font-weight:600;font-size:16px;text-shadow:0 1px 8px rgba(0,0,0,.5);transition:background .2s}
+.reel-play:hover{background:rgba(20,10,16,.08)}
+.reel-ic{width:88px;height:88px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;padding-left:5px;box-shadow:0 10px 30px rgba(214,51,108,.5);transition:transform .2s}
+.reel-play:hover .reel-ic{transform:scale(1.08)}
+.reel.playing .reel-play{display:none}
+@media (max-width:640px){.reel{padding-bottom:36px}.reel-box{border-radius:16px}.reel-ic{width:64px;height:64px}.reel-play{font-size:14px}}
 </style>
 <script type="application/ld+json" id="ld">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://endearagency.github.io/#org","name":"endear","alternateName":["endear Project Management Service","endear agency"],"url":"https://endearagency.github.io/","logo":"https://endearagency.github.io/icon-192.png","description":"เอเจนซี่ดูแลโปรเจกต์สายอนิเมะ การ์ตูน และเกม ในประเทศไทย หา VTuber, KOL, MC, คอสเพลเยอร์ งานอาร์ต Live2D แอนิเมชัน งาน 3D และสินค้าที่ระลึก","areaServed":"TH","knowsLanguage":["th","en"],"knowsAbout":["VTuber","Thai VTuber","KOL","Influencer marketing","MC","Cosplay","Illustration","Character design","Live2D","Animation","Motion graphic","3D modeling","3D printing","Merchandise","Event"]}]}</script>
 </head>
@@ -726,6 +735,11 @@ img,video{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;-webk
   </section>
 
   <section id="phero" class="wrap hero phero"><p class="eyebrow" id="phEyebrow">เกี่ยวกับเรา</p><h1 id="phH1">endear เอเจนซี่ดูแลโปรเจกต์<br><em>สายอนิเมะ การ์ตูน และเกม</em></h1><p class="hero-sub" id="phSub">เราหาทีม ประสานงาน และดูแลงานให้จนจบ<br><span class="ph-tags">VTuber · KOL · งานอาร์ต · งาน 3D · สินค้าที่ระลึก</span></p><div class="chips ph-jump" id="phJump"></div></section>
+
+  <section class="wrap reel" id="reel" aria-label="Showreel">
+    <div class="reel-box"><video id="reelVid" src="showreel.mp4" poster="showreel-poster.jpg" preload="none" playsinline controlslist="nodownload"></video>
+    <button type="button" class="reel-play" id="reelPlay"><span class="reel-ic" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-t="reel.play"></span></button></div>
+  </section>
 
   <section class="trusted" id="trusted" aria-label="Clients and partners">
     <div class="wrap">
@@ -960,6 +974,7 @@ var T = {
   'hero.svc':['VTuber · KOL · MC · คอสเพลเยอร์ · งานอาร์ตและแอนิเมชัน · งาน 3D · สินค้าที่ระลึก (merchandise)','VTubers · KOLs · MCs · Cosplayers · Art &amp; animation · 3D &amp; fabrication · Merchandise'],
   'hero.lead':['บอกเราว่าอยากได้อะไร เราหาทีม ประสานงาน และดูแลให้จนจบงาน','Tell us what you need. We find the team, run the coordination and stay until it’s done.'],
   'hero.btn':['ดูบริการทั้งหมด','See all services'],
+  'reel.play':['ดูวิดีโอแนะนำ endear (2 นาที)','Watch the endear showreel (2 min)'],
   'tile.more':['ดูรายละเอียด →','See details →'],
   'tile.other.t':['งานอื่นๆ?','Something else?'],
   'tile.other.d':['ไม่เจองานที่ต้องการ? บอกเรามาได้ เรามีเครือข่ายที่ช่วยหาให้ได้','Don’t see it here? Tell us. Our network can often find it.'],
@@ -1544,7 +1559,7 @@ var PAGE = document.documentElement.getAttribute('data-page') || 'home';
 var PAGE_URL = window.PAGE_URLS || {home:'./', talent:'talent/', art:'art/', '3d':'3d/', events:'events/', about:'about/', contact:'contact/'};
 var PAGE_ROOT = {home:'top', talent:'talent', art:'art', '3d':'fab', events:'events', about:'about', contact:'contact'};
 var SEC_PAGE = {top:'home', tilesWrap:'home', trusted:'home', services:'home', creators:'home', publishing:'home', talent:'talent', art:'art', fab:'3d', events:'events', about:'about', contact:'contact'};
-var PAGE_SHOW = {home:['top','tilesWrap','trusted','how','creators'], talent:['phero','services','talent'], art:['phero','services','art'], '3d':['phero','services','fab'], events:['phero','services','events'], about:['phero','about','how'], contact:['phero','contact']};
+var PAGE_SHOW = {home:['top','reel','tilesWrap','trusted','how','creators'], talent:['phero','services','talent'], art:['phero','services','art'], '3d':['phero','services','fab'], events:['phero','services','events'], about:['phero','about','how'], contact:['phero','contact']};
 var PH = {
   talent:{ e:['ทาเลนต์และอินฟลูเอนเซอร์','Talent & Influencers'], h:['หา VTuber KOL และสตรีมเมอร์<br><em>สำหรับงานของคุณ</em>','VTubers, KOLs &amp; streamers<br><em>for your next project</em>'], s:['รวม VTuber สตรีมเมอร์ และ KOL ทั้งไทยและต่างประเทศ กว่า 60 คน<br>ดูแนวคอนเทนต์ ยอดผู้ติดตาม และช่องทางของแต่ละคนได้ทันที<br><span class="ph-tags">โปรโมตเกมและสินค้า · รีวิว · พากย์เสียง · คอลแลป · Tie-in · โปรโมตอีเวนต์</span>','60+ VTubers, streamers and KOLs from Thailand and around the world.<br>See each one’s content, followers and channels at a glance.<br><span class="ph-tags">Game &amp; product promotion · Reviews · Voice dubbing · Collabs · Tie-ins · Event promotion</span>'] },
   art:{ e:['งานภาพและแอนิเมชัน','Art & Animation'], h:['งานอาร์ต ภาพประกอบ<br><em>Live2D และแอนิเมชัน</em>','Illustration, Live2D<br><em>&amp; animation</em>'], s:['ทีมนักวาดและแอนิเมเตอร์สายอนิเมะ ดูแลงานภาพครบในที่เดียว<br><span class="ph-tags">ภาพประกอบ · ออกแบบตัวละคร · อีโมตและสติกเกอร์ LINE · ฉากสตรีม · Live2D · เว็บตูน · โมชันกราฟิก · แอนิเมชัน · MV</span>','Anime-style artists and animators, all in one place.<br><span class="ph-tags">Illustration · Character design · Emotes &amp; LINE stickers · Stream assets · Live2D · Webtoons · Motion graphics · Animation · MVs</span>'] },
@@ -1594,7 +1609,7 @@ function sideSpy(){ if(!window.IntersectionObserver) return; SPY_IO.forEach(func
   links.forEach(function(a){ var el=document.getElementById(a.getAttribute('data-h').slice(1)); if(el) io.observe(el); }); SPY_IO.push(io); }); }
 function setupPage(){
   var show=PAGE_SHOW[PAGE]||PAGE_SHOW.home;
-  ['top','phero','tilesWrap','trusted','how','services','about','creators','contact'].forEach(function(id){ var el=$(id); if(el) el.hidden = show.indexOf(id)<0; });
+  ['top','phero','reel','tilesWrap','trusted','how','services','about','creators','contact'].forEach(function(id){ var el=$(id); if(el) el.hidden = show.indexOf(id)<0; });
   if(PAGE==='about'){ var ab=$('about'), hw=$('how'); if(ab && hw) ab.parentNode.insertBefore(hw, ab.nextSibling); }
   if(PAGE!=='home'){ document.documentElement.classList.add('subpage'); ['talent','art','fab','publishing','events'].forEach(function(id){ var sv=$(id); if(!sv) return; if(show.indexOf(id)<0) sv.hidden=true; else setSvc(id,true); }); }
 }
@@ -1628,6 +1643,7 @@ document.addEventListener('click', function(e){
   if(el.dataset.art!==undefined){ st.art = +el.dataset.art; renderArt(); return; }
   if(el.dataset.pub!==undefined){ st.pub = +el.dataset.pub; renderPub(); return; }
   if(el.hasAttribute('data-ctab')){ CLIP_TAB=el.getAttribute('data-ctab'); var box=el.closest('.t-clips'); box.querySelectorAll('[data-ctab]').forEach(function(b){ b.setAttribute('aria-selected', b===el); }); box.querySelectorAll('[data-cset]').forEach(function(r){ r.hidden = r.getAttribute('data-cset')!==CLIP_TAB; }); return; }
+  if(el.id==='reelPlay'){ var rv=$('reelVid'); $('reel').classList.add('playing'); rv.controls=true; rv.play(); return; }
   if(el.id==='avatarBtn'){ el.classList.toggle('on'); avatarFx(el); return; }
   if(el.id==='pubPrev'){ st.pub = (st.pub+PUB.length-1)%PUB.length; renderPub(); return; }
   if(el.id==='pubNext'){ st.pub = (st.pub+1)%PUB.length; renderPub(); return; }
