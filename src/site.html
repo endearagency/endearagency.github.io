@@ -1610,7 +1610,7 @@ function renderPhero(){ var c=PH[PAGE]; if(!c) return; $('phEyebrow').innerHTML=
 
 
 /* showreel: play muted only while on screen */
-(function(){ var v=document.getElementById('reelVid'); if(!v || !window.IntersectionObserver) return; new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); } else if(v.muted) v.pause(); }); }, {threshold:.25}).observe(v); })();
+(function(){ var v=document.getElementById('reelVid'); if(!v || !window.IntersectionObserver) return; new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); } else { if(!v.muted){ v.muted=true; v.loop=true; v.controls=false; var r=document.getElementById('reel'); if(r) r.classList.remove('playing'); } v.pause(); } }); }, {threshold:.25}).observe(v); })();
 /* make saving images harder: no right-click save, no dragging, no long-press save on phones */
 document.addEventListener('contextmenu', function(e){ if(e.target.closest && e.target.closest('img, video, .g-tile, .t-clip, .tile-img, .stage-art, .lb, .overlay')) e.preventDefault(); });
 document.addEventListener('dragstart', function(e){ if(e.target.tagName==='IMG' || e.target.tagName==='VIDEO') e.preventDefault(); });
