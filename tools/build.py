@@ -3,7 +3,7 @@
 
 Edit src/site.html, then run:  python3 tools/build.py [--artifact OUT_DIR]
 
-Writes index.html (home) and talent/ art/ 3d/ events/ (merch) about/ contact/ index.html,
+Writes index.html (home) and talent/ art/ 3d/ merch/ about/ contact/ index.html,
 each with its own title, description, canonical URL, structured data and page hero text.
 With --artifact, also writes a preview copy (home as endear.html) into OUT_DIR,
 using explicit index.html links so it works where folder URLs don't.
@@ -23,7 +23,7 @@ PAGES_EN = {
     '3d': dict(title='3D modeling, 3D printing, custom merch & UV printing | endear',
         desc='3D models for games and brands, 3D-printed figures and custom merch, UV printing on special surfaces, and hands-on 3D printing classes in Thailand.'),
     'merch': dict(title='Custom merch: button badges, acrylic goods, pass cases & ema | endear',
-        desc='Custom merchandise made to your design: button badges, aluminium badges, acrylic and glitter shakers, standees, pass cases, coasters, pocket mirrors, shikishi and ema.'),
+        desc='Custom merchandise made to your design: button badges, aluminium badges, acrylic and glitter shakers, standees, pass cases, magnets, coasters, pocket mirrors, shikishi and ema.'),
     'about': dict(title='About endear | anime, comics & games project agency in Thailand',
         desc='endear is a Thai agency for anime, comics and games. We find the team, coordinate and see projects through, from VTubers and KOLs to art, 3D and merchandise.'),
     'contact': dict(title='Contact endear | LINE, phone, Facebook',
@@ -39,8 +39,8 @@ PAGES = {
         desc='ทีมนักวาดสายอนิเมะ รับวาดภาพประกอบ (illustration) ออกแบบตัวละคร (character design) อีโมต สติกเกอร์ LINE ฉากสตรีม โมเดล Live2D สำหรับ VTuber เว็บตูน โมชันกราฟิก แอนิเมชัน และ MV | Anime art, Live2D & animation.'),
     '3d': dict(dir='3d/', title='รับทำโมเดล 3D งานพิมพ์ 3D ของที่ระลึก พิมพ์ UV | endear',
         desc='ปั้นโมเดล 3D สำหรับเกมและงานทั่วไป ผลิตของที่ระลึกพิมพ์ 3D (3D printing) พิมพ์ UV บนพื้นผิวพิเศษ และคอร์สเรียน 3D Print ตั้งแต่แบบร่างจนเป็นชิ้นงานจริง | 3D modeling, 3D printing & custom merch.'),
-    'merch': dict(dir='events/', title='ผลิตสินค้าที่ระลึก เข็มกลัด อะคริลิค ที่ใส่บัตร merchandise | endear',
-        desc='ผลิตสินค้าที่ระลึก (merchandise) ตามแบบของคุณ เข็มกลัด เข็มกลัดอะลูมิเนียม อะคริลิคเชคเกอร์ กลิตเตอร์เชคเกอร์ สแตนดี้ ที่ใส่บัตร ที่รองแก้ว กระจกพกพา ชิกิชิ และอีมะ | Custom merch made to your design.'),
+    'merch': dict(dir='merch/', title='ผลิตสินค้าที่ระลึก เข็มกลัด อะคริลิค ที่ใส่บัตร merchandise | endear',
+        desc='ผลิตสินค้าที่ระลึก (merchandise) ตามแบบของคุณ เข็มกลัด เข็มกลัดอะลูมิเนียม อะคริลิคเชคเกอร์ กลิตเตอร์เชคเกอร์ สแตนดี้ ที่ใส่บัตร แม่เหล็ก ที่รองแก้ว กระจกพกพา ชิกิชิ และอีมะ | Custom merch made to your design.'),
     'about': dict(dir='about/', title='เกี่ยวกับ endear เอเจนซี่สายอนิเมะ การ์ตูน และเกม',
         desc='endear เอเจนซี่ดูแลโปรเจกต์สายอนิเมะ การ์ตูน และเกมในประเทศไทย หาทีม ประสานงาน และดูแลงานให้จนจบ ทั้ง VTuber, KOL, งานอาร์ต, งาน 3D และสินค้าที่ระลึก'),
     'contact': dict(dir='contact/', title='ติดต่อ endear | LINE โทร Facebook',
@@ -121,6 +121,12 @@ def main():
             os.makedirs(os.path.dirname(out), exist_ok=True)
             alt = ('en/' + cfg['dir']) if lang == 'th' else (cfg['dir'] or './')
             open(out, 'w', encoding='utf-8').write(build(src, page, en_urls if lang == 'en' else None, lang, alt))
+    # old events URLs now point to the merch page
+    for pre in ('', 'en/'):
+        out = os.path.join(ROOT, pre + 'events', 'index.html')
+        os.makedirs(os.path.dirname(out), exist_ok=True)
+        to = SITE + pre + 'merch/'
+        open(out, 'w', encoding='utf-8').write('<!doctype html><html><head><meta charset="utf-8"><title>endear</title><meta name="robots" content="noindex"><link rel="canonical" href="%s"><meta http-equiv="refresh" content="0; url=%s"></head><body><a href="%s">endear merch</a></body></html>\n' % (to, to, to))
     import datetime
     open(os.path.join(ROOT, 'sitemap.xml'), 'w').write(sitemap(datetime.date.today().isoformat()))
     if '--artifact' in sys.argv:
