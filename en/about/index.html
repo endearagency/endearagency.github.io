@@ -338,7 +338,7 @@ html[lang="th"] .h2{padding-top:.08em}
 .g-conf b{display:block;font-size:16px}
 .g-conf small{display:block;font-size:13px;color:var(--muted);margin-top:3px}
 
-/* fab / events cards */
+/* fab cards */
 .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:8px}
 .s-card{border-radius:20px;border:1px solid var(--line);overflow:hidden;background:var(--bg)}
 .s-card .ph{border-radius:0;height:170px}
@@ -725,7 +725,7 @@ img,video{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;-webk
 @media (max-width:560px){.how .how-list{grid-template-columns:minmax(0,1fr)}.how .how-card{flex-direction:row}.how-bub{font-size:13px}}
 @media (prefers-reduced-motion: reduce){.how .step .n{transform:none;opacity:1}.how .step:not(:last-child)::after{height:calc(100% - 54px)}.how-guide img{animation:none}}
 </style>
-<script type="application/ld+json" id="ld">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://endearagency.github.io/#org","name":"endear","alternateName":["endear Project Management Service","endear agency"],"url":"https://endearagency.github.io/","logo":"https://endearagency.github.io/icon-192.png","description":"เอเจนซี่ดูแลโปรเจกต์สายอนิเมะ การ์ตูน และเกม ในประเทศไทย หา VTuber, KOL, MC, คอสเพลเยอร์ งานอาร์ต Live2D แอนิเมชัน งาน 3D และสินค้าที่ระลึก","areaServed":"TH","knowsLanguage":["th","en"],"knowsAbout":["VTuber","Thai VTuber","KOL","Influencer marketing","MC","Cosplay","Illustration","Character design","Live2D","Animation","Motion graphic","3D modeling","3D printing","Merchandise","Event"]}]}</script>
+<script type="application/ld+json" id="ld">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://endearagency.github.io/#org","name":"endear","alternateName":["endear Project Management Service","endear agency"],"url":"https://endearagency.github.io/","logo":"https://endearagency.github.io/icon-192.png","description":"เอเจนซี่ดูแลโปรเจกต์สายอนิเมะ การ์ตูน และเกม ในประเทศไทย หา VTuber, KOL, MC, คอสเพลเยอร์ งานอาร์ต Live2D แอนิเมชัน งาน 3D และสินค้าที่ระลึก","areaServed":"TH","knowsLanguage":["th","en"],"knowsAbout":["VTuber","Thai VTuber","KOL","Influencer marketing","MC","Cosplay","Illustration","Character design","Live2D","Animation","Motion graphic","3D modeling","3D printing","Merchandise"]}]}</script>
 </head>
 <body>
 <header class="top">
@@ -774,7 +774,7 @@ img,video{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;-webk
     <h1 data-t="hero.h1"></h1>
     <div class="hero-row">
       <div>
-        <p class="hero-sub" data-t="hero.sub">แคมเปญ อีเวนต์ และงานร่วมกับอินฟลูเอนเซอร์ ตั้งแต่วางแผน คุมงบ จนถึงลงมือทำจริง</p>
+        <p class="hero-sub" data-t="hero.sub">แคมเปญ สินค้าที่ระลึก และงานร่วมกับอินฟลูเอนเซอร์ ตั้งแต่วางแผน คุมงบ จนถึงลงมือทำจริง</p>
         <p class="hero-svc" data-t="hero.svc">VTuber · KOL · MC · คอสเพลเยอร์ · งานอาร์ตและแอนิเมชัน · งาน 3D · สินค้าที่ระลึก (merchandise)</p>
         <p class="lead" data-t="hero.lead">บอกเราว่าอยากได้อะไร เราหาทีม ประสานงาน และดูแลให้จนจบงาน</p>
       </div>
@@ -885,10 +885,12 @@ img,video{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;-webk
         </div>
       </section>
 
-      <section id="events" class="svc">
-        <button class="svc-head" data-toggle="events" aria-expanded="false" aria-controls="p-events"><span class="num">05</span><span><b data-c="4.title"></b><small data-c="4.blurb"></small></span><span class="chev"><span class="lbl" data-t="svc.more"></span><i data-icon="chev" data-size="18"></i></span></button>
-        <div class="svc-panel" id="p-events" hidden>
-          <div class="card-grid" id="evGrid"></div>
+      <section id="merch" class="svc">
+        <button class="svc-head" data-toggle="merch" aria-expanded="false" aria-controls="p-merch"><span class="num">05</span><span><b data-c="4.title"></b><small data-c="4.blurb"></small></span><span class="chev"><span class="lbl" data-t="svc.more"></span><i data-icon="chev" data-size="18"></i></span></button>
+        <div class="svc-panel" id="p-merch" hidden>
+          <div class="chips side-nav" id="merchNav" hidden></div>
+          <div class="card-grid" id="merchGrid"></div>
+          <p class="note" data-t="mer.note"></p>
         </div>
       </section>
 
@@ -993,7 +995,7 @@ img,video{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;-webk
   <div class="modal" id="modal"></div>
 </div>
 
-<script>window.PAGE_URLS={"home": "en/", "talent": "en/talent/", "art": "en/art/", "3d": "en/3d/", "events": "en/events/", "about": "en/about/", "contact": "en/contact/"};window.ALT_URL="about/";</script>
+<script>window.PAGE_URLS={"home": "en/", "talent": "en/talent/", "art": "en/art/", "3d": "en/3d/", "merch": "en/merch/", "about": "en/about/", "contact": "en/contact/"};window.ALT_URL="about/";</script>
 <script>
 /* v20261016b */
 (function(){
@@ -1030,7 +1032,7 @@ var T = {
   'mp.other':['งานอื่นๆ? บอกเรามาได้','Something else? Ask us'],
   'hero.eyebrow':['เอเจนซี่ดูแลโปรเจกต์ · ประเทศไทย','Project agency · Thailand'],
   'hero.h1':['เอเจนซี่ดูแลโปรเจกต์<br><em>สายอนิเมะ การ์ตูน และเกม</em>','The project agency for<br><em>anime, comics &amp; games.</em>'],
-  'hero.sub':['แคมเปญ อีเวนต์ และงานร่วมกับอินฟลูเอนเซอร์ ตั้งแต่วางแผน คุมงบ จนถึงลงมือทำจริง','Campaigns, events and influencer collaborations, from planning and budgeting to full execution.'],
+  'hero.sub':['แคมเปญ สินค้าที่ระลึก และงานร่วมกับอินฟลูเอนเซอร์ ตั้งแต่วางแผน คุมงบ จนถึงลงมือทำจริง','Campaigns, merch and influencer collaborations, from planning and budgeting to full execution.'],
   'hero.svc':['VTuber · KOL · MC · คอสเพลเยอร์ · งานอาร์ตและแอนิเมชัน · งาน 3D · สินค้าที่ระลึก (merchandise)','VTubers · KOLs · MCs · Cosplayers · Art &amp; animation · 3D &amp; fabrication · Merchandise'],
   'hero.lead':['บอกเราว่าอยากได้อะไร เราหาทีม ประสานงาน และดูแลให้จนจบงาน','Tell us what you need. We find the team, run the coordination and stay until it’s done.'],
   'hero.btn':['ดูบริการทั้งหมด','See all services'],
@@ -1068,7 +1070,7 @@ var T = {
   'how.note':['* บางโปรเจกต์ไม่จำเป็นต้องใช้ทุกขั้นตอน เราปรับตามงานจริง','* Not every project needs every step. We adapt to the job.'],
   'svc.eyebrow':['บริการ','Services'],
   'faq.e':['FAQ','FAQ'], 'faq.h':['คำถามที่พบบ่อย','Frequently asked questions'],
-  'home.svc.e':['Our services','Our services'], 'home.svc.h':['บริการของเรา','What we do'], 'home.svc.l':['ครบทั้งคน งานภาพ งาน 3D และอีเวนต์ เลือกดูรายละเอียดของแต่ละบริการได้เลย','Talent, art, 3D and events. Pick a service to see the details.'],
+  'home.svc.e':['Our services','Our services'], 'home.svc.h':['บริการของเรา','What we do'], 'home.svc.l':['ครบทั้งคน งานภาพ งาน 3D และสินค้าที่ระลึก เลือกดูรายละเอียดของแต่ละบริการได้เลย','Talent, art, 3D and merch. Pick a service to see the details.'],
   'svc.h2':['บริการของเรา','What we do'],
   'svc.lead':['กดที่หัวข้อเพื่อดูรายละเอียดและตัวอย่างงาน','Tap a service to see details and examples.'],
   'svc.more':['ดูรายละเอียด','Details'],
@@ -1110,6 +1112,7 @@ var T = {
   'tal.prev':['ก่อนหน้า','Previous'],
   'tal.next':['ถัดไป','Next'],
   'tal.note':['* รายชื่อและข้อมูลทาเลนต์ในหน้านี้เป็นตัวอย่างสมมติสำหรับทดสอบ · ยอดผู้ติดตาม ณ ต.ค. 2026','* Talent names and details on this page are fictional examples for testing · Follower counts as of Oct 2026'],
+  'mer.note':['ผลิตร่วมกับพาร์ทเนอร์ Blue Rabbit Print','Produced with our partner Blue Rabbit Print'],
   'art.note':['งานที่เปิดเผยภาพไม่ได้ (NDA) แสดงเป็นการ์ดกราฟิกแทน','Work under NDA is shown as a graphic card instead.'],
   'art.sample':['ตัวอย่างผลงาน','Sample work'],
   'art.conf':['งานลับ (NDA)','Confidential project'],
@@ -1156,14 +1159,14 @@ var SVC_OPTS = [
   ['art',['งานภาพและแอนิเมชัน','Art & Animation']],
   ['fab',['งาน 3D และงานผลิต','3D & Fabrication']],
   ['publishing',['งานหนังสือและสิ่งพิมพ์','Publishing']],
-  ['events',['อีเวนต์และสินค้าที่ระลึก','Events & Merch']],
+  ['merch',['สินค้าที่ระลึก (merchandise)','Merchandise']],
   ['other',['งานอื่นๆ ที่ไม่อยู่ในรายการ','Something else (not listed)']],
   ['unsure',['ยังไม่แน่ใจ','Not sure yet']],
   ['partner',['สมัครเป็นพาร์ทเนอร์','Become a partner']]
 ];
 
 /* ---------- data ---------- */
-var WORKS = { review:['รีวิวเกม','Game Review'], promo:['โปรโมต','Promotion'], dub:['พากย์เสียง','Voice Dubbing'], collab:['คอลแลป','Collab'], cover:['ร้อง & คัฟเวอร์เพลง','Singing & Covers'], prodreview:['รีวิวสินค้า','Product Review'], tiein:['Tie-in','Tie-in'], evpromo:['โปรโมตอีเวนต์','Event Promotion'], mc:['พิธีกรงานอีเวนต์','Event MC'], guest:['แขกรับเชิญงานอีเวนต์','Event Guest'] };
+var WORKS = { review:['รีวิวเกม','Game Review'], promo:['โปรโมต','Promotion'], dub:['พากย์เสียง','Voice Dubbing'], collab:['คอลแลป','Collab'], cover:['ร้อง & คัฟเวอร์เพลง','Singing & Covers'], prodreview:['รีวิวสินค้า','Product Review'], tiein:['Tie-in','Tie-in'], evpromo:['โปรโมตงาน','Show Promotion'], mc:['พิธีกร','MC'], guest:['แขกรับเชิญ','Guest Appearance'] };
 var TYPES = { All:['ทั้งหมด','All'], VTuber:['VTuber','VTuber'], KOL:['KOL','KOL'], MC:['MC','MC'], Cosplayer:['คอสเพลเยอร์','Cosplayer'] };
 var TALENTS = [
   { id:'hanami', name:'Hanami Lay', clips:['https://www.youtube.com/watch?v=344McK8vzTA','https://www.youtube.com/shorts/TdJfZVHj4no','https://www.youtube.com/watch?v=DY8VEyO2h6c'], short:'Hanami Lay', ini:'HL', type:'VTuber', aff:'indie', langs:['th'], color:'#FFFFFF', img:'talent-hanami.jpg', face:'talent-hanami-face.jpg?v=13', card:'talent-hanami-half.jpg', halves:['talent-hanami-half.jpg'], tags:['#Gaming','#Karaoke','#Drawing','#Chitchat','#Cooking','#HandCam'], works:['promo','review','dub','collab'], links:[['YouTube',70200,'https://www.youtube.com/@HanamiLayCH'],['TikTok',89800,'https://www.tiktok.com/@hanamilay'],['Facebook',29000,'https://www.facebook.com/profile.php?id=61552160366840'],['X',5931,'https://x.com/HanamiLay']], quote:['วีทูปเบอร์ที่สามารถไลฟ์เล่นเกมได้ 24 ชั่วโมงแบบไม่ยอมแพ้ พร้อมอยู่กับคุณตั้งแต่ตอนบอกฝันดีจนตื่นมาอรุณสวัสดิ์','A VTuber who can stream games for 24 hours straight without giving up, here with you from good night all the way to good morning.'] },
@@ -1262,10 +1265,13 @@ var PUB = [
   { label:['จัดหน้า','Typesetting'], title:['จัดหน้า','Typesetting & Layout'], desc:['จัดหน้าเนื้อในให้พร้อมส่งพิมพ์','Interior layout, ready for print.'], kw:'จัดหน้า จัดอาร์ตเวิร์ค layout' },
   { label:['พิมพ์','Printing'], title:['พิมพ์','Printing'], desc:['ประสานงานกับโรงพิมพ์จนได้เล่มจริงในมือ','We work with the printer until the finished book is in your hands.'], kw:'โรงพิมพ์ พิมพ์หนังสือ print' }
 ];
-var EVENTS = [
-  { img:'event-cafe.jpg', alt:'Event cafe', title:['ประสานงานอีเวนต์','Event Coordination'], desc:['ช่วยประสานงานและดูแลงานอีเวนต์ร่วมกับคุณ','We help coordinate and look after your event alongside you.'], kw:'อีเวนต์ งานอีเวนต์ ประสานงาน event' },
-  { title:['สตาฟประจำบูธ','Booth Staffing'], desc:['จัดหาสตาฟประจำบูธสำหรับงานแสดงสินค้าและงานอีเวนต์','Booth staff for trade shows and events.'], kw:'สตาฟ บูธ พนักงาน booth staff' },
-  { img:'merch-1.jpg', title:['ผลิตสินค้าที่ระลึก','Merch Production'], desc:['ผลิตสินค้าที่ระลึกและ merchandise ตามแบบของคุณ','Souvenirs and merchandise made to your design.'], kw:'ของที่ระลึก สินค้า เมิร์ช merch' }
+var MERCH = [
+  { label:['เข็มกลัด', 'Button Badges'], imgs:[['merch-badge-1.webp', 1600, 1200], ['merch-badge-2.webp', 1600, 1600], ['merch-badge-3.webp', 1600, 1600], ['merch-badge-4.webp', 1600, 1600], ['merch-badge-5.webp', 1600, 1600], ['merch-badge-6.webp', 1600, 1600], ['merch-badge-7.webp', 1600, 1600], ['merch-badge-8.webp', 1600, 1600], ['merch-badge-9.webp', 1600, 1600], ['merch-badge-10.webp', 1600, 1600], ['merch-badge-11.webp', 1600, 958]], desc:['เข็มกลัดหลายขนาดและหลายทรง เลือกฟิล์มและเอฟเฟกต์ได้ เช่น โฮโลแกรม กากเพชร และสีเมทัลลิก', 'Button badges in many sizes and shapes, with films and effects such as holographic, glitter and metallic.'], kw:'เข็มกลัด กระดุม badge button pin โฮโลแกรม' },
+  { label:['เข็มกลัดอะลูมิเนียม', 'Aluminium Badges'], imgs:[['merch-alu-1.webp', 1600, 1166], ['merch-alu-2.webp', 1600, 1494], ['merch-alu-3.webp', 1600, 1494], ['merch-alu-4.webp', 1600, 1494], ['merch-alu-5.webp', 1600, 1494], ['merch-alu-6.webp', 1600, 1494]], desc:['เข็มกลัดอะลูมิเนียมพิมพ์ลาย มีหลายทรงและหลายสีพื้น', 'Printed aluminium badges in several shapes and base colours.'], kw:'เข็มกลัด อะลูมิเนียม aluminium badge' },
+  { label:['อะคริลิคเชคเกอร์ & กิ๊บ', 'Acrylic Shakers & Hair Clips'], imgs:[['merch-shaker-1.webp', 1600, 1600], ['merch-shaker-2.webp', 1600, 1600], ['merch-shaker-3.webp', 1600, 1600], ['merch-shaker-4.webp', 1600, 1600], ['merch-shaker-5.webp', 1600, 1600], ['merch-shaker-6.webp', 1600, 1600]], desc:['อะคริลิคเชคเกอร์ที่มีชิ้นอะคริลิคขยับได้ข้างใน และกิ๊บติดผมอะคริลิค', 'Acrylic shakers with loose acrylic pieces inside, plus acrylic hair clips.'], kw:'อะคริลิค เชคเกอร์ กิ๊บ acrylic shaker hair clip' },
+  { label:['สแตนดี้ & ป้ายตั้งโต๊ะ', 'Standees & Desk Stands'], imgs:[['merch-stand-1.webp', 1600, 1067], ['merch-stand-2.webp', 1600, 1067], ['merch-stand-3.webp', 1600, 1067], ['merch-stand-4.webp', 1600, 1067], ['merch-stand-5.webp', 1339, 1233]], desc:['สแตนดี้สปริง ป้ายอะคริลิคตั้งโต๊ะ และคลิปอะคริลิค', 'Spring standees, acrylic desk stands and acrylic clips.'], kw:'สแตนดี้ สปริง ป้ายตั้งโต๊ะ อะคริลิค standee stand' },
+  { label:['ที่ใส่บัตร & พวงกุญแจ', 'Pass Cases & Keychains'], imgs:[['merch-pass-1.webp', 1600, 1067], ['merch-pass-2.webp', 1600, 1067], ['merch-pass-3.webp', 1600, 1067], ['merch-pass-4.webp', 1600, 1067], ['merch-pass-5.webp', 1067, 1600], ['merch-pass-6.webp', 1600, 1280]], desc:['ที่ใส่บัตรอะคริลิคพิมพ์ลาย พร้อมสายคล้องและพวงกุญแจ', 'Printed acrylic pass cases with straps and keyrings.'], kw:'ที่ใส่บัตร พวงกุญแจ pass case keychain' },
+  { label:['อีมะ (ป้ายไม้)', 'Ema Wooden Plaques'], imgs:[['merch-ema-1.webp', 1600, 1067], ['merch-ema-2.webp', 1600, 1067], ['merch-ema-3.webp', 1600, 1067], ['merch-ema-4.webp', 1600, 1067]], desc:['ป้ายไม้อีมะสไตล์ญี่ปุ่น พิมพ์ลายตัวละคร พร้อมเชือกแดง', 'Japanese-style wooden ema plaques printed with character art, with red cords.'], kw:'อีมะ ป้ายไม้ ema wooden' }
 ];
 var CATS = [
   { id:'talent', img:'tile-talent-v8.jpg', title:SVC_OPTS[0][1], tint:'#FBE7EE', blurb:['KOL, VTuber, MC และคอสเพลเยอร์ รับงานโปรโมต พากย์เสียง หรือคอลแลป ตามความถนัดของแต่ละคน','KOLs, VTubers, MCs and cosplayers for promotion, voice dubbing or collabs, depending on each person’s strengths.'],
@@ -1276,8 +1282,8 @@ var CATS = [
     items:FAB.slice(0,5).map(function(f,i){ return [f.title,{to:'fab-'+i}]; }) },
   { id:'publishing', title:SVC_OPTS[3][1], tint:'#F6EEE9', blurb:['ครบตั้งแต่ออกแบบ แปล จัดหน้า จนถึงโรงพิมพ์','Everything from design and translation to layout and printing.'],
     items:PUB.map(function(p,i){ return [p.title,{pub:i}]; }) },
-  { id:'events', img:'tile-ev-v3.webp', title:SVC_OPTS[4][1], tint:'#F1EAF8', blurb:['ช่วยดูแลงานอีเวนต์ร่วมกับคุณ สตาฟบูธ และผลิตสินค้าที่ระลึก','Event support alongside your team, booth staff and merchandise production.'],
-    items:EVENTS.map(function(e,i){ return [e.title,{to:'ev-'+i}]; }) }
+  { id:'merch', img:'tile-merch.webp', title:SVC_OPTS[4][1], tint:'#E6F1F8', blurb:['ผลิตเข็มกลัด อะคริลิค ที่ใส่บัตร อีมะ และสินค้าที่ระลึกอื่นๆ ตามแบบของคุณ','Badges, acrylic goods, pass cases, ema and other merch made to your design.'],
+    items:MERCH.map(function(m,i){ return [m.label,{to:'mer-'+i}]; }) }
 ];
 function itemSoon(it){ var f=it[1]&&it[1].filter; return !!f && !TALENTS.some(function(x){ return x.type===f; }); }
 /* Hidden services: add an id here to hide it everywhere; remove it to bring the section back */
@@ -1348,7 +1354,11 @@ function renderStatic(){
       return '<div class="art-block" id="fab-'+i+'"><h2 class="art-h">'+esc(L(f.title))+'</h2><p class="art-desc">'+esc(L(f.desc))+'</p>'+(f.more?'<div class="w-block">'+moreHTML(f.more)+'</div>':'')+'<div class="gallery"'+(f.cols?' data-cols="'+f.cols+'"':'')+'>'+imgs.map(function(src,n){ var d=IMGDIM[src.split('?')[0]]||[4,3], r=d[0]/d[1]; return '<button type="button" class="g-tile g-btn" data-lb="'+src+'" style="flex:'+Math.round(r*100)+' 1 '+Math.round(r*230)+'px;aspect-ratio:'+r.toFixed(4)+'" aria-label="'+esc(L(f.title))+' '+(n+1)+'"><img class="g-photo" src="'+src+'" alt="'+esc(L(f.title))+' '+(n+1)+'" loading="lazy"><span class="g-zoom" aria-hidden="true">⤢</span></button>'; }).join('')+'</div></div>'; }).join('');
     fixLinks($('fabNav'));
   } else $('fabGrid').innerHTML = FAB.map(function(f,i){ return workCard('fab', f, i); }).join('');
-  $('evGrid').innerHTML = EVENTS.map(function(f,i){ return workCard('ev', f, i); }).join('');
+  if($('merchGrid')){ $('p-merch').classList.add('side-wrap');
+    $('merchNav').innerHTML = MERCH.map(function(m,i){ return '<a class="chip" href="#mer-'+i+'">'+esc(L(m.label))+'</a>'; }).join(''); $('merchNav').hidden=false;
+    $('merchGrid').className = 'art-blocks';
+    $('merchGrid').innerHTML = MERCH.map(function(m,i){ return '<div class="art-block" id="mer-'+i+'"><h2 class="art-h">'+esc(L(m.label))+'</h2><p class="art-desc">'+esc(L(m.desc))+'</p><div class="gallery">'+m.imgs.map(function(im,n){ var r=im[1]/im[2], lbl=esc(L(m.label))+' '+(n+1); return '<button type="button" class="g-tile g-btn" data-lb="'+im[0]+'" style="flex:'+Math.round(r*100)+' 1 '+Math.round(r*230)+'px;aspect-ratio:'+r.toFixed(4)+'" aria-label="'+lbl+'"><img class="g-photo" src="'+im[0]+'" alt="'+lbl+'" loading="lazy"><span class="g-zoom" aria-hidden="true">⤢</span></button>'; }).join('')+'</div></div>'; }).join('');
+    fixLinks($('merchNav')); }
   setMobile(!$('mobilePanel').hidden);
   renderPhero(); fixLinks();
 }
@@ -1360,7 +1370,7 @@ function mediaHTML(f){
   return src ? '<img class="card-img" src="'+src+'" alt="'+esc(L(f.alt ? [f.alt,f.alt] : f.title))+'" loading="lazy">' : '<div class="ph">'+phImg()+'</div>';
 }
 var IMGDIM = {"fab-game-1.jpg": [1200, 560], "fab-game-2.jpg": [653, 340], "fab-game-3.jpg": [1200, 675], "fab-game-4.jpg": [1200, 500], "fab-gen-1.jpg": [1200, 479], "fab-gen-2.jpg": [1040, 880], "fab-gen-3.jpg": [1032, 590], "fab-gen-4.jpg": [1200, 743], "fab-printer-1.jpg": [820, 482], "fab-printer-2.jpg": [496, 310], "fab-workshop-3.jpg": [825, 530], "fab-workshop-4.jpg": [825, 530], "fab-workshop-5.jpg": [1070, 590], "merch3d-1.jpg": [651, 395], "merch3d-2.jpg": [384, 270], "merch3d-3.jpg": [582, 342], "merch3d-4.jpg": [302, 170]};
-var WORKGROUPS = { fab:function(){ return FAB; }, ev:function(){ return EVENTS; } };
+var WORKGROUPS = { fab:function(){ return FAB; } };
 function workCard(g, f, i){
   return '<div class="s-card" id="'+g+'-'+i+'" data-work="'+g+':'+i+'" role="button" tabindex="0" aria-label="'+esc(L(f.title))+'">'+mediaHTML(f)+'<div class="bd"><h3>'+esc(L(f.title))+'</h3><p>'+esc(L(f.desc))+'</p><span class="more">'+t('w.more')+' →</span></div></div>';
 }
@@ -1376,7 +1386,7 @@ function moreHTML(m){ if(!m) return ''; var h='';
   return h; }
 function openWork(key){
   var p = key.split(':'), list = WORKGROUPS[p[0]] && WORKGROUPS[p[0]](), f = list && list[+p[1]]; if(!f) return;
-  var imgs = f.imgs || (f.img ? [f.img] : []), svc = p[0]==='ev' ? 'events' : 'fab';
+  var imgs = f.imgs || (f.img ? [f.img] : []), svc = 'fab';
   var media = imgs.length>1 ? mediaHTML({imgs:imgs, title:f.title}).replace(/ loading="lazy"/g,'') : imgs.length ? '<img class="w-img" src="'+imgs[0]+'" alt="'+esc(L(f.title))+'">' : '';
   $('modal').className = 'modal wk';
   $('modal').innerHTML = '<button class="icon-btn w-close" data-close-modal aria-label="Close">'+icon('x',18)+'</button>'+media+
@@ -1556,7 +1566,7 @@ function applySet(o){
   renderAll();
 }
 /* keep loanwords whole (TH) and avoid stranded words (EN) */
-var NOWRAP_TH = ['อินฟลูเอนเซอร์','ซัพพลายเออร์','คอสเพลเยอร์','ฟรีแลนซ์','โปรเจกต์','แอนิเมชัน','พาร์ทเนอร์','คอนเทนต์','สติกเกอร์','เอเจนซี่','ทาเลนต์','อีเวนต์','ออนไลน์','โปรโมต','คอลแลบ','สิ่งพิมพ์','ที่ระลึก','งานผลิต','เครือข่าย','พื้นผิว','ประสบการณ์','ผู้ติดตาม'];
+var NOWRAP_TH = ['อินฟลูเอนเซอร์','ซัพพลายเออร์','คอสเพลเยอร์','ฟรีแลนซ์','โปรเจกต์','แอนิเมชัน','พาร์ทเนอร์','คอนเทนต์','สติกเกอร์','เอเจนซี่','ทาเลนต์','ออนไลน์','โปรโมต','คอลแลบ','สิ่งพิมพ์','ที่ระลึก','งานผลิต','เครือข่าย','พื้นผิว','ประสบการณ์','ผู้ติดตาม'];
 var NOWRAP_RE = new RegExp('('+NOWRAP_TH.join('|')+')');
 function fixWrap(root){
   var w = document.createTreeWalker(root||document.body, NodeFilter.SHOW_TEXT, { acceptNode: function(n){ var p=n.parentNode; if(!p || p.closest('script,style,textarea,select,option,.nw,svg')) return NodeFilter.FILTER_REJECT; return n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; } });
@@ -1593,7 +1603,7 @@ addIdx(['คอลแลป','Collaboration'], CATS[0].title, '#talent', 'collab
 ART.forEach(function(a,i){ addIdx(a.label, CATS[1].title, '#art', a.kw, {art:i}); });
 FAB.forEach(function(f,i){ addIdx(f.title, CATS[2].title, '#fab', f.kw, {to:'fab-'+i}); });
 if(svcOn('publishing')) PUB.forEach(function(p,i){ addIdx(p.title, CATS[3].title, '#publishing', p.kw+' หนังสือ book', {pub:i}); });
-EVENTS.forEach(function(e,i){ addIdx(e.title, CATS[4].title, '#events', e.kw, {to:'ev-'+i}); });
+MERCH.forEach(function(m,i){ addIdx(m.label, CATS[4].title, '#merch', m.kw+' สินค้าที่ระลึก เมิร์ช merch', {to:'mer-'+i}); });
 addIdx(['ร่วมเป็นพาร์ทเนอร์','Partner with us'], T['cr.eyebrow'], '#creators', 'พาร์ทเนอร์ สมัคร เรทการ์ด rate card ผู้จัดการ creator partner', {svc:'partner'});
 addIdx(['วิธีการทำงาน','How we work'], ['endear','endear'], '#how', 'ขั้นตอน ประสานงาน เอกสาร project manager process', {});
 addIdx(['เกี่ยวกับเรา','About endear'], ['endear','endear'], '#about', 'ผู้ก่อตั้ง ประวัติ ทีม เรา about founder story who', {});
@@ -1622,19 +1632,19 @@ function renderSearch(){
 
 /* ---------- multi-page: each service has its own page (built by tools/build.py) ---------- */
 var PAGE = document.documentElement.getAttribute('data-page') || 'home';
-var PAGE_URL = window.PAGE_URLS || {home:'./', talent:'talent/', art:'art/', '3d':'3d/', events:'events/', about:'about/', contact:'contact/'};
-var PAGE_ROOT = {home:'top', talent:'talent', art:'art', '3d':'fab', events:'events', about:'about', contact:'contact'};
-var SEC_PAGE = {faq:'contact', top:'home', tilesWrap:'home', trusted:'home', services:'home', creators:'home', publishing:'home', talent:'talent', art:'art', fab:'3d', events:'events', about:'about', contact:'contact'};
-var PAGE_SHOW = {home:['top','reel','tilesWrap','trusted','how','creators'], talent:['phero','services','talent'], art:['phero','services','art'], '3d':['phero','services','fab'], events:['phero','services','events'], about:['phero','about','how'], contact:['phero','contact','faq']};
+var PAGE_URL = window.PAGE_URLS || {home:'./', talent:'talent/', art:'art/', '3d':'3d/', merch:'merch/', about:'about/', contact:'contact/'};
+var PAGE_ROOT = {home:'top', talent:'talent', art:'art', '3d':'fab', merch:'merch', about:'about', contact:'contact'};
+var SEC_PAGE = {faq:'contact', top:'home', tilesWrap:'home', trusted:'home', services:'home', creators:'home', publishing:'home', talent:'talent', art:'art', fab:'3d', merch:'merch', about:'about', contact:'contact'};
+var PAGE_SHOW = {home:['top','reel','tilesWrap','trusted','how','creators'], talent:['phero','services','talent'], art:['phero','services','art'], '3d':['phero','services','fab'], merch:['phero','services','merch'], about:['phero','about','how'], contact:['phero','contact','faq']};
 var PH = {
-  talent:{ e:['ทาเลนต์และอินฟลูเอนเซอร์','Talent & Influencers'], h:['หา VTuber KOL และสตรีมเมอร์<br><em>สำหรับงานของคุณ</em>','VTubers, KOLs &amp; streamers<br><em>for your next project</em>'], s:['รวม VTuber สตรีมเมอร์ และ KOL ทั้งไทยและต่างประเทศ กว่า 60 คน<br>ดูแนวคอนเทนต์ ยอดผู้ติดตาม และช่องทางของแต่ละคนได้ทันที<br><span class="ph-tags">โปรโมตเกมและสินค้า · รีวิว · พากย์เสียง · คอลแลป · Tie-in · โปรโมตอีเวนต์</span>','60+ VTubers, streamers and KOLs from Thailand and around the world.<br>See each one’s content, followers and channels at a glance.<br><span class="ph-tags">Game &amp; product promotion · Reviews · Voice dubbing · Collabs · Tie-ins · Event promotion</span>'] },
+  talent:{ e:['ทาเลนต์และอินฟลูเอนเซอร์','Talent & Influencers'], h:['หา VTuber KOL และสตรีมเมอร์<br><em>สำหรับงานของคุณ</em>','VTubers, KOLs &amp; streamers<br><em>for your next project</em>'], s:['รวม VTuber สตรีมเมอร์ และ KOL ทั้งไทยและต่างประเทศ กว่า 60 คน<br>ดูแนวคอนเทนต์ ยอดผู้ติดตาม และช่องทางของแต่ละคนได้ทันที<br><span class="ph-tags">โปรโมตเกมและสินค้า · รีวิว · พากย์เสียง · คอลแลป · Tie-in · โปรโมตงาน</span>','60+ VTubers, streamers and KOLs from Thailand and around the world.<br>See each one’s content, followers and channels at a glance.<br><span class="ph-tags">Game &amp; product promotion · Reviews · Voice dubbing · Collabs · Tie-ins · Show promotion</span>'] },
   art:{ e:['งานภาพและแอนิเมชัน','Art & Animation'], h:['งานอาร์ต ภาพประกอบ<br><em>Live2D และแอนิเมชัน</em>','Illustration, Live2D<br><em>&amp; animation</em>'], s:['ทีมนักวาดและแอนิเมเตอร์สายอนิเมะ ดูแลงานภาพครบในที่เดียว<br><span class="ph-tags">ภาพประกอบ · ออกแบบตัวละคร · อีโมตและสติกเกอร์ LINE · ฉากสตรีม · Live2D · เว็บตูน · โมชันกราฟิก · แอนิเมชัน · MV</span>','Anime-style artists and animators, all in one place.<br><span class="ph-tags">Illustration · Character design · Emotes &amp; LINE stickers · Stream assets · Live2D · Webtoons · Motion graphics · Animation · MVs</span>'] },
   '3d':{ e:['งาน 3D และงานผลิต','3D & Fabrication'], h:['โมเดล 3D งานพิมพ์ 3D<br><em>และของที่ระลึก</em>','3D models, 3D printing<br><em>&amp; custom merch</em>'], s:['ดูแลตั้งแต่แบบร่างจนได้ชิ้นงานจริง<br><span class="ph-tags">โมเดล 3D สำหรับเกม · โมเดล 3D งานทั่วไป · ของที่ระลึกพิมพ์ 3D · พิมพ์ UV · คอร์สเรียน 3D Print</span>','From first sketch to finished piece.<br><span class="ph-tags">3D models for games · General 3D models · 3D-printed merch · UV printing · 3D print classes</span>'] },
-  events:{ e:['อีเวนต์และสินค้าที่ระลึก','Events & Merch'], h:['อีเวนต์ สตาฟบูธ<br><em>และสินค้าที่ระลึก</em>','Events, booth staff<br><em>&amp; merchandise</em>'], s:['ช่วยดูแลอีเวนต์สายอนิเมะ การ์ตูน และเกมร่วมกับทีมของคุณ<br><span class="ph-tags">ดูแลอีเวนต์ · สตาฟประจำบูธ · ผลิตสินค้าที่ระลึก</span>','Anime, comic and game events, run alongside your team.<br><span class="ph-tags">Event support · Booth staff · Merchandise</span>'] },
+  merch:{ e:['สินค้าที่ระลึก (merchandise)','Merchandise'], h:['ผลิตสินค้าที่ระลึก<br><em>ตามแบบของคุณ</em>','Custom merch<br><em>made to your design</em>'], s:['ผลิตเมิร์ชสำหรับ VTuber ศิลปิน และแบรนด์ ตั้งแต่ชิ้นเดียวจนถึงล็อตใหญ่<br><span class="ph-tags">เข็มกลัด · อะคริลิค · สแตนดี้ · ที่ใส่บัตร · อีมะ</span>','Merch for VTubers, artists and brands, from a single piece to a full run.<br><span class="ph-tags">Badges · Acrylic goods · Standees · Pass cases · Ema</span>'] },
   about:{ e:['เกี่ยวกับเรา','About us'], h:['endear เอเจนซี่ดูแลโปรเจกต์<br><em>สายอนิเมะ การ์ตูน และเกม</em>','endear, the project agency<br><em>for anime, comics &amp; games</em>'], s:['เราหาทีม ประสานงาน และดูแลงานให้จนจบ<br><span class="ph-tags">VTuber · KOL · งานอาร์ต · งาน 3D · สินค้าที่ระลึก</span>','We find the team, run the coordination and see the work through.<br><span class="ph-tags">VTubers · KOLs · Art · 3D · Merchandise</span>'] },
   contact:{ e:['ติดต่อเรา','Contact'], h:['คุยงานกับ <em>endear</em>','Talk to <em>endear</em>'], s:['บอกเราว่าอยากได้อะไร เราหาทีม ประสานงาน และดูแลให้จนจบงาน<br><span class="ph-tags">อีเมล · LINE · โทร · Facebook</span>','Tell us what you need. We find the team, run the coordination and stay until it’s done.<br><span class="ph-tags">Email · LINE · Phone · Facebook</span>'] }
 };
-function pageOfId(id){ if(SEC_PAGE[id]) return SEC_PAGE[id]; if(id==='how') return PAGE==='about' ? 'about' : 'home'; if(/^art-/.test(id)) return 'art'; if(/^fab-/.test(id)) return '3d'; if(/^ev-/.test(id)) return 'events'; return PAGE; }
+function pageOfId(id){ if(SEC_PAGE[id]) return SEC_PAGE[id]; if(id==='how') return PAGE==='about' ? 'about' : 'home'; if(/^art-/.test(id)) return 'art'; if(/^fab-/.test(id)) return '3d'; if(/^mer-/.test(id)) return 'merch'; return PAGE; }
 function pageHref(p){ return PAGE_URL[p] || PAGE_URL.home; }
 function fixLinks(root){ (root||document).querySelectorAll('a[href^="#"]').forEach(function(a){ var id=a.getAttribute('href').slice(1); if(!id) return; var p=pageOfId(id); a.setAttribute('data-h','#'+id); a.setAttribute('href', pageHref(p)+(id===PAGE_ROOT[p] && p!==PAGE ? '' : '#'+id)); }); }
 function scrollToId(id){ setTimeout(function(){ if(PAGE!=='home' && id===PAGE_ROOT[PAGE]){ window.scrollTo({top:0, behavior:'smooth'}); return; } var el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }, 60); }
@@ -1683,10 +1693,10 @@ function setupPage(){
   var show=PAGE_SHOW[PAGE]||PAGE_SHOW.home;
   ['top','phero','reel','tilesWrap','trusted','faq','how','services','about','creators','contact'].forEach(function(id){ var el=$(id); if(el) el.hidden = show.indexOf(id)<0; });
   if(PAGE==='about'){ var ab=$('about'), hw=$('how'); if(ab && hw) ab.parentNode.insertBefore(hw, ab.nextSibling); }
-  if(PAGE!=='home'){ document.documentElement.classList.add('subpage'); ['talent','art','fab','publishing','events'].forEach(function(id){ var sv=$(id); if(!sv) return; if(show.indexOf(id)<0) sv.hidden=true; else setSvc(id,true); }); }
+  if(PAGE!=='home'){ document.documentElement.classList.add('subpage'); ['talent','art','fab','publishing','merch'].forEach(function(id){ var sv=$(id); if(!sv) return; if(show.indexOf(id)<0) sv.hidden=true; else setSvc(id,true); }); }
 }
 
-/* ---------- events ---------- */
+/* ---------- click handling ---------- */
 document.addEventListener('wheel', function(e){ var r=e.target.closest && e.target.closest('.roster'); if(!r || Math.abs(e.deltaY)<=Math.abs(e.deltaX) || r.scrollWidth<=r.clientWidth) return; var max=r.scrollWidth-r.clientWidth; if((e.deltaY<0 && r.scrollLeft<=0) || (e.deltaY>0 && r.scrollLeft>=max-1)) return; r.scrollLeft+=e.deltaY; e.preventDefault(); }, {passive:false});
 document.addEventListener('click', function(e){
   var el = e.target.closest('button, a, .overlay, [data-zoom]');
