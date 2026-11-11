@@ -1289,7 +1289,7 @@ var CATS = [
     items:FAB.slice(0,5).map(function(f,i){ return [f.title,{to:'fab-'+i}]; }) },
   { id:'publishing', title:SVC_OPTS[3][1], tint:'#F6EEE9', blurb:['ครบตั้งแต่ออกแบบ แปล จัดหน้า จนถึงโรงพิมพ์','Everything from design and translation to layout and printing.'],
     items:PUB.map(function(p,i){ return [p.title,{pub:i}]; }) },
-  { id:'merch', img:'tile-merch.webp', title:SVC_OPTS[4][1], tint:'#E6F1F8', blurb:['ผลิตเข็มกลัด อะคริลิค ที่ใส่บัตร ที่รองแก้ว กระจก และสินค้าที่ระลึกอื่นๆ ตามแบบของคุณ','Badges, acrylic goods, pass cases, coasters, mirrors and other merch made to your design.'],
+  { id:'merch', img:'tile-merch.webp?v=2', title:SVC_OPTS[4][1], tint:'#E6F1F8', blurb:['ผลิตเข็มกลัด อะคริลิค ที่ใส่บัตร ที่รองแก้ว กระจก และสินค้าที่ระลึกอื่นๆ ตามแบบของคุณ','Badges, acrylic goods, pass cases, coasters, mirrors and other merch made to your design.'],
     items:MERCH.map(function(m,i){ return [m.label,{to:'mer-'+i}]; }) }
 ];
 function itemSoon(it){ var f=it[1]&&it[1].filter; return !!f && !TALENTS.some(function(x){ return x.type===f; }); }
