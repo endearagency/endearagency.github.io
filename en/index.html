@@ -890,7 +890,6 @@ img,video{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;-webk
         <div class="svc-panel" id="p-merch" hidden>
           <div class="chips side-nav" id="merchNav" hidden></div>
           <div class="card-grid" id="merchGrid"></div>
-          <p class="note" data-t="mer.note"></p>
         </div>
       </section>
 
@@ -995,7 +994,7 @@ img,video{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;-webk
   <div class="modal" id="modal"></div>
 </div>
 
-<script>window.PAGE_URLS={"home": "en/", "talent": "en/talent/", "art": "en/art/", "3d": "en/3d/", "merch": "en/merch/", "about": "en/about/", "contact": "en/contact/"};window.ALT_URL="./";</script>
+<script>window.PAGE_URLS={"home": "en/", "talent": "en/talent/", "art": "en/art/", "3d": "en/3d/", "merch": "en/events/", "about": "en/about/", "contact": "en/contact/"};window.ALT_URL="./";</script>
 <script>
 /* v20261016b */
 (function(){
@@ -1112,7 +1111,6 @@ var T = {
   'tal.prev':['ก่อนหน้า','Previous'],
   'tal.next':['ถัดไป','Next'],
   'tal.note':['* รายชื่อและข้อมูลทาเลนต์ในหน้านี้เป็นตัวอย่างสมมติสำหรับทดสอบ · ยอดผู้ติดตาม ณ ต.ค. 2026','* Talent names and details on this page are fictional examples for testing · Follower counts as of Oct 2026'],
-  'mer.note':['ผลิตร่วมกับพาร์ทเนอร์ Blue Rabbit Print','Produced with our partner Blue Rabbit Print'],
   'art.note':['งานที่เปิดเผยภาพไม่ได้ (NDA) แสดงเป็นการ์ดกราฟิกแทน','Work under NDA is shown as a graphic card instead.'],
   'art.sample':['ตัวอย่างผลงาน','Sample work'],
   'art.conf':['งานลับ (NDA)','Confidential project'],
@@ -1269,8 +1267,14 @@ var MERCH = [
   { label:['เข็มกลัด', 'Button Badges'], imgs:[['merch-badge-1.webp', 1600, 1200], ['merch-badge-2.webp', 1600, 1600], ['merch-badge-3.webp', 1600, 1600], ['merch-badge-4.webp', 1600, 1600], ['merch-badge-5.webp', 1600, 1600], ['merch-badge-6.webp', 1600, 1600], ['merch-badge-7.webp', 1600, 1600], ['merch-badge-8.webp', 1600, 1600], ['merch-badge-9.webp', 1600, 1600], ['merch-badge-10.webp', 1600, 1600], ['merch-badge-11.webp', 1600, 958]], desc:['เข็มกลัดหลายขนาดและหลายทรง เลือกฟิล์มและเอฟเฟกต์ได้ เช่น โฮโลแกรม กากเพชร และสีเมทัลลิก', 'Button badges in many sizes and shapes, with films and effects such as holographic, glitter and metallic.'], kw:'เข็มกลัด กระดุม badge button pin โฮโลแกรม' },
   { label:['เข็มกลัดอะลูมิเนียม', 'Aluminium Badges'], imgs:[['merch-alu-1.webp', 1600, 1166], ['merch-alu-2.webp', 1600, 1494], ['merch-alu-3.webp', 1600, 1494], ['merch-alu-4.webp', 1600, 1494], ['merch-alu-5.webp', 1600, 1494], ['merch-alu-6.webp', 1600, 1494]], desc:['เข็มกลัดอะลูมิเนียมพิมพ์ลาย มีหลายทรงและหลายสีพื้น', 'Printed aluminium badges in several shapes and base colours.'], kw:'เข็มกลัด อะลูมิเนียม aluminium badge' },
   { label:['อะคริลิคเชคเกอร์ & กิ๊บ', 'Acrylic Shakers & Hair Clips'], imgs:[['merch-shaker-1.webp', 1600, 1600], ['merch-shaker-2.webp', 1600, 1600], ['merch-shaker-3.webp', 1600, 1600], ['merch-shaker-4.webp', 1600, 1600], ['merch-shaker-5.webp', 1600, 1600], ['merch-shaker-6.webp', 1600, 1600]], desc:['อะคริลิคเชคเกอร์ที่มีชิ้นอะคริลิคขยับได้ข้างใน และกิ๊บติดผมอะคริลิค', 'Acrylic shakers with loose acrylic pieces inside, plus acrylic hair clips.'], kw:'อะคริลิค เชคเกอร์ กิ๊บ acrylic shaker hair clip' },
+  { label:['กลิตเตอร์เชคเกอร์', 'Glitter Shakers'], imgs:[['merch-glitter-1.webp', 1600, 1067], ['merch-glitter-2.webp', 1600, 1067], ['merch-glitter-3.webp', 1600, 1067], ['merch-glitter-4.webp', 1600, 1067], ['merch-glitter-5.webp', 1067, 1600], ['merch-glitter-6.webp', 1600, 1067]], desc:['อะคริลิคใส่น้ำและกากเพชร เขย่าแล้วกลิตเตอร์ไหล ทำเป็นพวงกุญแจหรือของตั้งโชว์ได้', 'Liquid-filled acrylic with glitter that flows when you shake it, as keychains or display pieces.'], kw:'กลิตเตอร์ กากเพชร เชคเกอร์ น้ำ glitter liquid shaker' },
   { label:['สแตนดี้ & ป้ายตั้งโต๊ะ', 'Standees & Desk Stands'], imgs:[['merch-stand-1.webp', 1600, 1067], ['merch-stand-2.webp', 1600, 1067], ['merch-stand-3.webp', 1600, 1067], ['merch-stand-4.webp', 1600, 1067], ['merch-stand-5.webp', 1339, 1233]], desc:['สแตนดี้สปริง ป้ายอะคริลิคตั้งโต๊ะ และคลิปอะคริลิค', 'Spring standees, acrylic desk stands and acrylic clips.'], kw:'สแตนดี้ สปริง ป้ายตั้งโต๊ะ อะคริลิค standee stand' },
   { label:['ที่ใส่บัตร & พวงกุญแจ', 'Pass Cases & Keychains'], imgs:[['merch-pass-1.webp', 1600, 1067], ['merch-pass-2.webp', 1600, 1067], ['merch-pass-3.webp', 1600, 1067], ['merch-pass-4.webp', 1600, 1067], ['merch-pass-5.webp', 1067, 1600], ['merch-pass-6.webp', 1600, 1280]], desc:['ที่ใส่บัตรอะคริลิคพิมพ์ลาย พร้อมสายคล้องและพวงกุญแจ', 'Printed acrylic pass cases with straps and keyrings.'], kw:'ที่ใส่บัตร พวงกุญแจ pass case keychain' },
+  { label:['ตะขอ โซ่ & สายคล้อง', 'Hooks, Chains & Straps'], imgs:[['merch-hook-1.webp', 1600, 1067], ['merch-hook-2.webp', 1497, 1600], ['merch-hook-3.webp', 1600, 1067], ['merch-hook-4.webp', 1600, 1505], ['merch-hook-5.webp', 1600, 1067]], desc:['อะไหล่สำหรับพวงกุญแจ ทั้งตะขอหลายทรง โซ่บอลหลายสี และสายคล้อง', 'Keychain parts: hooks in many shapes, ball chains in many colours, and straps.'], kw:'ตะขอ โซ่ สายคล้อง อะไหล่ พวงกุญแจ hook chain strap' },
+  { label:['การ์ด & ที่คั่นหนังสือ', 'Cards & Bookmarks'], imgs:[['merch-card-1.webp', 1600, 1067], ['merch-card-2.webp', 1600, 1067], ['merch-card-3.webp', 1600, 1067], ['merch-card-4.webp', 1600, 1067], ['merch-card-5.webp', 1600, 1067], ['merch-card-6.webp', 1067, 1600]], desc:['การ์ดพลาสติก การ์ดใส การ์ดโลหะ และที่คั่นหนังสือ', 'Plastic, clear and metal cards, plus bookmarks.'], kw:'การ์ด บัตร ที่คั่นหนังสือ card bookmark' },
+  { label:['ที่รองแก้ว', 'Coasters'], imgs:[['merch-coaster-1.webp', 1600, 1067], ['merch-coaster-2.webp', 1600, 1067], ['merch-coaster-3.webp', 1600, 1067], ['merch-coaster-4.webp', 1600, 1067]], desc:['ที่รองแก้วพิมพ์ลาย และแบบใส่น้ำกับกากเพชร', 'Printed coasters, plus liquid glitter coasters.'], kw:'ที่รองแก้ว coaster' },
+  { label:['กระจกพกพา', 'Pocket Mirrors'], imgs:[['merch-mirror-1.webp', 1600, 1067], ['merch-mirror-2.webp', 1600, 1067], ['merch-mirror-3.webp', 1600, 1067], ['merch-mirror-4.webp', 1600, 1067]], desc:['กระจกพกพาพิมพ์ลาย มีหลายทรง', 'Printed pocket mirrors in several shapes.'], kw:'กระจก กระจกพกพา mirror' },
+  { label:['ชิกิชิ', 'Shikishi Boards'], imgs:[['merch-shikishi-1.webp', 1600, 1067], ['merch-shikishi-2.webp', 1600, 1067]], desc:['แผ่นชิกิชิขอบทองหลายขนาด สำหรับพิมพ์ภาพหรือเซ็น', 'Gold-edged shikishi boards in several sizes, for prints or signatures.'], kw:'ชิกิชิ แผ่นภาพ shikishi' },
   { label:['อีมะ (ป้ายไม้)', 'Ema Wooden Plaques'], imgs:[['merch-ema-1.webp', 1600, 1067], ['merch-ema-2.webp', 1600, 1067], ['merch-ema-3.webp', 1600, 1067], ['merch-ema-4.webp', 1600, 1067]], desc:['ป้ายไม้อีมะสไตล์ญี่ปุ่น พิมพ์ลายตัวละคร พร้อมเชือกแดง', 'Japanese-style wooden ema plaques printed with character art, with red cords.'], kw:'อีมะ ป้ายไม้ ema wooden' }
 ];
 var CATS = [
@@ -1282,7 +1286,7 @@ var CATS = [
     items:FAB.slice(0,5).map(function(f,i){ return [f.title,{to:'fab-'+i}]; }) },
   { id:'publishing', title:SVC_OPTS[3][1], tint:'#F6EEE9', blurb:['ครบตั้งแต่ออกแบบ แปล จัดหน้า จนถึงโรงพิมพ์','Everything from design and translation to layout and printing.'],
     items:PUB.map(function(p,i){ return [p.title,{pub:i}]; }) },
-  { id:'merch', img:'tile-merch.webp', title:SVC_OPTS[4][1], tint:'#E6F1F8', blurb:['ผลิตเข็มกลัด อะคริลิค ที่ใส่บัตร อีมะ และสินค้าที่ระลึกอื่นๆ ตามแบบของคุณ','Badges, acrylic goods, pass cases, ema and other merch made to your design.'],
+  { id:'merch', img:'tile-merch.webp', title:SVC_OPTS[4][1], tint:'#E6F1F8', blurb:['ผลิตเข็มกลัด อะคริลิค ที่ใส่บัตร ที่รองแก้ว กระจก และสินค้าที่ระลึกอื่นๆ ตามแบบของคุณ','Badges, acrylic goods, pass cases, coasters, mirrors and other merch made to your design.'],
     items:MERCH.map(function(m,i){ return [m.label,{to:'mer-'+i}]; }) }
 ];
 function itemSoon(it){ var f=it[1]&&it[1].filter; return !!f && !TALENTS.some(function(x){ return x.type===f; }); }
@@ -1632,7 +1636,7 @@ function renderSearch(){
 
 /* ---------- multi-page: each service has its own page (built by tools/build.py) ---------- */
 var PAGE = document.documentElement.getAttribute('data-page') || 'home';
-var PAGE_URL = window.PAGE_URLS || {home:'./', talent:'talent/', art:'art/', '3d':'3d/', merch:'merch/', about:'about/', contact:'contact/'};
+var PAGE_URL = window.PAGE_URLS || {home:'./', talent:'talent/', art:'art/', '3d':'3d/', merch:'events/', about:'about/', contact:'contact/'};
 var PAGE_ROOT = {home:'top', talent:'talent', art:'art', '3d':'fab', merch:'merch', about:'about', contact:'contact'};
 var SEC_PAGE = {faq:'contact', top:'home', tilesWrap:'home', trusted:'home', services:'home', creators:'home', publishing:'home', talent:'talent', art:'art', fab:'3d', merch:'merch', about:'about', contact:'contact'};
 var PAGE_SHOW = {home:['top','reel','tilesWrap','trusted','how','creators'], talent:['phero','services','talent'], art:['phero','services','art'], '3d':['phero','services','fab'], merch:['phero','services','merch'], about:['phero','about','how'], contact:['phero','contact','faq']};
@@ -1640,7 +1644,7 @@ var PH = {
   talent:{ e:['ทาเลนต์และอินฟลูเอนเซอร์','Talent & Influencers'], h:['หา VTuber KOL และสตรีมเมอร์<br><em>สำหรับงานของคุณ</em>','VTubers, KOLs &amp; streamers<br><em>for your next project</em>'], s:['รวม VTuber สตรีมเมอร์ และ KOL ทั้งไทยและต่างประเทศ กว่า 60 คน<br>ดูแนวคอนเทนต์ ยอดผู้ติดตาม และช่องทางของแต่ละคนได้ทันที<br><span class="ph-tags">โปรโมตเกมและสินค้า · รีวิว · พากย์เสียง · คอลแลป · Tie-in · โปรโมตงาน</span>','60+ VTubers, streamers and KOLs from Thailand and around the world.<br>See each one’s content, followers and channels at a glance.<br><span class="ph-tags">Game &amp; product promotion · Reviews · Voice dubbing · Collabs · Tie-ins · Show promotion</span>'] },
   art:{ e:['งานภาพและแอนิเมชัน','Art & Animation'], h:['งานอาร์ต ภาพประกอบ<br><em>Live2D และแอนิเมชัน</em>','Illustration, Live2D<br><em>&amp; animation</em>'], s:['ทีมนักวาดและแอนิเมเตอร์สายอนิเมะ ดูแลงานภาพครบในที่เดียว<br><span class="ph-tags">ภาพประกอบ · ออกแบบตัวละคร · อีโมตและสติกเกอร์ LINE · ฉากสตรีม · Live2D · เว็บตูน · โมชันกราฟิก · แอนิเมชัน · MV</span>','Anime-style artists and animators, all in one place.<br><span class="ph-tags">Illustration · Character design · Emotes &amp; LINE stickers · Stream assets · Live2D · Webtoons · Motion graphics · Animation · MVs</span>'] },
   '3d':{ e:['งาน 3D และงานผลิต','3D & Fabrication'], h:['โมเดล 3D งานพิมพ์ 3D<br><em>และของที่ระลึก</em>','3D models, 3D printing<br><em>&amp; custom merch</em>'], s:['ดูแลตั้งแต่แบบร่างจนได้ชิ้นงานจริง<br><span class="ph-tags">โมเดล 3D สำหรับเกม · โมเดล 3D งานทั่วไป · ของที่ระลึกพิมพ์ 3D · พิมพ์ UV · คอร์สเรียน 3D Print</span>','From first sketch to finished piece.<br><span class="ph-tags">3D models for games · General 3D models · 3D-printed merch · UV printing · 3D print classes</span>'] },
-  merch:{ e:['สินค้าที่ระลึก (merchandise)','Merchandise'], h:['ผลิตสินค้าที่ระลึก<br><em>ตามแบบของคุณ</em>','Custom merch<br><em>made to your design</em>'], s:['ผลิตเมิร์ชสำหรับ VTuber ศิลปิน และแบรนด์ ตั้งแต่ชิ้นเดียวจนถึงล็อตใหญ่<br><span class="ph-tags">เข็มกลัด · อะคริลิค · สแตนดี้ · ที่ใส่บัตร · อีมะ</span>','Merch for VTubers, artists and brands, from a single piece to a full run.<br><span class="ph-tags">Badges · Acrylic goods · Standees · Pass cases · Ema</span>'] },
+  merch:{ e:['สินค้าที่ระลึก (merchandise)','Merchandise'], h:['ผลิตสินค้าที่ระลึก<br><em>ตามแบบของคุณ</em>','Custom merch<br><em>made to your design</em>'], s:['ผลิตเมิร์ชสำหรับ VTuber ศิลปิน และแบรนด์ ตั้งแต่ชิ้นเดียวจนถึงล็อตใหญ่<br><span class="ph-tags">เข็มกลัด · อะคริลิค · กลิตเตอร์เชคเกอร์ · ที่ใส่บัตร · ที่รองแก้ว · กระจก · ชิกิชิ · อีมะ</span>','Merch for VTubers, artists and brands, from a single piece to a full run.<br><span class="ph-tags">Badges · Acrylic goods · Glitter shakers · Pass cases · Coasters · Mirrors · Shikishi · Ema</span>'] },
   about:{ e:['เกี่ยวกับเรา','About us'], h:['endear เอเจนซี่ดูแลโปรเจกต์<br><em>สายอนิเมะ การ์ตูน และเกม</em>','endear, the project agency<br><em>for anime, comics &amp; games</em>'], s:['เราหาทีม ประสานงาน และดูแลงานให้จนจบ<br><span class="ph-tags">VTuber · KOL · งานอาร์ต · งาน 3D · สินค้าที่ระลึก</span>','We find the team, run the coordination and see the work through.<br><span class="ph-tags">VTubers · KOLs · Art · 3D · Merchandise</span>'] },
   contact:{ e:['ติดต่อเรา','Contact'], h:['คุยงานกับ <em>endear</em>','Talk to <em>endear</em>'], s:['บอกเราว่าอยากได้อะไร เราหาทีม ประสานงาน และดูแลให้จนจบงาน<br><span class="ph-tags">อีเมล · LINE · โทร · Facebook</span>','Tell us what you need. We find the team, run the coordination and stay until it’s done.<br><span class="ph-tags">Email · LINE · Phone · Facebook</span>'] }
 };
